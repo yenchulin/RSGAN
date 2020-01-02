@@ -1,5 +1,6 @@
 __init__.py
 myexperiment/
+discriminator_*/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -509,8 +509,7 @@ def main(unused_argv):
 
 
 
-
-  if hps_generator.mode == 'adversarial_train':
+  if hps_generator.mode.value == 'adversarial_train':
     print("Start pre-training......")
     model = Generator(hps_generator, vocab)
 
@@ -581,7 +580,7 @@ def main(unused_argv):
             whole_decay = run_train_discriminator(model_dis, 5, dis_batcher, dis_batcher.get_batches(mode="train"),
                                                   sess_dis, saver_dis, train_dir_dis, whole_decay)
 
-  elif hps_generator.mode == 'train_generator':
+  elif hps_generator.mode.value == 'train_generator':
     print("Start pre-training......")
     model = Generator(hps_generator, vocab)
 
@@ -593,7 +592,7 @@ def main(unused_argv):
     print("Generating negative examples......")
     generated.generator_train_negative_example()
     generated.generator_test_negative_example()
-  elif hps_generator.mode == 'train_discriminator':
+  elif hps_generator.mode.value == 'train_discriminator':
     print("Start pre-training......")
     model = Generator(hps_generator, vocab)
 
@@ -610,6 +609,8 @@ def main(unused_argv):
     run_pre_train_discriminator(model_dis, dis_batcher, 25, sess_dis, saver_dis, train_dir_dis)
 
     #util.load_ckpt(saver_ge, sess_ge, ckpt_dir="train-generator")
+  else:
+      print("heyheyehey")
     
 
 

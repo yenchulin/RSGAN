@@ -362,7 +362,7 @@ class Generator(object):
 
     """Add the placeholders, model, global step, train_op and summaries to the graph"""
 
-    with tf.device("/gpu:"+str(FLAGS.gpuid.value)):
+    with tf.device("/gpu:"+str(FLAGS.gpuid)):
       tf.logging.info('Building generator graph...')
       t0 = time.time()
       self._add_placeholders()
