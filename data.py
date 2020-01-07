@@ -33,8 +33,8 @@ PAD_TOKEN = '[PAD]' # This has a vocab id, which is used to pad the encoder inpu
 UNKNOWN_TOKEN = '[UNK]' # This has a vocab id, which is used to represent out-of-vocabulary words
 START_DECODING = '[START]' # This has a vocab id, which is used at the start of every decoder input sequence
 STOP_DECODING = '[STOP]' # This has a vocab id, which is used at the end of untruncated target sequences
-STOP_DECODING_DOCUMENT = '[STOPDOC]'
-# Note: none of <s>, </s>, [PAD], [UNK], [START], [STOP] should appear in the vocab file.
+STOP_DECODING_DOCUMENT = '[STOPDOC]' # This has a vocab id
+# NOTE: none of <s>, </s>, [PAD], [UNK], [START], [STOP] should appear in the vocab file.
 
 
 class Vocab(object):
@@ -51,7 +51,7 @@ class Vocab(object):
     self._count = 0 # keeps track of total number of words in the Vocab
 
     # [UNK], [PAD], [START] and [STOP] get the ids 0,1,2,3.
-    for w in [UNKNOWN_TOKEN, PAD_TOKEN, START_DECODING, STOP_DECODING,STOP_DECODING_DOCUMENT]:
+    for w in [UNKNOWN_TOKEN, PAD_TOKEN, START_DECODING, STOP_DECODING, STOP_DECODING_DOCUMENT]:
       self._word_to_id[w] = self._count
       self._id_to_word[self._count] = w
       self._count += 1

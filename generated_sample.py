@@ -120,7 +120,7 @@ class Generated_sample(object):
         list_ref = []
         
 
-        while step < num_batch:
+        while step < len(batches):
             
             batch = batches[step]
             step += 1
@@ -198,7 +198,7 @@ class Generated_sample(object):
         list_hop = []
         list_ref = []
 
-        while step < num_batch:
+        while step < len(batches):
             
             batch = batches[step]
             step += 1
@@ -370,7 +370,7 @@ class Generated_sample(object):
         t0 = time.time()
         batches = self.batches
 
-        while step < 1000:
+        while step < len(batches):
             
             batch = batches[step]
             step += 1
@@ -430,9 +430,9 @@ class Generated_sample(object):
         t0 = time.time()
         batches = self.test_batches
 
-        while step < 100:
-            step += 1
+        while step < len(batches):
             batch = batches[step]
+            step += 1
 
             decode_result =self._model.run_eval_given_step(self._sess, batch)
 

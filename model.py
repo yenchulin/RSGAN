@@ -371,7 +371,7 @@ class Generator(object):
       self._add_train_op()
       self._add_reward_train_op()
       t1 = time.time()
-      tf.logging.info('Time to build graph: %i seconds', t1 - t0)
+      tf.logging.info('Time to build graph: %i seconds' % int(t1 - t0))
 
 
   def run_pre_train_step(self, sess, batch):

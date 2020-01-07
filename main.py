@@ -18,6 +18,7 @@
 
 import sys
 from random import shuffle
+from tqdm import trange
 import time
 import codecs
 import data
@@ -75,7 +76,7 @@ tf.app.flags.DEFINE_integer('batch_size', 64, 'minibatch size') # for discrimina
 tf.app.flags.DEFINE_integer('max_enc_steps', 50, 'max timesteps of encoder (max source text tokens)') # for generator
 #tf.app.flags.DEFINE_integer('max_dec_steps', 200, 'max timesteps of decoder (max summary tokens)') # for generator
 tf.app.flags.DEFINE_integer('min_dec_steps', 35, 'Minimum sequence length of generated summary. Applies only for beam search decoding mode') # for generator
-tf.app.flags.DEFINE_integer('vocab_size', 50000, 'Size of vocabulary. These will be read from the vocabulary file in order. If the vocabulary file contains fewer words than this number, or if this number is set to 0, will take all words in the vocabulary file.')
+tf.app.flags.DEFINE_integer('vocab_size', 4587, 'Size of vocabulary. These will be read from the vocabulary file in order. If the vocabulary file contains fewer words than this number, or if this number is set to 0, will take all words in the vocabulary file.')
 tf.app.flags.DEFINE_float('lr', 0.6, 'learning rate') # for discriminator and generator
 tf.app.flags.DEFINE_float('adagrad_init_acc', 0.1, 'initial accumulator value for Adagrad') # for discriminator and generator
 tf.app.flags.DEFINE_float('rand_unif_init_mag', 0.02, 'magnitude for lstm cells random uniform inititalization') # for discriminator and generator
@@ -102,7 +103,7 @@ def setup_training_generator(model):
   #util.load_ckpt(saver, sess, ckpt_dir="train-generator")
 
 
-  return sess, saver,train_dir
+  return sess, saver, train_dir
 
 
 def setup_training_discriminator(model):
@@ -143,40 +144,32 @@ def print_batch(batch):
 
 
 
-def run_pre_train_generator(model, batcher, max_run_epoch, sess, saver, train_dir, generated):
-    tf.logging.info("starting run_pre_train_generator")
-    epoch = 0
-    while epoch < max_run_epoch:
+def run_pre_train(model, batcher, max_run_epoch, sess, saver, train_dir):
+    """
+    Run pre-train for generator or discriminator.
+    """
+    losses = []
+    for epoch in range(max_run_epoch):
         batches = batcher.get_batches(mode='train')
-        step = 0
-        t0 = time.time()
-        loss_window = 0.0
-        while step < len(batches):
-            current_batch = batches[step]
-            #print_batch(current_batch)
-            step += 1
-            results = model.run_pre_train_step(sess, current_batch)
-            loss = results['loss']
-            loss_window += loss
+        
+        with trange(len(batches), ascii=True) as num_batch: # Total number of steps (number of batches = num_samples / batch_size)
+            num_batch.set_description("Epoch %i/%i" % (epoch+1, max_run_epoch))
+            loss = 0
+            for step in num_batch:
+                current_batch = batches[step]
+                results = model.run_pre_train_step(sess, current_batch)
+                train_step = results['global_step']
+                loss += results['loss'] / len(batches) # average the loss in same batch
+                num_batch.set_postfix(loss=loss)
 
-            if not np.isfinite(loss):
-                raise Exception("Loss is not finite. Stopping.")
+            losses.append(loss)
+            saver.save(sess, train_dir + "/model", global_step=train_step)
+            
+            if isinstance(model, Discriminator):
+                run_test_discriminator(model, batcher, sess, saver, str(train_step))
 
-            train_step = results['global_step']  # we need this to update our running average loss
-            if train_step % 100 == 0:
-                t1 = time.time()
-                tf.logging.info('seconds for %d training generator step: %.3f ', train_step, (t1 - t0) / 100)
-                t0 = time.time()
-                tf.logging.info('loss: %f', loss_window / 100)  # print the loss to screen
-                loss_window = 0.0
-            if train_step % 100 == 0:
-                saver.save(sess, train_dir + "/model", global_step=train_step)
-                #bleu_score = generated.compute_BLEU(str(train_step))
-                #tf.logging.info('bleu: %f', bleu_score)  # print the loss to screen
-
-        epoch += 1
-        tf.logging.info("finished %d epoches", epoch)
-
+    losses = np.array(losses, dtype=np.float)
+    return losses
 
 def batch_to_batch(batch, batcher, dis_batcher):
 
@@ -357,45 +350,6 @@ def print_discriminator_batch(batch):
     tf.logging.info(list(batch.target_mask))
 
 
-
-
-def run_pre_train_discriminator(model, bachter, max_run_epoch, sess,saver, train_dir):
-    tf.logging.info("starting run_pre_train_discriminator")
-
-    epoch = 0
-    while epoch < max_run_epoch:
-        batches = bachter.get_batches(mode='train')
-        step = 0
-        t0 = time.time()
-        loss_window = 0.0
-        while step < len(batches):
-            current_batch = batches[step]
-            step += 1
-            #print_discriminator_batch(current_batch)
-            results = model.run_pre_train_step(sess, current_batch)
-
-            loss = results['loss']
-            loss_window += loss
-
-            if not np.isfinite(loss):
-                raise Exception("Loss is not finite. Stopping.")
-
-            train_step = results['global_step']  # we need this to update our running average loss
-            if train_step % 100 == 0:
-                t1 = time.time()
-                tf.logging.info('seconds for %d training dirscriminator step: %.3f ', train_step, (t1 - t0) / 100)
-                t0 = time.time()
-                tf.logging.info('loss: %f', loss_window / 100)  # print the loss to screen
-                loss_window = 0.0
-
-            if train_step % 10000 == 0:
-                saver.save(sess, train_dir + "/model", global_step=train_step)
-                run_test_discriminator(model, bachter, sess, saver, str(train_step))
-                #tf.logging.info('acc: %.6f', acc)  # print the loss to screen
-
-        epoch +=1
-        tf.logging.info("finished %d epoches", epoch)
-
 def run_test_discriminator(model, batcher, sess,saver, train_step):
     tf.logging.info("starting run testing discriminator")
 
@@ -449,7 +403,7 @@ def run_train_discriminator(model, max_epoch, batcher, batches, sess,saver, trai
                 raise Exception("Loss is not finite. Stopping.")
 
             train_step = results['global_step']  # we need this to update our running average loss
-            if train_step % 100 == 0:
+            if train_step % 10 == 0:
                 t1 = time.time()
                 tf.logging.info('seconds for %d training dirscriminator step: %.3f ', train_step, (t1 - t0) / 100)
                 t0 = time.time()
@@ -458,7 +412,7 @@ def run_train_discriminator(model, max_epoch, batcher, batches, sess,saver, trai
                 loss_window = 0.0
 
 
-            if train_step % 10000 == 0:
+            if train_step % 10 == 0:
                 #saver.save(sess, train_dir + "/model", global_step=train_step)
                 run_test_discriminator(model, batcher, sess, saver, str(train_step))
     return whole_decay

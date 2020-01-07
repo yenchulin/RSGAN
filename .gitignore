@@ -1,6 +1,8 @@
 __init__.py
 myexperiment/
 discriminator_*/
+MLE/
+*_generated/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

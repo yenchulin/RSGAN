@@ -1,3 +1,5 @@
+"""This file contains code to process raw review data into specified json format."""
+
 import os
 import json
 import codecs
