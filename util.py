@@ -17,6 +17,7 @@
 """This file contains some utility functions"""
 
 import tensorflow as tf
+import matplotlib.pyplot as plt
 import time
 import os
 FLAGS = tf.app.flags.FLAGS
@@ -40,3 +41,15 @@ def load_ckpt(saver, sess, ckpt_dir="train"):
     except:
       tf.logging.info("Failed to load checkpoint from %s. Sleeping for %i secs...", ckpt_dir, 10)
       time.sleep(10)
+
+def plotLineChart(x, y, xlabelName, ylabelName, figname):
+    plt.figure(figsize=(13,7))
+    
+    # create the line plot
+    plt.plot(x, y)
+    plt.xticks(x)
+    plt.xlabel(xlabelName)
+    plt.ylabel(ylabelName)
+    
+    # save the plot
+    plt.savefig(figname)

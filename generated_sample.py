@@ -365,16 +365,8 @@ class Generated_sample(object):
     def generator_train_negative_example(self):
 
         counter = 0
-        step = 0
 
-        t0 = time.time()
-        batches = self.batches
-
-        while step < len(batches):
-            
-            batch = batches[step]
-            step += 1
-
+        for batch in self.batches:
             decode_result = self._model.run_eval_given_step(self._sess, batch)
 
             for i in range(FLAGS.batch_size):

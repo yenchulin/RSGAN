@@ -148,7 +148,7 @@ def run_pre_train(model, batcher, max_run_epoch, sess, saver, train_dir):
     """
     Run pre-train for generator or discriminator.
     """
-    losses = []
+    losses = [] # loss of each epoch
     for epoch in range(max_run_epoch):
         batches = batcher.get_batches(mode='train')
         
@@ -168,8 +168,9 @@ def run_pre_train(model, batcher, max_run_epoch, sess, saver, train_dir):
             if isinstance(model, Discriminator):
                 run_test_discriminator(model, batcher, sess, saver, str(train_step))
 
-    losses = np.array(losses, dtype=np.float)
-    return losses
+    # Plot loss of the pre-train model
+    figname = os.path.join("myexperiment", "pre-train_" + model.__class__.__name__ + "_loss.png")
+    util.plotLineChart(range(max_run_epoch), losses, "epochs", "loss", figname)
 
 def batch_to_batch(batch, batcher, dis_batcher):
 
@@ -351,8 +352,6 @@ def print_discriminator_batch(batch):
 
 
 def run_test_discriminator(model, batcher, sess,saver, train_step):
-    tf.logging.info("starting run testing discriminator")
-
     discriminator_file = codecs.open("discriminator_result/"+train_step+ "discriminator.txt","w","utf-8")
 
     batches = batcher.get_batches("test")
@@ -505,9 +504,9 @@ def main(unused_argv):
     whole_decay = False
     for epoch in range(10):
         batches = batcher.get_batches(mode='train')
-        for step in range(int(len(batches)/1000)):
+        for step in range(len(batches)):
 
-            run_train_generator(model,model_dis,sess_dis,batcher,dis_batcher,batches[step*1000:(step+1)*1000],sess_ge, saver_ge, train_dir_ge,generated) #(model, discirminator_model, discriminator_sess, batcher, dis_batcher, batches, sess, saver, train_dir, generated):
+            run_train_generator(model,model_dis,sess_dis,batcher,dis_batcher,batches[step:(step+1)],sess_ge, saver_ge, train_dir_ge,generated) #(model, discirminator_model, discriminator_sess, batcher, dis_batcher, batches, sess, saver, train_dir, generated):
             generated.generator_sample_example("train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive", "train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_negative", 1000)
             #generated.generator_max_example("max_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive", "max_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_negetive", 200)
 
@@ -541,7 +540,7 @@ def main(unused_argv):
     sess_ge, saver_ge, train_dir_ge = setup_training_generator(model)
     generated = Generated_sample(model, vocab, batcher, sess_ge)
     print("Start pre-training generator......")
-    run_pre_train(model, batcher, 100, sess_ge, saver_ge, train_dir_ge) # this is an infinite loop until 
+    run_pre_train(model, batcher, 100, sess_ge, saver_ge, train_dir_ge)
 
     print("Generating negative examples......")
     generated.generator_train_negative_example()
