@@ -84,21 +84,21 @@ class Example(object):
         if len(abstract_words[-1]) < hps.max_dec_steps.value:
             abstract_words[-1].append(stop_doc)
     else:
-        review_sentence = sent_tokenize(review)
+        review_summary = review.split("####")
 
-        # First sentence
-        article = review_sentence[0] # string
+        # Review to be summarized
+        article = review_summary[0] # string
         article_words = article.split()  # list of strings
         if len(article_words) > hps.max_enc_steps.value: # truncation if longer
             article_words = article_words[:hps.max_enc_steps.value]
     
         self.enc_len = len(article_words)  # store the length after truncation but before padding
         self.enc_input = [vocab.word2id(w) for w in article_words]  # list of word ids; OOVs are represented by the id for UNK token
-        self.original_review_input = review_sentence[0]
-        self.original_review_output = " ".join(review_sentence[1:])
+        self.original_review_input = review_summary[0]
+        self.original_review_output = review_summary[1]
 
-        # Rest of the sentences (other than the first)
-        review_sentence = review_sentence[1:] # list of strings (sentences)
+        # Summary
+        review_sentence = sent_tokenize(review_summary[1]) # list of strings (sentences)
         abstract_sentences = [x.strip() for x in review_sentence] # remove spaces
         abstract_words = [] # shape = (max_dec_sen_num, max_dec_steps), NOTE: axis 1 may be shorter since only truncation is done
         for i in range(len(abstract_sentences)):
