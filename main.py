@@ -173,7 +173,6 @@ def run_pre_train(model, batcher, max_run_epoch, sess, saver, train_dir):
     util.plotLineChart(range(max_run_epoch), losses, "epochs", "loss", figname)
 
 def batch_to_batch(batch, batcher, dis_batcher):
-
     db_example_list = []
 
     for i in range(FLAGS.batch_size):
@@ -184,6 +183,10 @@ def batch_to_batch(batch, batcher, dis_batcher):
     return bd.Batch(db_example_list, dis_batcher._hps, dis_batcher._vocab)
 
 def output_to_batch(current_batch, result, batcher, dis_batcher):
+    """
+    current_batch: ground truth data
+    result: summary generated from generator, shape = (B, S, T)
+    """
     example_list= []
     db_example_list = []
 
@@ -232,7 +235,7 @@ def output_to_batch(current_batch, result, batcher, dis_batcher):
             tf.logging.info("encode")
             tf.logging.info(encode_words)'''
             new_dis_example = bd.Example(current_batch.original_review_output[i], -0.0001, dis_batcher._vocab, dis_batcher._hps)
-            new_example = Example(current_batch.original_review_output[i],  batcher._vocab, batcher._hps,encode_words)
+            new_example = Example(current_batch.original_review_output[i],  batcher._vocab, batcher._hps, input=encode_words)
 
         else:
             '''tf.logging.info("decode")
@@ -240,29 +243,32 @@ def output_to_batch(current_batch, result, batcher, dis_batcher):
             tf.logging.info("encode")
             tf.logging.info(encode_words)'''
             new_dis_example = bd.Example(decoded_words_all, 1, dis_batcher._vocab, dis_batcher._hps)
-            new_example = Example(decoded_words_all, batcher._vocab, batcher._hps,encode_words)
+            new_example = Example(decoded_words_all, batcher._vocab, batcher._hps, input=encode_words)
         example_list.append(new_example)
         db_example_list.append(new_dis_example)
 
     return Batch(example_list, batcher._hps, batcher._vocab), bd.Batch(db_example_list, dis_batcher._hps, dis_batcher._vocab)
 def run_train_generator(model, discirminator_model, discriminator_sess, batcher, dis_batcher, batches, sess, saver, train_dir, generated):
+    """
+    batches: Batcher.Batch
+    """
     tf.logging.info("starting training generator")
 
     step = 0
     t0 = time.time()
     loss_window = 0.0
     new_loss_window = 0.0
-    while step < len(batches):
-        current_batch = batches[step]
+    while step < len(batches): # len = 1
+        current_batch = batches[step] # ground truth data
         step += 1
 
         for i in range(1):
             results = model.run_eval_given_step(sess, current_batch)
 
-            new_batch, new_dis_batch = output_to_batch(current_batch, results, batcher, dis_batcher)
+            new_batch, new_dis_batch = output_to_batch(current_batch, results, batcher, dis_batcher) # generated summary
 
 
-            reward = discirminator_model.run_ypred_auc(discriminator_sess,new_dis_batch)
+            reward = discirminator_model.run_ypred_auc(discriminator_sess,new_dis_batch) # use generated summary to predict reward, the reward here is equal to loss, that is, the higher the reward, the worse the model
             reward_sentence_level = reward['y_pred_auc_sentence']
             for i in range(len(reward['y_pred_auc'])):
                 for j in range(len(reward['y_pred_auc'][i])):
@@ -280,7 +286,7 @@ def run_train_generator(model, discirminator_model, discriminator_sess, batcher,
             #for i in range(batcher._hps.max_dec_steps.value):
             #    reward[i] = 1
 
-            results = model.run_train_step(sess, new_batch,reward['y_pred_auc'])
+            results = model.run_train_step(sess, new_batch,reward['y_pred_auc']) # use generated summary and its reward to calculate loss and update Generator
 
             loss = results['loss']
             loss_window += loss
@@ -288,13 +294,14 @@ def run_train_generator(model, discirminator_model, discriminator_sess, batcher,
             if not np.isfinite(loss):
                 raise Exception("Loss is not finite. Stopping.")
 
-        new_dis_batch = batch_to_batch(current_batch, batcher, dis_batcher)
+        new_dis_batch = batch_to_batch(current_batch, batcher, dis_batcher) # use ground truth data to make a Batch for Discriminator
         # print_batch(new_batch)
 
 
-        reward = discirminator_model.run_ypred_auc(discriminator_sess, new_dis_batch)
+        reward = discirminator_model.run_ypred_auc(discriminator_sess, new_dis_batch) # use ground truth to predict reward
         reward_sentence_level = reward['y_pred_auc_sentence']
 
+        # Add supervised learning to help train Generator, feeding true data will get a bigger loss, so update faster
         for i in range(len(reward['y_pred_auc'])):
             for j in range(len(reward['y_pred_auc'][i])):
               for k in range(len(reward['y_pred_auc'][i][j])):
@@ -506,7 +513,7 @@ def main(unused_argv):
         batches = batcher.get_batches(mode='train')
         for step in range(len(batches)):
 
-            run_train_generator(model,model_dis,sess_dis,batcher,dis_batcher,batches[step:(step+1)],sess_ge, saver_ge, train_dir_ge,generated) #(model, discirminator_model, discriminator_sess, batcher, dis_batcher, batches, sess, saver, train_dir, generated):
+            run_train_generator(model, model_dis, sess_dis, batcher, dis_batcher, batches[step:(step+1)], sess_ge, saver_ge, train_dir_ge,generated) #(model, discirminator_model, discriminator_sess, batcher, dis_batcher, batches, sess, saver, train_dir, generated):
             generated.generator_sample_example("train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive", "train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_negative", 1000)
             #generated.generator_max_example("max_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive", "max_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_negetive", 200)
 
@@ -540,7 +547,7 @@ def main(unused_argv):
     sess_ge, saver_ge, train_dir_ge = setup_training_generator(model)
     generated = Generated_sample(model, vocab, batcher, sess_ge)
     print("Start pre-training generator......")
-    run_pre_train(model, batcher, 100, sess_ge, saver_ge, train_dir_ge)
+    run_pre_train(model, batcher, 1, sess_ge, saver_ge, train_dir_ge)
 
     print("Generating negative examples......")
     generated.generator_train_negative_example()
@@ -559,7 +566,7 @@ def main(unused_argv):
     print("Start pre-training discriminator......")
     #run_test_discriminator(model_dis, dis_batcher, sess_dis, saver_dis, "test")
     if not os.path.exists("discriminator_result"): os.mkdir("discriminator_result")
-    run_pre_train(model_dis, dis_batcher, 250, sess_dis, saver_dis, train_dir_dis)
+    run_pre_train(model_dis, dis_batcher, 1, sess_dis, saver_dis, train_dir_dis)
 
     #util.load_ckpt(saver_ge, sess_ge, ckpt_dir="train-generator")
   else:

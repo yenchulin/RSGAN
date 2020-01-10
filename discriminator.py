@@ -148,7 +148,7 @@ class Discriminator(object):
                 average_across_batch=True)'''
                 
                 
-            weights = self._target_mask * self.label
+            weights = self._target_mask * self.label # label is 1 when generated data, label is -0.01 when true data
             self.train_loss = tf.contrib.seq2seq.sequence_loss(
                 decoder_outputs,
                 self._target_batch,
@@ -157,7 +157,7 @@ class Discriminator(object):
                 average_across_batch=True)
                 
                 
-            self.out_loss = tf.contrib.seq2seq.sequence_loss(
+            self.out_loss = tf.contrib.seq2seq.sequence_loss( # (B, T, )
                 decoder_outputs,
                 self._target_batch,
                 self._target_mask,
@@ -167,7 +167,7 @@ class Discriminator(object):
             #label=tf.reshape(self.label, [-1])
             #self.train_loss = tf.reduce_mean(self.out_loss)/(hps.batch_size.value*hps.max_enc_sen_num.value*hps.max_enc_seq_len.value)
             self.out_loss = tf.reshape(self.out_loss, [hps.batch_size.value, hps.max_enc_sen_num.value, hps.max_enc_seq_len.value])
-            self.out_loss_sentence = tf.reduce_mean(self.out_loss,axis = -1)
+            self.out_loss_sentence = tf.reduce_mean(self.out_loss,axis = -1) # (B, )
 
 
 

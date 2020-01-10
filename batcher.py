@@ -33,8 +33,9 @@ class Example(object):
 
   def __init__(self, review, vocab, hps, input=None):
     """Initializes the Example, performing tokenization and truncation to produce the encoder, decoder and target sequences, which are stored in self.
-
-    Args:
+    # Params:
+      review: string
+    # Args:
       article: source text; a string. each token is separated by a single space.
       abstract_sentences: list of strings, one per abstract sentence. In each sentence, each token is separated by a single space.
       vocab: Vocabulary object
@@ -94,8 +95,8 @@ class Example(object):
     
         self.enc_len = len(article_words)  # store the length after truncation but before padding
         self.enc_input = [vocab.word2id(w) for w in article_words]  # list of word ids; OOVs are represented by the id for UNK token
-        self.original_review_input = review_summary[0]
-        self.original_review_output = review_summary[1]
+        self.original_review_input = review_summary[0] # review to be summarized
+        self.original_review_output = review_summary[1] # summary
 
         # Summary
         review_sentence = sent_tokenize(review_summary[1]) # list of strings (sentences)

@@ -31,6 +31,12 @@ class Example(object):
   """Class representing a train/val/test example for text summarization."""
 
   def __init__(self, review, label, vocab, hps):
+    """
+    # Param
+    review: string
+    original_reivew: list of sentence with sentence truncation but no word truncation
+    """
+    
 
     start_decoding = vocab.word2id(data.START_DECODING)
     stop_decoding = vocab.word2id(data.STOP_DECODING)
@@ -44,10 +50,8 @@ class Example(object):
     article_sens = sent_tokenize(review)
 
     article_words = []
-    for i in range(len(article_sens)):
-        if i >= hps.max_enc_sen_num.value:
-            article_words = article_words[:hps.max_enc_sen_num.value]
-            review_sentenc_orig = review_sentenc_orig[:hps.max_enc_sen_num.value]
+    for i in range(hps.max_enc_sen_num.value):
+        if i >= len(article_sens):
             break
         article_sen = article_sens[i]
         article_sen_words = article_sen.split()

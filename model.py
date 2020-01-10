@@ -44,8 +44,9 @@ def sample_output(embedding, embedding_dec, output_projection=None,
     prev = tf.nn.xw_plus_b(
           prev, output_projection[0], output_projection[1])
     prev_symbol = tf.cast(tf.reshape(tf.multinomial(prev, 1), [FLAGS.batch_size*FLAGS.max_dec_sen_num]), tf.int32)
+    # TODO: ensure tf.cast is doing condional sampling or sth else.
     emb_prev = tf.nn.embedding_lookup(embedding, prev_symbol)
-    return emb_prev
+    return emb_prev # word embedding
 
   def loop_function_max(prev,_):
       """function that feed previous model output rather than ground truth."""
@@ -261,6 +262,9 @@ class Generator(object):
 
         loop_function, loop_function_max,loop_given_function = sample_output(
           embedding, emb_dec_inputs, (w, v))
+
+      # 4 different decoders (loop function is different, loop function defines the relation between current decoder output and nex decoder input)
+      # the following code are doing reshape and add a linear layer + bias for the 4 decoder
       decoder_outputs_pretrain, decoder_outputs_sample_generator, decoder_outputs_max_generator, decoder_outputs_given_sample_generator= self._add_decoder(loop_function=loop_function, loop_function_max = loop_function_max, loop_given_function = loop_given_function, input=emb_dec_inputs,attention_state=encoder_outputs_word)
 
       decoder_outputs_pretrain = tf.reshape(decoder_outputs_pretrain,
@@ -283,7 +287,7 @@ class Generator(object):
 
 
       self._sample_given_best_output = tf.reshape(tf.argmax(decoder_outputs_given_sample_generator, 1),
-                                            [hps.batch_size.value,hps.max_dec_sen_num.value, hps.max_dec_steps.value])
+                                            [hps.batch_size.value, hps.max_dec_sen_num.value, hps.max_dec_steps.value])
 
 
 
@@ -388,7 +392,7 @@ class Generator(object):
   def run_eval_given_step(self, sess, batch):
       feed_dict = self._make_feed_dict(batch)
       to_return = {
-          'generated': self._sample_given_best_output,
+          'generated': self._sample_given_best_output, # (B, S, T)
       }
       return sess.run(to_return, feed_dict)
 
