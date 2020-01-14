@@ -76,7 +76,7 @@ tf.app.flags.DEFINE_integer('batch_size', 64, 'minibatch size') # for discrimina
 tf.app.flags.DEFINE_integer('max_enc_steps', 50, 'max timesteps of encoder (max source text tokens)') # for generator
 #tf.app.flags.DEFINE_integer('max_dec_steps', 200, 'max timesteps of decoder (max summary tokens)') # for generator
 tf.app.flags.DEFINE_integer('min_dec_steps', 35, 'Minimum sequence length of generated summary. Applies only for beam search decoding mode') # for generator
-tf.app.flags.DEFINE_integer('vocab_size', 2444, 'Size of vocabulary. These will be read from the vocabulary file in order. If the vocabulary file contains fewer words than this number, or if this number is set to 0, will take all words in the vocabulary file.')
+tf.app.flags.DEFINE_integer('vocab_size', 5443, 'Size of vocabulary. These will be read from the vocabulary file in order. If the vocabulary file contains fewer words than this number, or if this number is set to 0, will take all words in the vocabulary file.')
 tf.app.flags.DEFINE_float('lr', 0.6, 'learning rate') # for discriminator and generator
 tf.app.flags.DEFINE_float('adagrad_init_acc', 0.1, 'initial accumulator value for Adagrad') # for discriminator and generator
 tf.app.flags.DEFINE_float('rand_unif_init_mag', 0.02, 'magnitude for lstm cells random uniform inititalization') # for discriminator and generator
@@ -547,7 +547,7 @@ def main(unused_argv):
     sess_ge, saver_ge, train_dir_ge = setup_training_generator(model)
     generated = Generated_sample(model, vocab, batcher, sess_ge)
     print("Start pre-training generator......")
-    run_pre_train(model, batcher, 1, sess_ge, saver_ge, train_dir_ge)
+    run_pre_train(model, batcher, 100, sess_ge, saver_ge, train_dir_ge)
 
     print("Generating negative examples......")
     generated.generator_train_negative_example()
@@ -566,7 +566,7 @@ def main(unused_argv):
     print("Start pre-training discriminator......")
     #run_test_discriminator(model_dis, dis_batcher, sess_dis, saver_dis, "test")
     if not os.path.exists("discriminator_result"): os.mkdir("discriminator_result")
-    run_pre_train(model_dis, dis_batcher, 1, sess_dis, saver_dis, train_dir_dis)
+    run_pre_train(model_dis, dis_batcher, 250, sess_dis, saver_dis, train_dir_dis)
 
     #util.load_ckpt(saver_ge, sess_ge, ckpt_dir="train-generator")
   else:
