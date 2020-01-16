@@ -21,6 +21,7 @@ import time
 import numpy as np
 import tensorflow as tf
 from tensorflow.contrib.tensorboard.plugins import projector
+from attention_decoder import my_attention_decoder
 
 FLAGS = tf.app.flags.FLAGS
 
@@ -170,24 +171,24 @@ class Generator(object):
 
 
 
-    decoder_outputs_pretrain,_ = tf.contrib.legacy_seq2seq.attention_decoder(
+    decoder_outputs_pretrain,_ = my_attention_decoder(
       input, self._dec_in_state,attention_state,
       cell, loop_function=None
     )
 
 
     with tf.variable_scope(tf.get_variable_scope(), reuse=True):
-        decoder_outputs_sample_generator,_ = tf.contrib.legacy_seq2seq.attention_decoder(
+        decoder_outputs_sample_generator,_ = my_attention_decoder(
             input, self._dec_in_state,attention_state,
             cell, loop_function=loop_function
         )
 
-        decoder_outputs_max_generator, _ = tf.contrib.legacy_seq2seq.attention_decoder(
+        decoder_outputs_max_generator, _ = my_attention_decoder(
             input, self._dec_in_state,attention_state,
             cell, loop_function=loop_function_max
         )
 
-        decoder_outputs_given_sample_generator, _ = tf.contrib.legacy_seq2seq.attention_decoder(
+        decoder_outputs_given_sample_generator, _ = my_attention_decoder(
             input, self._dec_in_state,attention_state,
             cell, loop_function=loop_given_function
         )
