@@ -332,7 +332,6 @@ class GenBatcher(object):
 
 
     def fill_example_queue(self, data_path, mode = "test"):
-
         new_queue =[]
 
         filelist = glob.glob(data_path)  # get the list of datafiles
@@ -342,15 +341,13 @@ class GenBatcher(object):
             filelist = filelist
 
         for f in filelist:
-
-
             reader = codecs.open(f, 'r', 'utf-8')
             while True:
                 string_ = reader.readline()
                 if not string_: break # empty line, meets the end of file
                 dict_example = json.loads(string_)
                 review = dict_example["review"]
-                if(len(sent_tokenize(review))<2):
+                if (len(review.split('####')) < 2):
                     continue
                 example = Example(review, self._vocab, self._hps)
                 new_queue.append(example)

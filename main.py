@@ -23,7 +23,7 @@ import time
 import codecs
 import data
 import os
-import math
+import math, os
 import tensorflow as tf
 import numpy as np
 from collections import namedtuple
@@ -44,6 +44,7 @@ import re
 import nltk
 from tensorflow.python import debug as tf_debug
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 FLAGS = tf.app.flags.FLAGS
 
 # Where to find data
@@ -392,14 +393,9 @@ def run_train_discriminator(model, max_epoch, batcher, batches, sess,saver, trai
     loss_window = 0.0
     right = 0.0
     number = 0.0
-    epoch =0
-    while epoch < max_epoch:
-        epoch+=1
-
-        while step < len(batches):
-
+    for _ in range(max_epoch):
+        for step in range(len(batches)):
             current_batch = batches[step]
-            step += 1
             results = model.run_pre_train_step(sess, current_batch)
 
             loss = results['loss']
@@ -417,8 +413,6 @@ def run_train_discriminator(model, max_epoch, batcher, batches, sess,saver, trai
                # tf.logging.info('acc: %f', right / number)  # print the loss to screen
                 loss_window = 0.0
 
-
-            if train_step % 10 == 0:
                 #saver.save(sess, train_dir + "/model", global_step=train_step)
                 run_test_discriminator(model, batcher, sess, saver, str(train_step))
     return whole_decay
@@ -470,7 +464,6 @@ def main(unused_argv):
 
 
   if hps_generator.mode.value == 'adversarial_train':
-    print("Start pre-training......")
     model = Generator(hps_generator, vocab)
 
     sess_ge, saver_ge, train_dir_ge = setup_training_generator(model)
@@ -501,17 +494,17 @@ def main(unused_argv):
                                        200)
   
 
-    print("Start adversarial  training......")
+    print("Start adversarial training......")
     if not os.path.exists("train_sample_generated"): os.mkdir("train_sample_generated")
     if not os.path.exists("test_max_generated"): os.mkdir("test_max_generated")
     if not os.path.exists("test_sample_generated"): os.mkdir("test_sample_generated")
     
     
-    
+    dis_batcher.train_queue = [] # clear pre-train data loaded previouly
     whole_decay = False
     for epoch in range(10):
         batches = batcher.get_batches(mode='train')
-        for step in range(len(batches)):
+        for step in range(len(batches)): # run through all sample
 
             run_train_generator(model, model_dis, sess_dis, batcher, dis_batcher, batches[step:(step+1)], sess_ge, saver_ge, train_dir_ge,generated) #(model, discirminator_model, discriminator_sess, batcher, dis_batcher, batches, sess, saver, train_dir, generated):
             generated.generator_sample_example("train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive", "train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_negative", 1000)
@@ -528,12 +521,8 @@ def main(unused_argv):
                                             "test_max_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_negative",
                                             200)
 
-            dis_batcher.train_queue = []
-            dis_batcher.train_queue = []
-            for i in range(epoch+1):
-              for j in range(step+1):
-                dis_batcher.train_queue += dis_batcher.fill_example_queue("train_sample_generated/"+str(i)+"epoch_step"+str(j)+"_temp_positive/*")
-                dis_batcher.train_queue += dis_batcher.fill_example_queue("train_sample_generated/"+str(i)+"epoch_step"+str(j)+"_temp_negative/*")
+            dis_batcher.train_queue += dis_batcher.fill_example_queue("train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive/*")
+            dis_batcher.train_queue += dis_batcher.fill_example_queue("train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_negative/*")
             dis_batcher.train_batch = dis_batcher.create_batches(mode="train", shuffleis=True)
 
             #dis_batcher.valid_batch = dis_batcher.train_batch

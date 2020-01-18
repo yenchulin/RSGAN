@@ -200,13 +200,13 @@ class DisBatcher(object):
     def __init__(self, hps, vocab, train_path_positvie, train_path_negetive, test_path_positive, test_path_negetive):
         self._vocab = vocab
         self._hps = hps
-        self._train_path_positive =train_path_positvie
+        self._train_path_positive = train_path_positvie
         self._train_path_negetive = train_path_negetive
         self._test_path_positive = test_path_positive
         self._test_path_negetive = test_path_negetive
 
         self.train_queue = self.fill_example_queue(self._train_path_positive)
-        self.train_queue += self.fill_example_queue(self._train_path_negetive)
+        self.train_queue += self.fill_example_queue(self._train_path_negetive) # "+=" for concatening positive and negative samples together
 
         self.test_queue = self.fill_example_queue(self._test_path_positive)
         self.test_queue += self.fill_example_queue(self._test_path_negetive)
@@ -252,12 +252,12 @@ class DisBatcher(object):
 
 
     def fill_example_queue(self, data_path):
-
         new_queue =[]
 
         filelist = glob.glob(data_path)  # get the list of datafiles
         assert filelist, ('Error: Empty filelist at %s' % data_path)  # check filelist isn't empty
         filelist = sorted(filelist)
+
         for f in filelist:
             reader = codecs.open(f, 'r', 'utf-8')
             while True:
@@ -265,7 +265,7 @@ class DisBatcher(object):
                 if not string_: break
                 dict_example = json.loads(string_)
                 review = dict_example["example"]
-                if review.strip() =="":
+                if review.strip() == "":
                     continue
                 label = dict_example["label"]
                 if int(label) == 1:
