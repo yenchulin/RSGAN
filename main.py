@@ -164,10 +164,13 @@ def run_pre_train(model, batcher, max_run_epoch, sess, saver, train_dir):
                 num_batch.set_postfix(loss=loss)
 
             losses.append(loss)
-            saver.save(sess, train_dir + "/model", global_step=train_step)
             
-            if isinstance(model, Discriminator):
+            if isinstance(model, Discriminator) and train_step % 10000 == 0:
+                saver.save(sess, train_dir + "/model", global_step=train_step)
                 run_test_discriminator(model, batcher, sess, saver, str(train_step))
+
+            elif isinstance(model, Generator) and train_step % 100 == 0:
+                saver.save(sess, train_dir + "/model", global_step=train_step)
 
     # Plot loss of the pre-train model
     figname = os.path.join("myexperiment", "pre-train_" + model.__class__.__name__ + "_loss.png")
@@ -253,18 +256,18 @@ def run_train_generator(model, discirminator_model, discriminator_sess, batcher,
     """
     batches: Batcher.Batch
     """
-    tf.logging.info("starting training generator")
+    tf.logging.info("Starting training generator")
 
     step = 0
     t0 = time.time()
     loss_window = 0.0
     new_loss_window = 0.0
-    while step < len(batches): # len = 1
+    while step < len(batches): # len <= 1000, now len = 107 
         current_batch = batches[step] # ground truth data
         step += 1
 
         for i in range(1):
-            results = model.run_eval_given_step(sess, current_batch)
+            results = model.run_eval_given_step(sess, current_batch) # given review to predict summary
 
             new_batch, new_dis_batch = output_to_batch(current_batch, results, batcher, dis_batcher) # generated summary
 
@@ -384,38 +387,35 @@ def run_test_discriminator(model, batcher, sess,saver, train_step):
 
 
 
-def run_train_discriminator(model, max_epoch, batcher, batches, sess,saver, train_dir, whole_decay=False):
-    tf.logging.info("starting trining discriminator")
-    #batches = batcher.get_batches("train")
+def run_train_discriminator(model, max_epoch, batcher, batches, sess, saver, train_dir):
+    """
+    Run adversarial training for discriminator.
+    ## Param:
+    - model: Discriminator
+    - batcher: batcher_discriminator.DisBatcher
+    - batches: Disbatcher.train_batch, list of Batch
+    ## Return:
+    - losses: float32 list, the loss in every epoch
+    """
+    tf.logging.info("Starting training discriminator")
+    losses = []
+    for epoch in range(max_epoch):
+        with trange(len(batches), ascii=True) as num_batch:
+            num_batch.set_description("Epoch %i/%i" % (epoch+1, max_epoch))
+            batch_loss = 0
+            for step in num_batch:
+                current_batch = batches[step]
+                results = model.run_pre_train_step(sess, current_batch)
+                train_step = results['global_step']
+                loss = results['loss']
+                batch_loss += loss / len(batches) # average the loss in same batch
+                num_batch.set_postfix(loss=batch_loss)
 
-    step = 0
-    t0 = time.time()
-    loss_window = 0.0
-    right = 0.0
-    number = 0.0
-    for _ in range(max_epoch):
-        for step in range(len(batches)):
-            current_batch = batches[step]
-            results = model.run_pre_train_step(sess, current_batch)
-
-            loss = results['loss']
-            loss_window += loss
-
-            if not np.isfinite(loss):
-                raise Exception("Loss is not finite. Stopping.")
-
-            train_step = results['global_step']  # we need this to update our running average loss
-            if train_step % 10 == 0:
-                t1 = time.time()
-                tf.logging.info('seconds for %d training dirscriminator step: %.3f ', train_step, (t1 - t0) / 100)
-                t0 = time.time()
-                tf.logging.info('loss: %f', loss_window / 100)  # print the loss to screen
-               # tf.logging.info('acc: %f', right / number)  # print the loss to screen
-                loss_window = 0.0
-
-                #saver.save(sess, train_dir + "/model", global_step=train_step)
-                run_test_discriminator(model, batcher, sess, saver, str(train_step))
-    return whole_decay
+                if train_step % 10000 == 0:
+                    run_test_discriminator(model, batcher, sess, saver, str(train_step))
+            
+            losses.append(batch_loss)
+    return losses
 
 
 def main(unused_argv):
@@ -501,12 +501,12 @@ def main(unused_argv):
     
     
     dis_batcher.train_queue = [] # clear pre-train data loaded previouly
-    whole_decay = False
+    dis_losses = []
     for epoch in range(10):
         batches = batcher.get_batches(mode='train')
-        for step in range(len(batches)): # run through all sample
+        for step in range(1):
 
-            run_train_generator(model, model_dis, sess_dis, batcher, dis_batcher, batches[step:(step+1)], sess_ge, saver_ge, train_dir_ge,generated) #(model, discirminator_model, discriminator_sess, batcher, dis_batcher, batches, sess, saver, train_dir, generated):
+            run_train_generator(model, model_dis, sess_dis, batcher, dis_batcher, batches[step*1000:(step+1)*1000], sess_ge, saver_ge, train_dir_ge,generated)
             generated.generator_sample_example("train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive", "train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_negative", 1000)
             #generated.generator_max_example("max_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive", "max_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_negetive", 200)
 
@@ -526,8 +526,12 @@ def main(unused_argv):
             dis_batcher.train_batch = dis_batcher.create_batches(mode="train", shuffleis=True)
 
             #dis_batcher.valid_batch = dis_batcher.train_batch
-            whole_decay = run_train_discriminator(model_dis, 5, dis_batcher, dis_batcher.get_batches(mode="train"),
-                                                  sess_dis, saver_dis, train_dir_dis, whole_decay)
+            dis_losses += run_train_discriminator(model_dis, 5, dis_batcher, dis_batcher.get_batches(mode="train"),
+                                                  sess_dis, saver_dis, train_dir_dis)
+    
+    # Plot loss of Discriminator
+    figname = os.path.join("myexperiment", "train_" + model_dis.__class__.__name__ + "_loss.png")
+    util.plotLineChart(range(len(dis_losses)), dis_losses, "epochs", "loss", figname)  
 
   elif hps_generator.mode.value == 'train_generator':
     print("Start pre-training......")
