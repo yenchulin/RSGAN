@@ -172,6 +172,9 @@ def run_pre_train(model, batcher, max_run_epoch, sess, saver, train_dir):
             elif isinstance(model, Generator) and train_step % 100 == 0:
                 saver.save(sess, train_dir + "/model", global_step=train_step)
 
+    # No matter how many train_step, save when finished pretraining 
+    saver.save(sess, train_dir + "/model", global_step=train_step)
+
     # Plot loss of the pre-train model
     figname = os.path.join("myexperiment", "pre-train_" + model.__class__.__name__ + "_loss.png")
     util.plotLineChart(range(max_run_epoch), losses, "epochs", "loss", figname)
@@ -254,7 +257,7 @@ def output_to_batch(current_batch, result, batcher, dis_batcher):
     return Batch(example_list, batcher._hps, batcher._vocab), bd.Batch(db_example_list, dis_batcher._hps, dis_batcher._vocab)
 def run_train_generator(model, discirminator_model, discriminator_sess, batcher, dis_batcher, batches, sess, saver, train_dir, generated):
     """
-    batches: Batcher.Batch
+    batches: batcher.Batch
     """
     tf.logging.info("Starting training generator")
 

@@ -161,8 +161,8 @@ class Generator(object):
 
     #input = tf.unstack(input, axis=1)
 
-    input = tf.reshape(input, [hps.batch_size.value*hps.max_dec_sen_num.value, hps.max_dec_steps.value , hps.emb_dim.value])
-    input = tf.unstack(input, axis = 1)
+    input = tf.reshape(input, [hps.batch_size.value*hps.max_dec_sen_num.value, hps.max_dec_steps.value , hps.emb_dim.value]) # (B*S, T, E)
+    input = tf.unstack(input, axis = 1) # (B*S, E) * T, list of tensor
 
     cell = tf.contrib.rnn.LSTMCell(
       hps.hidden_dim.value,
