@@ -44,8 +44,9 @@ class Vocab(object):
     """Creates a vocab of up to max_size words, reading from the vocab_file. If max_size is 0, reads the entire vocab file.
 
     Args:
-      vocab_file: path to the vocab file, which is assumed to contain "<word> <frequency>" on each line, sorted with most frequent word first. This code doesn't actually use the frequencies, though.
+      vocab_file: path to the vocab file, which is assumed to contain "<word> <frequency> <aspect or not>" on each line, sorted with most frequent word first. This code doesn't actually use the frequencies, though.
       max_size: integer. The maximum size of the resulting Vocabulary."""
+    self._word_to_aspect = {}
     self._word_to_id = {}
     self._id_to_word = {}
     self._count = 0 # keeps track of total number of words in the Vocab
@@ -60,7 +61,7 @@ class Vocab(object):
     with codecs.open(vocab_file, 'r','utf-8') as vocab_f:
       for line in vocab_f:
         pieces = line.split()
-        if len(pieces) != 2:
+        if len(pieces) != 3:
           print ('Warning: incorrectly formatted line in vocabulary file: %s\n' % line)
           continue
         w = pieces[0]
@@ -68,6 +69,7 @@ class Vocab(object):
           raise Exception('<s>, </s>, [UNK], [PAD], [START] and [STOP] shouldn\'t be in the vocab file, but %s is' % w)
         if w in self._word_to_id:
           raise Exception('Duplicated word in vocabulary file: %s' % w)
+        self._word_to_aspect[w] = int(pieces[2])
         self._word_to_id[w] = self._count
         self._id_to_word[self._count] = w
         self._count += 1
@@ -76,6 +78,12 @@ class Vocab(object):
           break
 
     print ("Finished constructing vocabulary of %i total words. Last word added: %s" % (self._count, self._id_to_word[self._count-1]))
+
+  def word2aspect(self, word):
+    """Returns 1 if a word (string) is an aspect. Returns 0 if a word is not an aspect"""
+    if word not in self._word_to_aspect:
+      raise ValueError('Word not found in aspect vocab: %s' % word)
+    return self._word_to_aspect[word]
 
   def word2id(self, word):
     """Returns the id (integer) of a word (string). Returns [UNK] id if word is OOV."""

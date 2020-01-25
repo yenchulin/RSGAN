@@ -141,7 +141,7 @@ def my_attention_decoder(decoder_inputs,
 					y = array_ops.reshape(y, [-1, 1, 1, attn_hidden_dim])
 					# Attention mask is a softmax of v^T * tanh(...).
 					s = math_ops.reduce_sum(v[a] * math_ops.tanh(hidden_features[a] + y), [2, 3]) # hidden feature comes from attention_state, "+" is element-wise plus, v[a] is key
-					s = s * aspect_mask
+					s = s * tf.cast(aspect_mask, tf.float32)
 					a = nn_ops.softmax(s)
 					# Now calculate the attention-weighted vector d.
 					d = math_ops.reduce_sum(array_ops.reshape(a, [-1, attn_timestep, 1, 1]) * hidden, [1, 2])
@@ -176,15 +176,21 @@ def my_attention_decoder(decoder_inputs,
 			# Run the attention mechanism. (state = decoder current state)
 			if i == 0 and initial_state_attention:
 				with variable_scope.variable_scope(variable_scope.get_variable_scope(), reuse=True):
-					if aspect_mask is not None:
-						pass # TODO
-					else:
-						attns = attention(state)
-			else:
-				if aspect_mask is not None:
-					pass # TODO
-				else:
 					attns = attention(state)
+			else:
+				attns = attention(state)
+			
+			# Run the aspect attention mechanism.
+			if aspect_mask is not None:
+				with variable_scope.variable_scope("Meta_Attention"):
+					metas = []
+					for a in xrange(num_heads):
+						w2 = variable_scope.get_variable("MetaW1_%d" % a, [attn_hidden_dim])
+						w3 = variable_scope.get_variable("MetaW2_%d" % a, [attn_hidden_dim])
+						aspect_attns = aspect_attention(state)
+						meta = math_ops.tanh(w2 * attns[a] + w3 * aspect_attns[a])
+						metas.append(meta)
+					attns = metas
 
 			with variable_scope.variable_scope("AttnOutputProjection"):
 				inputs = [cell_output] + attns

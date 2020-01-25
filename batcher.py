@@ -62,9 +62,9 @@ class Example(object):
         if len(article_words) > hps.max_enc_steps.value:
             article_words = article_words[:hps.max_enc_steps.value]
         self.enc_len = len(article_words)  # store the length after truncation but before padding
-        self.enc_input = [vocab.word2id(w) for w in
-                          article_words]  # list of word ids; OOVs are represented by the id for UNK token
-        self.original_review_input =input
+        self.enc_input = [vocab.word2id(w) for w in article_words]  # list of word ids; OOVs are represented by the id for UNK token
+        self.enc_aspect_input = [vocab.word2aspect(w) for w in article_words] # list of 0 and 1; if 0 word is not an aspect, if 1 word is an aspect.
+        self.original_review_input = input
         self.original_review_output = review
 
 
@@ -95,6 +95,7 @@ class Example(object):
     
         self.enc_len = len(article_words)  # store the length after truncation but before padding
         self.enc_input = [vocab.word2id(w) for w in article_words]  # list of word ids; OOVs are represented by the id for UNK token
+        self.enc_aspect_input = [vocab.word2aspect(w) for w in article_words] # list of 0 and 1; if 0 word is not an aspect, if 1 word is an aspect.
         self.original_review_input = review_summary[0] # review to be summarized
         self.original_review_output = review_summary[1] # summary
 
@@ -193,11 +194,13 @@ class Example(object):
       while len(self.target) < max_sen_num:
           self.target.append([pad_doc_id for i in range(max_sen_len)])
 
-  def pad_encoder_input(self, max_len, pad_id):
-    """Pad the encoder input sequence with pad_id up to max_len."""
+  def pad_encoder_input_aspect(self, max_len, pad_id):
+    """Pad the encoder input and aspect input sequence with pad_id up to max_len."""
     while len(self.enc_input) < max_len:
       self.enc_input.append(pad_id)
 
+    while len(self.enc_aspect_input) < max_len:
+      self.enc_aspect_input.append(pad_id)
 
 
 class Batch(object):
@@ -227,10 +230,11 @@ class Batch(object):
 
     # Pad the encoder input sequences up to the length of the longest sequence
     for ex in example_list:
-      ex.pad_encoder_input(max_enc_seq_len, self.pad_id)
+      ex.pad_encoder_input_aspect(max_enc_seq_len, self.pad_id)
 
     # Initialize the numpy arrays
     # Note: our enc_batch can have different length (second dimension) for each batch because we use dynamic_rnn for the encoder.
+    self.enc_aspect_batch = np.zeros((hps.batch_size.value, max_enc_seq_len), dtype=np.int32)
     self.enc_batch = np.zeros((hps.batch_size.value, max_enc_seq_len), dtype=np.int32)
     self.enc_lens = np.zeros((hps.batch_size.value), dtype=np.int32)
     #self.enc_padding_mask = np.zeros((hps.batch_size.value, max_enc_seq_len), dtype=np.float32)
@@ -238,6 +242,7 @@ class Batch(object):
     # Fill in the numpy arrays
     for i, ex in enumerate(example_list):
       #print (ex.enc_input)
+      self.enc_aspect_batch[i, :] = ex.enc_aspect_input[:]
       self.enc_batch[i, :] = ex.enc_input[:]
       self.enc_lens[i] = ex.enc_len
       '''for j in range(ex.enc_len):

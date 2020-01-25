@@ -1,2315 +1,6194 @@
-i 36246
-. 27332
-the 21232
-and 18779
-it 16547
-, 15624
-have 13762
-to 13562
-a 11010
-not 10951
-is 9740
-this 8996
-for 8534
-was 7380
-in 6183
-my 6003
-one 5858
-of 5219
-had 5136
-but 4999
-with 4732
-that 4715
-since 4382
-bought 4127
-buy 4081
-you 4053
-got 4043
-ever 3997
-some 3457
-play 3405
-pro 3333
-ps4 3320
-4k 3298
-ca 3260
-all 3254
-games 3018
-are 2991
-) 2956
-( 2954
-love 2948
-best 2928
-am 2888
-on 2847
-shipping 2800
-at 2758
-more 2681
-so 2575
-able 2476
-can 2413
-just 2384
-if 2381
-any 2352
-or 2246
-power 2196
-gaming 2171
-xbox 2146
-even 2136
-graphics 2093
-system 1968
-do 1944
-came 1925
-purchased 1897
-get 1891
-only 1884
-out 1865
-first 1775
-playstation 1721
-time 1693
-well 1663
-how 1655
-been 1642
-now 1584
-where 1575
-though 1571
-worth 1534
-good 1526
-times 1519
-finally 1518
-did 1516
-definitely 1515
-psvr 1493
-fast 1472
-new 1471
-update 1471
-everything 1469
-will 1458
-100 1449
-come 1436
-home 1430
-when 1416
-would 1414
-dont 1414
-has 1412
-then 1410
-seen 1410
-updates 1404
-store 1404
-online 1401
-every 1400
-loved 1392
-takes 1391
-gb 1390
-start 1390
-tired 1389
-point 1388
-8 1388
-hrs 1388
-complete 1388
-small 1388
-comparison 1388
-performs 1386
-pay 1374
-them 1371
-life 1359
-game 1357
-believe 1351
-fastest 1351
-shop 1350
-few 1338
-! 1335
-playing 1325
-vr 1312
-down 1309
-package 1306
-about 1300
-continue 1299
-put 1297
-... 1294
-delivered 1294
-hiccups 1292
-glitches 1292
-returns 1292
-promised 1292
-because 1225
-coming 1200
-an 1197
-stream 1174
-hesitant 1157
-enough 1148
-make 1112
-getting 1103
-already 1102
-4 1092
-which 1091
-upgrading 1070
-gameplay 1069
-someone 1057
-much 1053
-tv 1052
-want 1044
-these 1041
-1 1041
-1080p 1038
-own 1031
-reason 1028
-being 1025
-hardware 1021
-upgrade 1020
-videos 1020
-added 1017
-other 1016
-youtube 1016
-wants 1015
-twitch 1014
-fault 1014
-experienced 1014
-decreased 1013
-crashes 1013
-server 1013
-freezing 1013
-its 999
-take 992
-advantage 977
-- 952
-purchase 949
-next-gen 944
-functionality 944
-especially 943
-truly 939
-immediately 929
-disappointed 926
-your 923
-processing 918
-t.v 915
-intensive 914
-top-notch 914
-ps3 909
-boost 868
-played 864
-pc 838
-console 790
-very 708
-pleased 688
-ps2 675
-say 670
-never 655
-than 648
-something 647
-gamer 644
-wanted 641
-as 640
-recommend 634
-many 632
-like 622
-owned 622
-up 618
-be 618
-try 616
-destroys 612
-classic 612
-avid 612
-better 611
-forever 611
-great 603
-performance 599
-there 579
-decided 574
-ps 515
-$ 511
-sony 502
-fine 482
-does 467
-from 467
-issues 452
-me 446
-instead 441
-after 431
-check 424
-works 424
-regular 419
-give 416
-awesome 407
-also 403
-his 403
-see 402
-machine 398
-difference 397
-value 397
-money 379
-we 376
-experience 375
-far 372
-hdr 349
-resolution 347
-checkerboard 333
-gotten 325
-problem 325
-amazing 322
-surprise 322
-controller 321
-friend 321
-convinced 320
-haven 320
-enthusiasts 320
-still 314
-go 314
-cable 307
-box 306
-they 305
-runs 304
-horizon 300
-throw 299
-damage 299
-control 298
-really 293
-what 293
-might 281
-before 278
-usually 268
-run 265
-find 265
-content 257
-most 251
-old 240
-native 238
-order 235
-faster 233
-benefit 233
-know 232
-looking 232
-beast 228
-load 227
-seems 223
-sound 219
-solid 217
-graphical 217
-extra 216
-speed 216
-stand 215
-fence 214
-whether 212
-consoles 211
-line 211
-bottom 210
-different 206
-look 206
-kind 203
-pick 202
-into 200
-399 199
-rendering 198
-1440p 198
-compete 198
-top-tier 198
-hdmi 196
-things 183
-sure 180
-use 178
-recently 171
-400 171
-support 168
-black 168
-video 165
-tell 164
-huge 163
-no 160
-slim 160
-live 160
-who 159
-? 157
-helps 157
-change 157
-regret 156
-model 155
-purchasing 155
-zero 154
-need 153
-dawn 153
-upgraded 153
-nothing 152
-smoothly 152
-uncharted 150
-reviews 150
-hard 149
-wish 149
-another 147
-titles 147
-read 147
-probably 147
-improved 147
-way 146
-noticeably 146
-gorgeous 146
-thought 146
-reviewers 145
-digital 145
-gives 144
-using 144
-based 144
-pspro 143
-honest 143
-during 141
-surround 141
-connection 140
-internet 140
-developers 138
-framerates 137
-blurays 136
-must 136
-eyes 136
-yeah 136
-matter 136
-settings 136
-loud 135
-while 135
-kids 135
-feel 135
-least 135
-actual 135
-pause 135
-focus 135
-faulty 134
-next 132
-ability 131
-connected 131
-test 130
-involved 130
-dvds 129
-likely 128
-highly 128
-odd 128
-hate 127
-connects 127
-bit 125
-always 124
-systems 123
-beautiful 123
-quality 121
-mean 119
-quieter 118
-worked 118
-makes 117
-complaint 117
-dollars 116
-house 116
-however 115
-netflix 115
-spending 115
-updated 114
-perfectly 114
-uhd 113
-going 113
-warrant 113
-too 112
-front 112
-400+ 112
-light 111
-early 110
-eject 109
-buttons 109
-low 109
-alarming 108
-buys 108
-s 106
-months 106
-enjoy 105
-having 105
-processor 104
-everyone 104
-vs. 101
-6 101
-today 101
-terrific 100
-frames-per-second 100
-final 99
-steaming 99
-compliment 99
-fantasy 98
-player 95
-xv 94
-stereo 94
-anything 93
-2 88
-looks 85
-wait 84
-by 83
-without 83
-years 81
-friday 81
-super 80
-replace 79
-sad 78
-television 78
-used 77
-almost 77
-improvements 77
-sleek 76
-nice 75
-husband 75
-mostly 75
-overall 73
-show 73
-overheated 73
-issue 72
-date 72
-working 72
-completely 72
-supports 72
-given 71
-standard 70
-family 70
-seeing 70
-happening 69
-operating 69
-memory 68
-receive 68
-received 68
-setting 68
-state 67
-often 67
-3 67
-item 67
-needless 67
-scary 67
-changed 67
-breathed 67
-sigh 67
-relief 67
-aside 67
-children 66
-stay 66
-three 66
-thank 66
-keep 66
-neither 66
-consistent 66
-funds 66
-latest 65
-opportunity 65
-parent 65
-spark 65
-conversations 65
-normally 65
-storage 64
-hardcore 64
-capable 64
-news 64
-made 63
-announced 63
-thing 62
-tech 62
-managed 62
-ante 62
-floating 62
-announce 62
-particular 62
-off 61
-frame 61
-despite 61
-half 61
-drive 60
-ray 60
-both 60
-significant 60
-noticeable 60
-'' 60
-detail 60
-atmos 60
-powerful 59
-sports 59
-monster 59
-blu 58
-fan 58
-non-hdr 58
-hdr10 58
-else 57
-version 56
-`` 56
-rates 54
-fix 53
-mode 53
-found 53
-may 53
-blu-ray 52
-unit 50
-bigger 50
-oled 50
-space 49
-over 49
-app 49
-hd 48
-sounded 48
-initially 48
-note 48
-future 47
-fully 47
-cant 47
-hbo 47
-2.0 47
-dragon 47
-quest 47
-heroes 47
-original 46
-compatible 46
-fact 46
-setup 46
-yet 45
-features 45
-price 45
-thinking 45
-available 44
-hopefully 44
-display 43
-long 43
-although 43
-once 43
-main 42
-save 42
-day 42
-noticed 42
-visuals 41
-streaming 41
-gamers 40
-beware 40
-60fps 40
-mind 40
-notice 39
-hdd 39
-lower 39
-their 38
-between 38
-through 38
-perfect 38
-high 37
-took 37
-1tb 37
-noise 37
-casual 37
-same 37
-handle 37
-technology 37
-product 36
-gpu 36
-cheaper 36
-ago 36
-150 36
-waste 36
-release 35
-wrong 35
-basic 35
-complain 35
-stick 35
-pass 35
-desire 35
-view 35
-mindful 35
-important 35
-exited 35
-information 35
-inform 35
-buck 35
-5 34
-seem 34
-screen 34
-ultra 34
-full 34
-lost 34
-4:4:4 34
-noting 34
-benefits 34
-set 33
-running 33
-happened 33
-twice 33
-non 33
-previous 32
-movies 32
-right 32
-astounding 32
-theater 32
-should 31
-older 31
-soon 31
-enhancements 31
-loves 31
-microsoft 31
-firmware 31
-started 31
-movie 30
-option 30
-lives 30
-standards 30
-necessarily 30
-hype 30
-greatest 30
-skipped 30
-assuming 30
-shortsighted 30
-bd 30
-invented 30
-9000 30
-audio 30
-race 30
-competitor 30
-investment 29
-plus 29
-monitor 29
-lot 29
-range 29
-launch 28
-think 28
-hurt 28
-tvs 27
-said 27
-higher 27
-% 27
-ui 26
-seconds 26
-switch 26
-doing 26
-less 25
-thats 25
-quick 25
-cause 25
-actually 25
-comes 24
-could 24
-glitchy 23
-exclusives 23
-downside 23
-loading 23
-people 23
-discs 22
-unlocked 22
-tons 22
-add 22
-waiting 22
-otherwise 22
-tried 22
-help 21
-happy 21
-picture 20
-little 20
-satisfied 20
-our 20
-year 20
-month 20
-inbox 20
-certain 19
-amazed 19
-20 19
-bluray 19
-competition 19
-device 19
-planning 19
-warranty 19
-mention 19
-clean 19
-lack 18
-dropped 18
-x 18
-options 18
-last 18
-tomb 18
-raider 18
-literally 18
-research 18
-dashboard 18
-supposed 18
-fidelity 17
-quiet 17
-buying 17
-deal 17
-15 17
-speeds 17
-enjoying 17
-christmas 17
-specs 17
-samsung 17
-catalogue 17
-signed 17
-psvue 17
-35 17
-graphic 17
-top 17
-thru 17
-tricky 17
-av 17
-receiver 17
-pass-thru 17
-signals 17
-user 16
-plays 16
-easy 16
-myself 16
-he 16
-again 16
-terms 16
-back 16
-upgrades 16
-exclusive 16
-either 16
-rise 16
-mine 16
-stable 16
-lots 16
-man 16
-woudnt 16
-semi 16
-bestbuy 16
-plugged 15
-ready 15
-until 15
-downfall 15
-size 15
-possible 15
-major 15
-several 15
-boosts 15
-terabyte 15
-silent 15
-complaining 15
-showing 15
-bunch 15
-example 15
-clear 14
-personally 14
-smoother 14
-feels 14
-results 14
-room 14
-handy 14
-8.5gb 14
-45minutes 14
-finish 14
-owner 14
-impressed 14
-big 14
-functions 14
-depends 14
-matters 14
-enhancements.am 14
-voiding 14
-99.9 14
-.some 14
-visually 14
-compared 13
-interface 13
-replaced 13
-ps4pro 13
-wanting 13
-doesnt 13
-slightly 13
-smooth 13
-: 13
-those 13
-sold 13
-wont 13
-slight 13
-returned 13
-extremely 12
-improve 12
-increased 12
-glad 12
-unless 12
-fantastic 12
-enhanced 12
-choice 12
-hours 12
-son 12
-quite 12
-were 12
-wo 12
-guess 12
-performances 12
-proof 12
-deciding 12
-besides 12
-needs 11
-work 11
-baffling 11
-along 11
-external 11
-living 11
-recommended 11
-ive 11
-tend 11
-true 10
-went 10
-impressive 10
-wifi 10
-stars 10
-become 10
-ones 10
-pretty 10
-refined 10
-allowed 10
-including 10
-rid 10
-bad 10
-anyone 9
-us 9
-watch 9
-rate 9
-bedroom 9
-transfer 9
-step 9
-isnt 9
-week 9
-ps4-pro 9
-explain 9
-gui 9
-complicated 9
-frustrating 9
-war 8
-weekend 8
-forward 8
-two 8
-currently 8
-market 8
-ks8000 8
-lag 8
-fps 8
-dynamic 8
-missing 8
-trying 7
-god 7
-part 7
-feature 7
-360 7
-menu 7
-base 7
-friends 7
-why 7
-capabilities 7
-excellent 7
-absolutely 7
-around 7
-friendly 7
-knew 7
-offer 7
-level 7
-quicker 7
-longer 7
-due 7
-guy 7
-shows 7
-rarely 7
-side 7
-crash 7
-doubles 7
-watched 7
-that- 7
-visual 6
-maybe 6
-needed 6
-gone 6
-& 6
-near 6
-wow 6
-im 6
-design 6
-; 6
-gen 6
-ps1 6
-away 6
-decision 6
-surprised 6
-such 6
-sale 6
-detroit 6
-human 6
-x-box 6
-hot 6
-generation 6
-disc 6
-lg 6
-second 6
-leap 6
-loads 6
-touch 6
-sell 6
-gift 6
-alone 6
-ahead 6
-tb 6
-minutes 6
-“ 6
-” 6
-lol 6
-combined 6
-end 5
-hooked 5
-died 5
-pad 5
-controllers 5
-hope 5
-larger 5
-entertainment 5
-2nd 5
-compare 5
-waited 5
-stuff 5
-superior 5
-brother 5
-gave 5
-spend 5
-physical 5
-excited 5
-station 5
-watching 5
-newer 5
-sorry 5
-move 5
-2tb 5
-usb 5
-media 5
-ended 5
-multi 5
-capability 5
-theirs 5
-build 5
-downloading 5
-cost 5
-daughter 5
-her 5
-interest 5
-cloud 5
-real 5
-drop 5
-ps5 5
-preferred 5
-49x900e 5
-developer 5
-spider-man 5
-freaking 5
-capacity 4
-hook 4
-owners 4
-owning 4
-s. 4
-data 4
-similar 4
-amount 4
-dvd 4
-format 4
-noticable 4
-reasons 4
-homes 4
-3ds 4
-barely 4
-touched 4
-center 4
-differences 4
-let 4
-incredible 4
-increase 4
-difficult 4
-search 4
-addition 4
-stunning 4
-service 4
-scorpio 4
-everyday 4
-dead 4
-each 4
-thermal 4
-pads 4
-library 4
-hear 4
-sometimes 4
-here 4
-account 4
-knowing 4
-normal 4
-basically 4
-ssd 4
-fun 4
-released 4
-white 4
-drops 4
-except 4
-include 4
-paid 4
-plan 4
-sucks 4
-free 4
-sweet 4
-' 4
-amazingly 4
-playback 4
-easily 4
-place 3
-comfortable 3
-input 3
-crystal 3
-knows 3
-considering 3
-expecting 3
-supporting 3
-course 3
-install 3
-please 3
-series 3
-mlb 3
-ease 3
-turn 3
-saving 3
-compatibility 3
-figure 3
-days 3
-serious 3
-later 3
-rendered 3
-expected 3
-sense 3
-blows 3
-blue-ray 3
-worry 3
-happier 3
-spiderman 3
-opinion 3
-favorite 3
-layout 3
-flawless 3
-past 3
-releases 3
-2017 3
-prices 3
-recent 3
-present 3
-star 3
-brainer 3
-totally 3
-simple 3
-cod 3
-oh 3
-complaints 3
-selling 3
-yes 3
-destiny 3
-large 3
-whole 3
-loving 3
-disappoint 3
-upload 3
-pictures 3
-phenomenal 3
-expectations 3
-customer 3
-call 3
-duty 3
-download 3
-images 3
-felt 3
-trade 3
-care 3
-og 3
-night 3
-wonderful 3
-65 3
-annoying 3
-gon 3
-na 3
-cables 3
-grandson 3
-crisp 3
-couple 3
-apps 3
-port 3
-heat 3
-current 3
-offers 3
-equal 3
-disk 3
-double 3
-process 3
-originally 3
-remote 3
-hulu 3
-nor 3
-blue 3
-win 3
-per 3
-returning 3
-extended 3
-picked 3
-ran 3
-respond 3
-pure 3
-3.0 3
-offered 3
-done 3
-horsepower 3
-list 3
-bandicoot 3
-close 3
-3-4 3
-loses 3
-75 2
-cons 2
-ventilated 2
-button 2
-combo 2
-hands 2
-enjoyable 2
-experiences 2
-gta 2
-4ktv 2
-1s 2
-65-inch 2
-200 2
-improvement 2
-ur 2
-driveclub 2
-others 2
-likes 2
-constant 2
-claims 2
-whenever 2
-turns 2
-send 2
-upcoming 2
-optimized 2
-knock 2
-noted 2
-file 2
-choose 2
-miss 2
-backwards 2
-seamless 2
-holding 2
-particularly 2
-expanded 2
-components 2
-generally 2
-edition 2
-giving 2
-replacement 2
-opted 2
-gens 2
-beautifully 2
-switched 2
-stopped 2
-boring 2
-hated 2
-young 2
-brand 2
-holidays 2
-services 2
-channels 2
-spent 2
-school 2
-law 2
-him 2
-familiar 2
-nicer 2
-enjoyed 2
-con 2
-incapable 2
-plenty 2
-upscale 2
-max 2
-job 2
-significantly 2
-patches 2
-image 2
-regardless 2
-pro.i 2
-red 2
-helpful 2
-meaning 2
-superb 2
-exactly 2
-bummer 2
-tad 2
-clearer 2
-supported 2
-broke 2
-problems 2
-ask 2
-rooms 2
-releasing 2
-spring 2
-grizzly 2
-stronger 2
-50 2
-easier 2
-making 2
-obvious 2
-loudly 2
-floor 2
-saying 2
-details 2
-colors 2
-aware 2
-regrets 2
-honestly 2
-multiplayer 2
-laggy 2
-single 2
-result 2
-figured 2
-upscaling 2
-dark 2
-souls 2
-durable 2
-couch 2
-moment 2
-fluent 2
-produces 2
-convenient 2
-review 2
-gets 2
-menus 2
-together 2
-pros 2
-premium 2
-output 2
-eventually 2
-ways 2
-players 2
-55 2
-textures 2
-ordered 2
-ps4s 2
-prefer 2
-accounts 2
-child 2
-allow 2
-access 2
-sharper 2
-afford 2
-breeze 2
-buyer 2
-navigating 2
-500 2
-kingdom 2
-hearts 2
-penny 2
-repurchase 2
-frost 2
-previously 2
-experiencing 2
-fortnite 2
-awhile 2
-non-4k 2
-teenage 2
-lan 2
-crashed 2
-weeks 2
-required 2
-hotter 2
-stellar 2
-king 2
-curved 2
-randomly 2
-blowing 2
-network 2
-bundle 2
-type 2
-person 2
-sons 2
-resolutions 2
-wife 2
-unplug 2
-sending 2
-xboxs 2
-led 2
-fluid 2
-navigate 2
-ffxv 2
-whatever 2
-fans 2
-expect 2
-immersive 2
-included 2
-understand 2
-sampling 2
-detailed 2
-smoothness 2
-comparing 2
-purchases 2
-absolute 2
-reality 2
-costs 2
-10x 2
-blu-rays 2
-justified 2
-exceeded 2
-primary 2
-special 2
-reading 2
-leaps 2
-entire 2
-paired 2
-positive 2
-headset 2
-x900e 2
-framerate 2
-bounds 2
-biggest 2
-winter 2
-provide 2
-infamous 2
-lacking 2
-anymore 2
-appreciate 2
-crisper 2
-interesting 2
-upon 2
-allows 2
-adding 2
-looked 2
-beat 2
-ok 2
-itself 2
-hardly 2
-sitting 2
-hybrid 2
-gf 2
-co-op 2
-vizio 2
-combination 2
-vue 2
-obviously 2
-invest 2
-suggest 2
-late 2
-ratings 2
-dual 2
-shock 2
-aim 2
-shooter 2
-built 2
-speaker 2
-batteries 2
-versatile 2
-amazon 2
-array 2
-essential 2
-unresponsive 2
-advertised 2
-repeatedly 2
-connect 2
-100.00 2
-additional 1
-inch 1
-outstanding 1
-cooling 1
-warm 1
-provides 1
-taken 1
-inclusion 1
-touchpad 1
-moderate 1
-sized 1
-streamlined 1
-useable 1
-supply 1
-turned 1
-min 1
-pic 1
-introduced 1
-till 1
-bullet 1
-pre-existing 1
-pro.. 1
-.. 1
-justifying 1
-position 1
-replaced.. 1
-batman 1
-purposes 1
-realized 1
-route 1
-begin 1
-accidently 1
-assassins 1
-creed 1
-origins 1
-ans 1
-carve 1
-placement 1
-d 1
-charge 1
-automatically 1
-minute 1
-accept 1
-cd 1
-properly 1
-brazil 1
-reach 1
-travel 1
-sharp 1
-nicely 1
-greatly 1
-go-to 1
-2-3 1
-upclocked 1
-cpu 1
-camera 1
-unfortunately 1
-wasnt 1
-watered 1
-indeed 1
-head 1
-movements 1
-units 1
-prior 1
-blue-rays 1
-uhdbd 1
-arguably 1
-active 1
-sales 1
-jumping 1
-mid-gen 1
-answer 1
-desires 1
-bed 1
-earned 1
-exercise 1
-dispute 1
-moved 1
-solely 1
-19. 1
-baseball 1
-july 1
-2016. 1
-stop 1
-loop 1
-reset 1
-yea 1
-shot 1
-..but 1
-vast 1
-specifically 1
-behaved 1
-thus 1
-substantial 1
-icons 1
-abyx 1
-joystick 1
-unique 1
-prooof 1
-santa 1
-connectivity 1
-chance 1
-prove 1
-says 1
-extreme 1
-heard 1
-subscribe 1
-formats 1
-pleasing 1
-younger 1
-med 1
-bc 1
-left 1
-fronts 1
-multitasking 1
-hooking 1
-justice 1
-sooner 1
-albeit 1
-tremendous 1
-average 1
-fall 1
-worthwhile 1
-enthusiast 1
-tastes 1
-optional 1
-accoutrements 1
-appears 1
-grasping 1
-concepts 1
-manuals 1
-resources 1
-enhance 1
-learning 1
-in-store 1
-party 1
-broken 1
-2019 1
-justify 1
-consider 1
-trading 1
-halfway 1
-ratchet 1
-clank 1
-benefited 1
-following 1
-considered 1
-upping 1
-excelente 1
-reccomend 1
-js9000 1
-insane 1
-redemption.this 1
-created.the 1
-like.i 1
-employees 1
-greatest.always 1
-drakes 1
-fortune 1
-remastered 1
-boos 1
-flaw 1
-among 1
-smartest 1
-smart 1
-dual-band 1
-router 1
-ergonomic 1
-v 1
-fraction 1
-settle 1
-lesser 1
-equivalent 1
-tour 1
-1st 1
-x1s 1
-anyway 1
-eye 1
-candy 1
-potential 1
-devs 1
-utilize 1
-decade 1
-causing 1
-tiny 1
-ultimately 1
-specific 1
-clue 1
-2017. 1
-measure 1
-shape 1
-form 1
-paste 1
-kryonaut 1
-cheaped 1
-smaller 1
-chips 1
-heavy 1
-louad 1
-lateral 1
-internal 1
-technically 1
-gammer 1
-maximize 1
-bday 1
-transaction 1
-ejection 1
-c9 1
-unreal 1
-aint 1
-daddy 1
-rocks 1
-shortfall 1
-def 1
-outta 1
-water 1
-boots 1
-frequently 1
-million 1
-records 1
-importantly 1
-ol 1
-indy 1
-indy-scribable 1
-products 1
-successful 1
-healthy 1
-.snap 1
-magic 1
-directly 1
-sleep 1
-togo 1
-proper 1
-e3 1
-equipped 1
-silly 1
-separate 1
-flicks 1
-nb 1
-primarily 1
-visualization 1
-case 1
-unimpressed 1
-perks 1
-enhances 1
-seemed 1
-mmo 1
-adds 1
-swap 1
-fills 1
-hookup 1
-capture 1
-30fps 1
-thicker 1
-flash 1
-drives 1
-fit 1
-os 1
-spectacular 1
-sidelines 1
-performed 1
-reception 1
-sort 1
-joined 1
-field 1
-coupled 1
-car 1
-nearest 1
-rich 1
-quickly 1
-dramatically 1
-supplied 1
-shorted 1
-missed 1
-mgs4 1
-remaster 1
-helped 1
-kicks 1
-accessing 1
-additionally 1
-optimised 1
-quietly 1
-ship 1
-girlfriends 1
-aleutian 1
-islands 1
-controls 1
-communicate 1
-girlfriend 1
-mistake 1
-puting 1
-titles.and 1
-bonus 1
-seals 1
-supers 1
-ampling 1
-nevertheless 1
-regards 1
-prominent 1
-feeling 1
-story 1
-skipping 1
-bar 1
-ignore 1
-8500. 1
-2k 1
-laptop 1
-upgade 1
-connecting 1
-servers 1
-strongly 1
-console.just 1
-pro.you 1
-plus.i 1
-hisense 1
-.things 1
-lighting 1
-effects 1
-environment 1
-blew 1
-places 1
-jumped 1
-hour 1
-dock 1
-arent 1
-coworkers 1
-irritations 1
-struggles 1
-none 1
-electrically-fried 1
-non-slim 1
-7 1
-restoring 1
-seriously 1
-backed 1
-navigation 1
-supersampled 1
-universally 1
-roomate 1
-versus 1
-gladly 1
-flawlessly 1
-hangups 1
-pop 1
-stops 1
-relative 1
-bypass 1
-rated 1
-within 1
-starting 1
-ram 1
-reg 1
-outperforms 1
-wondering 1
-elsse 1
-say.. 1
-asks 1
-trick 1
-beginning 1
-die 1
-iii 1
-01 1
-29 1
-18. 1
-showcase 1
-searching 1
-web 1
-packed 1
-torn 1
-damaged 1
-500gb 1
-random 1
-caused 1
-fixed 1
-ff 1
-15. 1
-membership 1
-solidly 1
-finishing 1
-touches 1
-intense 1
-glitching 1
-daily 1
-girl 1
-sessions 1
-grew 1
-parties 1
-converted 1
-downtime 1
-wireless 1
-headphones 1
-score 1
-burned 1
-shut 1
-reboot 1
-exchanged 1
-hugest 1
-jump 1
-counts 1
-oddly 1
-rips 1
-dissipate 1
-overhaul 1
-cue 1
-respect 1
-virtually 1
-thin 1
-strip 1
-across 1
-acts 1
-btw 1
-860ish 1
-storages 1
-fyi 1
-doomed 1
-maker 1
-raw 1
-source 1
-@ 1
-350 1
-edges 1
-elegant 1
-prevues 1
-hub 1
-horrible 1
-overheating 1
-ejecting 1
-traded 1
-credit 1
-card 1
-phone 1
-somewhat 1
-scour 1
-migration 1
-tool 1
-saves 1
-timing 1
-deleting 1
-abilities 1
-dogs 1
-acceleration 1
-shooters 1
-throughly 1
-reward 1
-certificates 1
-common 1
-squeeze 1
-upsetting 1
-recall 1
-mancave 1
-chunk 1
-software 1
-flickers 1
-snow 1
-milliseconds 1
-becomes 1
-restart 1
-re- 1
-establish 1
-starts 1
-recieved 1
-brought 1
-discover 1
-notch 1
-shd 1
-background 1
-dualshok 1
-welcome 1
-playstations 1
-repair 1
-changing 1
-platform 1
-artifacts 1
-obligated 1
-sounds 1
-tube 1
-guarantee 1
-beats 1
-definite 1
-bandwidth 1
-favors 1
-simply 1
-roared 1
-jet 1
-engine 1
-non-stop 1
-challenging 1
-combat 1
-winners 1
-peace 1
-quibble 1
-task 1
-kept 1
-dropping 1
-signal 1
-rocketfish 1
-audioquest 1
-x. 1
-qled 1
-bout 1
-self 1
-mainly 1
-great. 1
-pa4 1
-ssaa 1
-method 1
-downscaled 1
-patch 1
-lets 1
-utilizes 1
-geek 1
-squad 1
-protection 1
-graphically 1
-seamlessly 1
-multi-task 1
-listening 1
-music 1
-littlebigplanet 1
-resogun 1
-activating 1
-thrown 1
-struck 1
-lightning 1
-resolved 1
-weary 1
-impeccable 1
-goes 1
-everytime 1
-25- 1
-30 1
-outrageous 1
-necessity 1
-rather 1
-tbh 1
-intriguing 1
-cares 1
-decent 1
-rig 1
-600+ 1
-intention 1
-checked 1
-aspects 1
-road 1
-careful 1
-putting 1
-enclosed 1
-spaces 1
-flickering 1
-code 1
-pulled 1
-trigger 1
-dreamed 1
-sucker 1
-nintendo 1
-switcc 1
-caveat 1
-tempered 1
-refreshing 1
-attempting 1
-catch 1
-assemble 1
-thanks 1
-financing 1
-guys 1
-nitpick 1
-despise 1
-lied 1
-wars 1
-battlefront 1
-platforms 1
-4k.this 1
-high-end 1
-nonetheless 1
-asus 1
-learn 1
-worthy 1
-spinning 1
-periods 1
-cuh-7200 1
-pleasantly 1
-learned 1
-versions 1
-group 1
-genres 1
-unmatched 1
-track 1
-color 1
-blacks 1
-brightness 1
-id 1
-frames 1
-wind 1
-tunnel 1
-donating 1
-door 1
-de 1
-bags 1
-un 1
-rapping 1
-drawbacks 1
-unlock 1
-hobby 1
-ta 1
-limited 1
-growing 1
-rays 1
-b.b 1
-world 1
-day1 1
-acting 1
-optical 1
-speak 1
-battlefield 1
-'pro 1
-249 1
-longed 1
-.mkv 1
-files 1
-h265 1
-niceties 1
-driving 1
-force 1
-puts 1
-decide 1
-349 1
-499 1
-madden 1
-18 1
-cleaned 1
-renders 1
-altogether 1
-'boost 1
-isuper 1
-definition 1
-orginal 1
-fundamentally 1
-logged 1
-told 1
-ultrahd 1
-total 1
-request 1
-birthdays 1
-resale 1
-responds 1
-slow 1
-complement 1
-differs 1
-connector 1
-backside 1
-expansion 1
-whereas 1
-ports 1
-seeking 1
-i.e. 1
-versatility 1
-se 1
-handful 1
-marked 1
-shell 1
-mid-generation 1
-featured 1
-faux 1
-pas 1
-optimization 1
-shine 1
-believer 1
-contrast 1
-tcl 1
-p 1
-heads 1
-uograded 1
-motherboard 1
-against 1
-judgment 1
-necessary 1
-spends 1
-thousand 1
-baseline 1
-certainly 1
-considerably 1
-terribly 1
-dramatic 1
-warrent 1
-incentives 1
-negligible 1
-partner 1
-suppose 1
-bombed 1
-brings 1
-predictable 1
-crazy 1
-keeping 1
-xb1x 1
-pushing 1
-advertise 1
-select 1
-steroids 1
-shorter 1
-under 1
-hood 1
-fox 1
-wishing 1
-tasks 1
-outputting 1
-surprising 1
-necessities 1
-consumers 1
-thoroughly 1
-return 1
-financial 1
-circumstances 1
-virtual 1
-switching 1
-knowledge 1
-anger 1
-earning 1
-name 1
-pre-order 1
-m55-e0 1
-w 1
-it.. 1
-land 1
-obsolete 1
-pair 1
-provided 1
-brightest 1
-2011 1
-xb1 1
-above 1
-brilliant 1
-alot 1
-edge 1
-hanging 1
-tight 1
-project 1
-existing 1
-swine 1
-hopping 1
-forth 1
-intended 1
-bounce 1
-blast 1
-create 1
-17. 1
-wii 1
-u 1
-add-ons 1
-inserting 1
-taking 1
-msrp 1
-delve 1
-must-have 1
-nauseating 1
-lifelike 1
-up-gradable 1
-component 1
-wise 1
-rpg 1
-designed 1
-excelled 1
-reached 1
-benchmark 1
-technical 1
-bucome 1
-walmart 1
-3-year 1
-39 1
-demanding 1
-useful 1
-reassuring 1
-plalyable 1
-that..lol 1
-vs 1
-fanboy 1
-kid 1
-careered 1
-industry 1
-creates 1
-beyond 1
-area 1
-placed 1
-nervous 1
-term 1
-temperatures 1
-push 1
-splurged 1
-heck 1
-is.. 1
-incorporated 1
-rating 1
-stepson 1
-lego 1
-jurassic 1
-park 1
-develops 1
-foray 1
-cutting 1
-treating 1
-wonder 1
-guardian 1
-unable 1
-blogs 1
-cards 1
-downloads 1
-remaking 1
-held 1
-future-proof 1
-no-brainer 1
-streaming.i 1
-oicture 1
-seagate 1
-backup 1
-ghost 1
-recon 1
-elder 1
-scrolls 1
-perfection 1
-compact 1
-uprgrade 1
-newest 1
-advice 1
-depth 1
-concerning 1
-skeptical 1
-fool 1
-adopter 1
-syndrom 1
-c7 1
-replaying 1
-holds 1
-gow 1
-advantages 1
-desperately 1
-uve 1
-antenna 1
-local 1
-stations- 1
-sits 1
-palm 1
-slips 1
-models 1
-cheaply 1
-competitors 1
-bland 1
-keeps 1
-crashing 1
-browsing.. 1
-trailer 1
-cord 1
-3x 1
-console.. 1
-prob 1
-refurbished 1
-crap 1
-tho 1
-hence 1
-850 1
-upscaled 1
-ops 1
-admit 1
-mom 1
-subtle 1
-birthday 1
-anazing 1
-function 1
-copied 1
-425gb 1
-90 1
-upscales 1
-disks 1
-bundled 1
-companies 1
-lowest 1
-minimum 1
-paying 1
-300- 1
-welcomed 1
-duo 1
-refresh 1
-initial 1
-differential 1
-overly 1
-middle 1
-rdr2 1
-scenery 1
-realise 1
-disable 1
--_- 1
-lineup 1
-[ 1
-] 1
-downsides 1
-worse 1
-buggy 1
-rent 1
-grade 1
-sleeker 1
-piano 1
-section 1
-core 1
-chip 1
-do-ca 1
-comment 1
-avoid 1
-buyers 1
-remorse 1
-attempt 1
-1080 1
-follow 1
-installed 1
-confusing 1
-cryptic 1
-tough 1
-luck 1
-accommodate 1
-thumbs 1
-crushed 1
-annoyed 1
+i 41982 0
+. 39544 0
+the 33052 0
+and 25531 0
+, 20218 0
+it 20036 0
+to 18635 0
+have 17457 0
+a 15652 0
+is 14093 0
+this 12744 0
+not 12694 0
+for 11167 0
+my 9417 0
+in 8470 0
+was 7423 0
+one 7360 1
+with 7154 0
+of 6899 0
+you 6797 0
+ps4 6575 1
+pro 6349 1
+4k 5804 0
+that 5708 0
+but 5677 0
+! 5559 0
+had 5337 0
+games 4897 1
+bought 4744 0
+buy 4649 1
+play 4572 1
+since 4537 0
+best 4008 0
+ever 3996 0
+are 3939 0
+so 3930 0
+got 3834 0
+ca 3820 0
+great 3736 0
+love 3685 0
+on 3666 0
+am 3650 0
+all 3580 0
+graphics 3474 1
+system 3458 1
+playstation 3445 1
+shipping 3387 0
+if 3379 0
+more 3303 0
+can 3238 0
+xbox 3150 1
+some 3094 0
+just 2992 0
+even 2970 0
+at 2886 0
+any 2816 0
+) 2735 0
+gaming 2706 1
+( 2689 0
+tv 2615 1
+get 2554 0
+worth 2361 0
+or 2341 0
+do 2317 0
+been 2270 0
+out 2238 0
+4 2236 0
+only 2198 0
+new 2149 0
+time 2127 1
+console 2125 1
+has 2116 0
+purchased 2097 0
+an 2071 0
+now 2061 0
+as 2040 0
+fast 2021 0
+well 2006 0
+up 1999 0
+first 1985 0
+very 1952 0
+able 1916 0
+game 1891 1
+everything 1868 1
+how 1853 0
+did 1853 0
+purchase 1812 1
+update 1804 1
+will 1760 0
+though 1741 0
+would 1735 0
+finally 1700 0
+every 1690 0
+come 1677 0
+updates 1674 1
+power 1670 1
+good 1648 0
+100 1638 0
+online 1638 1
+loved 1631 0
+came 1618 0
+home 1607 1
+definitely 1583 0
+dont 1571 0
+them 1545 0
+start 1538 0
+takes 1527 0
+small 1520 0
+better 1516 0
+gb 1512 0
+tired 1511 0
+point 1510 1
+much 1509 0
+8 1509 0
+comparison 1507 1
+life 1504 0
+complete 1504 0
+hrs 1502 0
+seen 1498 0
+pay 1491 0
+performs 1488 0
+store 1483 1
+upgrade 1479 1
+believe 1478 0
+fastest 1451 0
+shop 1447 0
+ps3 1389 1
+than 1362 0
+playing 1338 0
+when 1331 0
+played 1295 0
+we 1268 0
+then 1257 0
+never 1246 0
+be 1242 0
+its 1232 0
+because 1199 0
+want 1195 0
+gamer 1174 1
+psvr 1168 1
+vr 1164 1
+wanted 1153 0
+about 1153 0
+other 1141 0
+hdr 1136 1
+times 1119 1
+few 1118 0
+sony 1116 0
+ps2 1107 1
+pc 1104 1
+go 1097 0
+where 1095 0
+something 1085 1
+package 1062 0
+order 1060 1
+already 1056 0
+own 1055 0
+make 1044 0
+owned 1040 0
+pleased 1039 0
+from 1031 0
+ps 1030 0
+which 1026 0
+amazing 1014 0
+pick 1014 1
+down 1011 0
+try 1003 0
+upgrading 998 0
+awesome 998 0
+... 992 0
+avid 980 0
+coming 974 0
+classic 974 0
+forever 974 0
+destroys 969 0
+what 965 0
+getting 964 0
+put 948 0
+your 925 0
+recommend 923 0
+delivered 922 0
+need 918 1
+continue 917 0
+glitches 914 0
+promised 913 0
+hiccups 910 0
+returns 909 1
+stream 904 0
+especially 888 0
+way 878 1
+upgraded 876 0
+gameplay 861 1
+1 850 0
+take 850 0
+works 847 1
+like 846 0
+say 846 0
+hesitant 840 0
+- 839 0
+really 836 0
+1080p 819 0
+these 819 0
+advantage 818 1
+disappointed 810 0
+enough 808 0
+being 806 0
+also 794 0
+someone 785 1
+truly 770 0
+reason 769 1
+added 765 0
+me 763 0
+processing 763 0
+hardware 760 1
+immediately 759 0
+functionality 754 0
+next-gen 746 0
+videos 744 1
+youtube 740 0
+look 735 1
+run 732 1
+t.v 732 0
+does 731 0
+wants 731 0
+experienced 724 0
+there 720 0
+decided 720 0
+fault 720 0
+server 718 0
+twitch 717 0
+always 716 0
+decreased 716 0
+freezing 716 0
+top-notch 715 0
+crashes 714 0
+intensive 714 0
+model 650 1
+no 649 0
+quality 647 1
+find 646 0
+difference 639 1
+issues 630 1
+faster 620 0
+far 620 0
+controller 618 1
+recently 611 0
+he 608 0
+regular 607 0
+they 575 0
+use 574 1
+nice 554 0
+performance 552 1
+house 534 1
+easy 532 0
+looks 507 1
+fine 503 0
+after 502 0
+today 502 0
+many 499 0
+runs 492 1
+vs. 489 0
+instead 482 0
+see 470 0
+product 466 1
+problem 463 1
+box 453 1
+son 453 0
+old 443 0
+price 414 1
+his 413 0
+boost 411 1
+video 411 1
+extra 406 0
+happy 406 0
+control 405 0
+over 401 0
+loves 401 0
+damage 400 0
+throw 398 0
+machine 393 1
+experience 392 1
+picture 379 1
+original 377 0
+still 365 0
+kids 347 1
+must 337 0
+support 336 1
+$ 333 0
+storage 326 1
+took 323 0
+money 323 1
+made 314 0
+set 308 0
+memory 305 1
+too 305 0
+yet 304 0
+looking 299 0
+horizon 297 1
+gift 297 1
+1tb 293 0
+black 290 0
+wait 290 0
+player 287 1
+consoles 287 1
+excellent 287 0
+speed 286 1
+hard 285 0
+highly 285 0
+lot 284 1
+before 283 0
+makes 280 0
+most 273 0
+hd 272 1
+tell 270 0
+friend 269 1
+high 267 0
+content 266 1
+cable 264 1
+drive 264 1
+bigger 264 0
+know 262 0
+sound 262 1
+loud 257 0
+thing 255 1
+years 253 1
+movies 252 1
+check 251 0
+sure 251 1
+family 247 1
+into 246 0
+fun 244 0
+load 242 1
+space 237 1
+another 237 0
+uhd 236 1
+gotten 234 0
+by 232 0
+version 231 1
+however 230 0
+may 227 0
+mode 224 1
+enjoy 224 0
+previous 223 0
+2 223 0
+fantastic 223 0
+surprise 223 1
+used 220 0
+could 218 0
+said 217 0
+resolution 215 1
+convinced 215 0
+christmas 213 1
+enthusiasts 213 0
+haven 211 0
+perfect 207 0
+smoothly 206 0
+slim 206 1
+fan 203 1
+seems 202 0
+s 202 0
+powerful 201 0
+little 199 0
+overall 199 0
+going 199 0
+display 198 1
+who 198 0
+screen 195 1
+least 195 0
+'' 193 0
+wish 193 0
+surround 193 1
+glad 191 0
+next 191 0
+feel 191 0
+quick 189 0
+live 189 0
+features 188 1
+exclusive 188 1
+long 187 0
+? 187 0
+titles 186 1
+netflix 185 1
+soon 185 0
+usually 183 0
+without 181 0
+3 181 0
+internet 180 1
+hdmi 179 1
+tvs 178 1
+zero 178 0
+helps 178 0
+almost 176 0
+ray 176 1
+bit 176 1
+between 176 0
+gives 175 0
+having 174 0
+our 172 0
+beware 171 0
+noticeable 171 0
+things 171 1
+beautiful 171 0
+dawn 170 1
+base 169 0
+frame 168 1
+might 168 0
+connection 168 1
+digital 168 0
+seem 167 0
+thought 166 0
+fix 165 0
+ability 165 1
+day 165 1
+off 164 0
+using 164 0
+size 163 1
+honestly 162 0
+`` 160 0
+uncharted 159 0
+compare 158 0
+super 158 0
+supports 158 1
+streaming 156 0
+both 154 0
+give 154 0
+huge 154 0
+issue 154 1
+standard 152 1
+absolutely 152 0
+beast 152 0
+downfall 151 0
+plays 150 1
+cause 149 0
+cant 149 0
+plugged 148 0
+reviews 148 1
+updated 147 0
+exclusives 147 1
+smooth 147 0
+handy 147 0
+plus 147 0
+quiet 146 0
+connected 144 0
+ui 143 0
+year 143 1
+last 143 0
+final 143 0
+while 142 1
+husband 142 0
+solid 142 0
+fantasy 141 1
+item 141 0
+dvds 140 1
+clear 140 0
+8.5gb 140 0
+45minutes 140 0
+finish 140 0
+blu 139 1
+setup 138 1
+gorgeous 137 0
+months 137 1
+hate 137 0
+blurays 136 1
+blu-ray 136 0
+seconds 136 0
+older 136 0
+benefit 136 0
+read 136 0
+noticeably 136 0
+unit 135 1
+regret 135 0
+television 135 1
+thats 134 0
+processor 134 1
+compatible 134 0
+right 134 0
+involved 134 0
+friends 132 1
+line 132 0
+nothing 131 1
+choice 131 0
+test 131 0
+doubt 131 0
+xv 131 0
+big 130 0
+glitchy 128 0
+buying 128 0
+graphical 128 0
+connects 128 0
+tag 128 0
+likely 127 0
+stand 127 1
+stereo 127 0
+should 126 0
+anything 126 1
+odd 126 0
+purchasing 125 0
+mean 124 0
+honest 123 0
+lots 123 1
+faulty 123 0
+based 122 0
+back 120 0
+improved 120 0
+news 120 0
+visuals 119 1
+station 119 1
+once 119 0
+reviewers 118 0
+announced 118 0
+rates 117 1
+6 117 0
+pspro 117 0
+future 116 1
+keep 116 0
+particular 116 0
+managed 115 0
+ante 115 0
+floating 115 0
+announce 115 0
+fence 114 1
+available 113 0
+think 113 0
+systems 112 1
+hours 112 1
+gamers 111 1
+friday 111 1
+comes 110 0
+their 110 0
+those 110 0
+working 109 0
+running 109 0
+noticed 109 0
+quieter 108 1
+smoother 107 0
+enjoying 107 0
+notice 105 0
+thank 104 0
+thinking 104 0
+expected 103 0
+hopefully 103 0
+needed 102 0
+anyone 100 1
+frames-per-second 100 0
+satisfied 99 0
+date 99 1
+main 99 0
+sad 99 0
+same 99 0
+pass 99 0
+full 98 0
+deal 97 1
+wrong 97 0
+options 97 1
+were 97 0
+bottom 97 0
+through 95 0
+complaint 95 1
+ago 95 0
+x 94 0
+although 94 0
+investment 94 0
+market 93 1
+given 93 0
+work 92 1
+us 92 0
+watch 92 0
+technology 92 1
+show 91 0
+& 91 0
+again 91 0
+pretty 91 0
+400 91 0
+oled 91 0
+change 91 0
+went 89 0
+samsung 89 0
+everyone 89 1
+fact 88 1
+children 88 0
+entertainment 87 1
+latest 87 0
+noise 87 0
+found 86 0
+received 86 0
+4:4:4 86 0
+complain 85 0
+launch 84 1
+improvements 84 1
+top 84 0
+view 84 0
+movie 83 1
+completely 83 0
+terrific 83 0
+real 83 0
+compared 82 0
+: 82 0
+recommended 82 0
+often 82 0
+setting 82 1
+compliment 82 0
+different 81 0
+switch 81 1
+improvement 80 1
+device 80 1
+ultra 79 0
+during 79 0
+stay 79 0
+half 79 0
+incredible 78 0
+waiting 78 0
+important 78 0
+service 77 0
+app 77 0
+problems 77 1
+people 77 1
+state 77 0
+graphic 77 1
+steaming 77 0
+actually 76 0
+else 76 0
+needs 76 1
+5 75 0
+design 75 1
+three 75 0
+cheaper 74 0
+hardcore 74 0
+easily 73 0
+consistent 73 0
+opportunity 73 0
+higher 72 0
+enhanced 72 0
+surprised 72 0
+enhancements 72 1
+funds 72 0
+non 72 0
+cool 72 0
+native 71 0
+capable 71 0
+hdd 71 1
+probably 71 0
+loving 71 0
+seeing 71 0
+tech 71 1
+download 70 0
+waste 70 0
+changed 70 0
+user 69 0
+option 69 1
+present 69 0
+replace 69 0
+mind 69 0
+happening 69 0
+astounding 69 0
+desire 69 0
+mindful 69 0
+normally 69 0
+room 68 1
+happened 68 0
+neither 68 0
+parent 68 0
+conversations 68 0
+discs 67 1
+receive 67 0
+whole 67 0
+sounded 67 0
+operating 67 0
+spark 67 0
+capabilities 66 1
+initially 66 0
+note 66 0
+built 66 0
+gpu 65 0
+loading 65 0
+fully 64 0
+% 64 0
+several 64 0
+apps 64 0
+hbo 64 0
+2.0 64 0
+quite 63 0
+watching 63 0
+wo 63 0
+second 63 0
+list 63 0
+developers 63 0
+dragon 63 0
+quest 63 0
+heroes 63 0
+aside 63 0
+less 62 0
+stunning 62 0
+monitor 62 1
+light 62 0
+capability 62 1
+extremely 61 0
+help 61 0
+release 61 1
+two 61 0
+early 61 0
+plenty 61 0
+generation 61 1
+blue 61 0
+step 61 0
+birthday 61 0
+twice 61 0
+needless 61 0
+relief 61 0
+basic 60 0
+front 60 0
+buttons 60 1
+casual 60 0
+handle 60 0
+scary 60 0
+breathed 60 0
+sigh 60 0
+atmos 60 1
+boyfriend 60 0
+along 59 0
+true 59 0
+dvd 59 1
+lag 59 1
+benefits 59 0
+until 58 0
+otherwise 58 0
+perfectly 58 0
+clean 58 0
+war 57 1
+downside 57 0
+such 57 0
+totally 57 0
+complaints 56 1
+60fps 56 0
+started 56 0
+settings 56 1
+bad 56 0
+myself 55 0
+wow 55 0
+; 55 0
+rate 55 1
+sale 55 1
+ive 55 0
+grandson 55 0
+daughter 55 0
+supposed 55 0
+god 54 1
+why 54 0
+eject 54 1
+add 54 0
+planning 54 0
+mostly 53 0
+him 53 0
+mine 53 0
+low 53 0
+framerates 53 0
+paired 53 0
+dual 53 0
+she 53 0
+enjoyed 52 0
+speaker 52 1
+microsoft 52 0
+addition 51 0
+checkerboard 51 0
+around 51 0
+wonderful 51 0
+crisp 51 0
+sold 51 0
+terabyte 51 1
+shock 51 0
+interface 50 1
+detail 50 1
+raider 50 1
+loads 50 1
+week 50 0
+warranty 50 1
+yeah 50 0
+ratings 50 0
+batteries 50 0
+actual 50 0
+tomb 49 0
+lower 49 0
+lol 49 0
+days 48 1
+happier 48 0
+forward 48 0
+stuff 48 1
+image 48 0
+disc 48 1
+buys 48 1
+tb 48 1
+aim 48 0
+shooter 48 0
+thru 48 1
+receiver 48 1
+side 48 0
+hands 47 1
+save 47 0
+wifi 47 0
+brother 47 0
+eyes 47 1
+job 47 1
+normal 47 0
+matter 47 0
+outstanding 47 0
+selection 47 0
+150 47 0
+buck 47 1
+larger 46 0
+gen 46 1
+tried 46 0
+greatest 46 0
+lack 45 1
+install 45 0
+favorite 45 0
+alarming 45 0
+doing 45 0
+audio 45 0
+tricky 45 0
+.. 44 0
+unless 44 0
+certain 44 0
+bluray 44 1
+specs 44 0
+worked 44 0
+focus 44 0
+signals 44 1
+clarity 44 1
+lives 44 0
+man 44 1
+ready 43 0
+stars 43 1
+says 43 0
+friendly 43 0
+gets 43 0
+tend 43 0
+pause 43 0
+ps5 43 1
+av 43 0
+pass-thru 43 0
+information 43 0
+others 42 0
+decision 42 1
+gave 42 0
+everyday 42 0
+here 42 0
+guy 42 0
+color 42 1
+example 42 1
+bestbuy 42 0
+exited 42 0
+inform 42 0
+done 42 0
+away 41 0
+possible 41 0
+theater 41 1
+expectations 41 1
+stable 41 0
+stick 41 0
+free 41 0
+u 41 0
+hype 41 0
+feels 40 0
+choose 40 0
+exactly 40 0
+alone 40 0
+cost 40 1
+goes 40 0
+wanting 39 0
+significant 39 0
+feature 39 1
+simple 39 0
+library 39 0
+customer 39 0
+penny 39 0
+lost 39 0
+thanks 39 0
+world 39 0
+visually 39 0
+end 38 1
+replaced 38 0
+increased 38 0
+im 38 0
+speeds 38 1
+let 38 0
+tons 38 1
+output 38 0
+level 38 0
+10 38 0
+enjoys 38 0
+returned 38 0
+sports 37 1
+refined 37 0
+impressed 37 0
+month 37 1
+research 37 0
+isnt 37 0
+sleek 37 0
+platform 37 1
+silent 37 0
+firmware 37 0
+hooked 36 0
+either 36 0
+excited 36 0
+disappoint 36 0
+nephew 36 0
+provides 35 0
+ps4pro 35 0
+slightly 35 0
+waited 35 0
+spend 35 0
+rise 35 0
+lg 35 0
+released 35 0
+brought 35 0
+data 34 1
+edition 34 0
+currently 34 0
+increase 34 0
+major 34 0
+whether 34 0
+unlocked 34 0
+transfer 34 0
+newer 34 0
+range 34 0
+due 34 0
+picked 34 0
+kid 34 1
+standards 34 1
+improve 33 0
+likes 33 0
+upgrades 33 1
+switched 33 0
+value 33 0
+owner 33 1
+media 33 1
+65 33 0
+necessarily 33 0
+race 33 0
+15 32 0
+helpful 32 0
+colors 32 1
+offer 32 0
+functions 32 0
+wont 32 0
+itself 32 0
+realistic 32 0
+assuming 32 0
+proof 32 0
+spider-man 32 0
+doesnt 31 0
+ones 31 1
+opinion 31 1
+despite 31 0
+monster 31 0
+amazed 31 0
+brainer 31 0
+alot 31 1
+offers 31 0
+mention 31 0
+bd 31 1
+invented 31 0
+competitor 31 0
+hurt 31 0
+course 30 1
+trying 30 0
+external 30 0
+upscale 30 0
+products 30 1
+keeps 30 0
+bundle 30 0
+skipped 30 0
+shortsighted 30 0
+9000 30 0
+enhancements.am 30 0
+voiding 30 0
+99.9 30 0
+.some 30 0
+visual 29 0
+personally 29 0
+part 29 0
+terms 29 1
+stop 29 0
+broke 29 0
+fps 29 0
+network 29 1
+capacity 29 0
+shows 29 0
+slight 29 0
+liked 29 0
+impressive 28 0
+amount 28 1
+1st 28 0
+sometimes 28 0
+quickly 28 0
+review 28 1
+together 28 0
+dynamic 28 0
+her 28 0
+suggest 28 0
+4. 28 0
+bunch 28 0
+k 28 0
+fidelity 27 0
+hook 27 0
+dollars 27 0
+died 27 0
+large 27 0
+expect 27 0
+headset 27 1
+necessary 27 0
+showing 27 0
+hope 26 0
+living 26 1
+hdr10 26 0
+superior 26 0
+kind 26 1
+smart 26 0
+quicker 26 0
+complaining 26 0
+downloads 26 1
+controllers 25 1
+hot 25 0
+images 25 0
+usb 25 0
+prefer 25 0
+traded 25 0
+definition 25 0
+maybe 24 0
+ease 24 0
+place 24 0
+spent 24 0
+ask 24 0
+easier 24 0
+phenomenal 24 0
+couple 24 0
+longer 24 0
+except 24 0
+sons 24 0
+wife 24 0
+boosts 24 1
+' 24 0
+etc 24 0
+expensive 24 0
+combined 24 0
+near 23 0
+compatibility 23 0
+non-hdr 23 0
+star 23 1
+upscaling 23 0
+depends 23 0
+plan 23 0
+boys 23 0
+looked 23 0
+noting 23 0
+missing 23 0
+sharp 22 0
+menu 22 1
+2nd 22 0
+brand 22 0
+competition 22 0
+yes 22 0
+making 22 0
+knew 22 0
+trade 22 0
+care 22 0
+controls 22 0
+current 22 0
+definite 22 0
+chose 22 0
+advertised 22 0
+crazy 22 0
+allows 22 0
+yourself 22 0
+series 21 0
+serious 21 0
+backwards 21 1
+past 21 0
+20 21 0
+def 21 0
+call 21 1
+duty 21 0
+night 21 1
+ordered 21 0
+na 21 0
+port 21 0
+wireless 21 0
+disk 21 1
+ahead 21 0
+understand 21 0
+mainly 21 0
+including 21 0
+inch 21 0
+uses 21 0
+beat 21 0
+deciding 21 0
+owning 20 0
+results 20 0
+pictures 20 1
+details 20 1
+regrets 20 0
+effects 20 0
+sharper 20 0
+500gb 20 0
+double 20 0
+person 20 0
+notch 20 0
+remote 20 0
+hulu 20 0
+simply 20 0
+included 20 0
+rays 20 1
+” 20 0
+w 20 0
+boy 20 0
+variety 20 0
+staff 20 0
+connect 20 1
+amazon 20 1
+later 19 0
+360 19 0
+sense 19 0
+x-box 19 0
+rocks 19 0
+adds 19 0
+og 19 0
+bonus 19 0
+spending 19 0
+matters 19 0
+close 19 0
+ok 19 0
+ssd 19 1
+inbox 19 0
+offered 19 0
+ages 19 0
+delivers 19 0
+flawless 18 0
+differences 18 1
+superb 18 0
+clearer 18 1
+each 18 0
+unreal 18 0
+ended 18 0
+basically 18 0
+access 18 0
+awhile 18 0
+heat 18 0
+playstations 18 0
+navigate 18 0
+fans 18 1
+beats 18 0
+jet 18 0
+equipment 18 0
+unbelievable 18 0
+models 18 1
+performances 18 1
+mlb 17 0
+blows 17 0
+50 17 0
+destiny 17 0
+ks8000 17 0
+build 17 0
+allowed 17 0
+framerate 17 0
+optical 17 0
+battlefield 17 0
+condition 17 0
+1080 17 0
+virtual 17 0
+pair 17 0
+vue 17 0
+beyond 17 0
+brings 17 0
+slow 17 0
+opened 17 0
+preferred 17 0
+busy 17 0
+vs 17 0
+enjoyable 16 0
+move 16 0
+literally 16 0
+hear 16 0
+single 16 0
+touch 16 0
+players 16 1
+allow 16 0
+within 16 0
+downloading 16 0
+cash 16 0
+kinda 16 0
+reality 16 0
+nintendo 16 0
+response 16 0
+3d 16 0
+besides 16 0
+playback 16 0
+taking 16 0
+responsive 16 0
+woudnt 16 0
+semi 16 0
+developer 16 0
+electronics 16 0
+horsepower 16 0
+owners 15 1
+dropped 15 0
+please 15 0
+turn 15 0
+greatly 15 0
+cpu 15 0
+center 15 1
+spiderman 15 0
+giving 15 0
+replacement 15 0
+specifically 15 0
+beautifully 15 0
+stopped 15 0
+chance 15 1
+insane 15 0
+dead 15 0
+utilize 15 0
+account 15 1
+felt 15 0
+reliable 15 0
+500 15 0
+weeks 15 0
+include 15 0
+card 15 0
+guess 15 0
+kept 15 0
+entire 15 0
+sweet 15 0
+anymore 15 0
+action 15 0
+additional 15 0
+newest 15 0
+disks 15 1
+tho 15 0
+49x900e 15 0
+freaking 15 0
+hdtv 15 1
+stock 15 0
+fifa 15 0
+hoping 15 0
+told 15 0
+warrant 15 0
+pic 14 0
+optimized 14 0
+seamless 14 0
+ps1 14 1
+bedroom 14 0
+services 14 0
+prices 14 1
+399 14 0
+supported 14 0
+2tb 14 0
+figured 14 0
+moment 14 0
+dashboard 14 0
+psvue 14 0
+none 14 0
+gon 14 0
+previously 14 0
+process 14 0
+originally 14 0
+music 14 0
+decent 14 0
+sucks 14 0
+debating 14 0
+obviously 14 0
+match 14 0
+piece 14 0
+thoroughly 14 0
+age 14 0
+fits 14 0
+button 13 1
+experiences 13 1
+considering 13 0
+noticable 13 0
+2017 13 0
+difficult 13 0
+scorpio 13 0
+rendering 13 0
+cod 13 0
+internal 13 0
+catalogue 13 0
+ways 13 1
+ps4s 13 0
+child 13 0
+breeze 13 0
+sell 13 0
+white 13 0
+jump 13 0
+software 13 0
+engine 13 0
+x. 13 0
+win 13 0
+exceeded 13 0
+ps4-pro 13 0
+buyers 13 0
+improves 13 0
+accessories 13 0
+vivid 13 0
+hubby 13 0
+vizio 13 0
+1. 13 0
+streams 13 0
+late 13 0
+flawlessly 13 0
+60 13 0
+computer 13 0
+baffling 12 0
+4ktv 12 0
+till 12 0
+prior 12 0
+worry 12 0
+sooner 12 0
+nicer 12 0
+physical 12 0
+number 12 0
+case 12 1
+stronger 12 0
+leap 12 0
+produces 12 0
+helped 12 0
+eventually 12 0
+hearts 12 0
+web 12 0
+fortnite 12 0
+required 12 0
+detailed 12 0
+minutes 12 0
+special 12 0
+reading 12 0
+versions 12 1
+limited 12 0
+ran 12 0
+follow 12 0
+member 12 0
+under 12 0
+plug 12 0
+ton 12 1
+xmas 12 0
+versatile 12 0
+knowledgeable 12 0
+pricey 12 0
+usual 12 0
+awsome 12 0
+crystal 11 0
+expecting 11 0
+s. 11 0
+gone 11 0
+figure 11 0
+nicely 11 0
+connectivity 11 1
+enhance 11 0
+potential 11 0
+oh 11 0
+sorry 11 0
+heavy 11 0
+bday 11 0
+multiplayer 11 0
+pros 11 1
+signed 11 0
+35 11 0
+55 11 0
+7 11 0
+cables 11 1
+daily 11 0
+headphones 11 1
+stellar 11 0
+welcome 11 0
+lightning 11 0
+costs 11 1
+frames 11 1
+ta 11 0
+bravia 11 0
+remorse 11 0
+exceeds 11 0
+complicated 11 0
+thumbs 11 0
+hold 11 0
+exceptional 11 0
+thrilled 11 0
+via 11 0
+negative 11 0
+holds 11 0
+grafics 11 0
+n 11 0
+asked 11 0
+saw 11 0
+cooler 11 0
+aspect 11 0
+12 11 0
+bf 11 0
+hit 11 0
+face 11 0
+crisper 11 0
+-- 11 0
+specially 11 0
+upscales 11 0
+effect 11 0
+four 11 0
+comfortable 10 0
+knows 10 0
+similar 10 0
+format 10 1
+become 10 0
+sales 10 1
+holding 10 0
+worthwhile 10 0
+recent 10 0
+party 10 0
+significantly 10 0
+red 10 0
+anyway 10 0
+shape 10 0
+spectacular 10 0
+convenient 10 0
+missed 10 0
+strongly 10 0
+annoying 10 0
+kingdom 10 0
+teenage 10 0
+abilities 10 1
+whatever 10 0
+louder 10 0
+blu-rays 10 0
+rarely 10 0
+rid 10 0
+appreciate 10 0
+decide 10 0
+avoid 10 0
+crash 10 0
+matched 10 0
+characters 10 0
+viewing 10 0
+wise 10 0
+“ 10 0
+okay 10 0
+total 10 0
+explain 10 0
+cheap 10 0
+return 10 1
+provided 10 0
+recomend 10 0
+efficient 10 0
+displays 10 1
+upscaled 10 0
+greater 10 0
+words 10 0
+strong 10 0
+400+ 10 0
+gta 9 0
+saving 9 0
+upcoming 9 0
+expanded 9 0
+moved 9 0
+holidays 9 1
+heard 9 0
+left 9 0
+2019 9 0
+smaller 9 0
+regardless 9 0
+compete 9 0
+selling 9 0
+water 9 0
+upload 9 0
+knowing 9 0
+premium 9 0
+story 9 0
+connecting 9 0
+multi 9 0
+ffxv 9 0
+signal 9 1
+75 9 0
+qled 9 0
+per 9 0
+rather 9 0
+learn 9 0
+provide 9 0
+amazingly 9 0
+open 9 0
+didnt 9 0
+operate 9 0
+hoped 9 0
+enabled 9 0
+interesting 9 0
+3rd 9 0
+adults 9 0
+short 9 0
+fiancé 9 0
+bucks 9 1
+shelf 9 1
+frustrating 9 0
+sleeker 9 0
+advanced 9 0
+pop 9 0
+b 9 0
+whatsoever 9 0
+handles 9 0
+adding 9 0
+drop 9 0
+paying 9 0
+consol 9 0
+refresh 9 0
+devices 9 1
+skeptical 9 0
+delivery 9 0
+pairs 9 0
+multiple 9 0
+downloaded 9 0
+grandkids 9 0
+picking 9 0
+blown 9 0
+5g 9 0
+lacks 9 1
+combo 8 0
+weekend 8 0
+vast 8 0
+con 8 0
+non-4k 8 0
+reccomend 8 0
+aware 8 0
+perks 8 0
+enhances 8 0
+starting 8 0
+beginning 8 0
+king 8 0
+overheating 8 0
+blowing 8 0
+type 8 0
+fluid 8 0
+30 8 0
+puts 8 0
+madden 8 0
+bring 8 0
+attempt 8 0
+yr 8 0
+grandchildren 8 0
+entertained 8 0
+drawback 8 0
+depth 8 0
+five 8 0
+above 8 0
+minor 8 0
+cut 8 1
+gui 8 0
+rdr2 8 0
+t 8 0
+switching 8 0
+perform 8 0
+favor 8 0
+it.. 8 0
+noisy 8 0
+lineup 8 0
+psn 8 0
+realize 8 0
+imo 8 0
+points 8 1
+packaged 8 0
+interested 8 0
+ports 8 0
+combination 8 0
+intended 8 0
+lifelike 8 0
+xbox1 8 0
+excelent 8 0
+slick 8 0
+heavier 8 0
+installation 8 0
+omg 8 0
+themselves 8 0
+17 8 0
+arrived 8 0
+intuitive 8 0
+extras 8 0
+everybody 8 0
+changes 8 0
+input 7 1
+turned 7 0
+ur 7 0
+pad 7 0
+charge 7 0
+cd 7 1
+send 7 0
+unfortunately 7 0
+miss 7 0
+reasons 7 1
+components 7 1
+opted 7 0
+thus 7 0
+school 7 0
+law 7 0
+search 7 0
+broken 7 0
+1440p 7 0
+decade 7 0
+rooms 7 1
+durable 7 0
+performed 7 0
+coupled 7 0
+menus 7 1
+mistake 7 0
+laptop 7 0
+textures 7 0
+hour 7 1
+seriously 7 0
+afford 7 0
+reg 7 0
+drops 7 0
+fixed 7 0
+hotter 7 0
+paid 7 0
+saves 7 0
+sounds 7 1
+smoothness 7 0
+absolute 7 0
+putting 7 0
+extended 7 0
+wars 7 1
+positive 7 0
+unmatched 7 0
+biggest 7 0
+lacking 7 0
+files 7 0
+exciting 7 0
+modern 7 0
+grab 7 0
+winner 7 0
+11 7 0
+collection 7 0
+wan 7 0
+further 7 0
+unable 7 0
+useful 7 0
+unlike 7 0
+nba 7 0
+cord 7 0
+massive 7 0
+meets 7 0
+blast 7 0
+clearly 7 0
+dollar 7 0
+break 7 0
+luv 7 0
+dad 7 0
+team 7 0
+vibrant 7 0
+ordering 7 0
+earlier 7 0
+quit 7 0
+existing 7 0
+leave 7 0
+constantly 7 0
+style 7 0
+playstion 7 0
+suhd 7 0
+cleaner 7 0
+deals 7 1
+moving 7 0
+bb 7 0
+disappointment 7 0
+suppose 7 0
+shorter 7 0
+flat 7 0
+baby 7 0
+chip 7 0
+bf1 7 0
+depending 7 0
+nearly 7 0
+imagine 7 0
+regretted 7 0
+affordable 7 0
+blow 7 0
+tv.. 7 0
+remember 7 0
+bundled 7 0
+choices 7 0
+third 7 0
+wished 7 0
+household 7 0
+supply 6 0
+realized 6 0
+constant 6 0
+whenever 6 0
+turns 6 0
+minute 6 0
+properly 6 0
+units 6 1
+barely 6 0
+baseball 6 0
+yea 6 0
+young 6 0
+tremendous 6 0
+max 6 0
+justify 6 0
+consider 6 0
+top-tier 6 0
+employees 6 0
+meaning 6 0
+v 6 0
+bummer 6 0
+saying 6 0
+fit 6 0
+girlfriend 6 0
+regards 6 0
+2k 6 0
+blew 6 0
+18 6 0
+torn 6 0
+experiencing 6 0
+membership 6 0
+shut 6 0
+dissipate 6 0
+curved 6 0
+somewhat 6 0
+resolutions 6 1
+nor 6 0
+immersive 6 0
+sampling 6 0
+purchases 6 1
+aspects 6 0
+returning 6 0
+worthy 6 0
+pleasantly 6 0
+winter 6 0
+enhancement 6 1
+forget 6 0
+mass 6 0
+o 6 0
+teenager 6 0
+trouble 6 0
+installed 6 0
+skyrim 6 0
+hesitate 6 0
+cons 6 0
+bother 6 0
+shooting 6 0
+admit 6 0
+freeze 6 0
+dream 6 0
+loyal 6 0
+spider 6 1
+orginal 6 0
+project 6 0
+employee 6 0
+talking 6 0
+consul 6 0
+rest 6 0
+operation 6 0
+grades 6 0
+selections 6 0
+3.0 6 0
+shine 6 0
+hardly 6 0
+considerably 6 0
+dramatic 6 0
+wii 6 0
+turning 6 0
+designed 6 0
+vanilla 6 0
+non-pro 6 0
+bump 6 0
+applications 6 0
+unbelievably 6 0
+definately 6 0
+towards 6 0
+catalog 6 0
+salesman 6 0
+havent 6 0
+allowing 6 0
+death 6 0
+sometime 6 0
+brothers 6 0
+prime 6 0
+saved 6 0
+operates 6 0
+ideal 6 0
+competitors 6 0
+console.. 6 0
+patched 6 0
+grade 6 0
+a+ 6 0
+yo 6 0
+14 6 0
+described 6 0
+means 6 0
+confusing 6 0
+doubles 6 0
+couldnt 6 0
+bang 6 0
+kinds 6 1
+held 6 0
+relatively 6 0
+disappointing 6 0
+graffics 6 0
+draw 6 0
+bulky 6 0
+function 6 0
+beginner 6 0
+comparable 6 0
+dope 6 0
+taken 5 0
+supporting 5 0
+pro.. 5 0
+justifying 5 0
+position 5 0
+knock 5 0
+touched 5 0
+blue-ray 5 0
+generally 5 0
+gens 5 1
+releases 5 1
+familiar 5 0
+fall 5 0
+patches 5 0
+considered 5 0
+form 5 0
+thermal 5 0
+separate 5 0
+primarily 5 0
+result 5 0
+seemed 5 0
+dark 5 0
+swap 5 0
+os 5 0
+quietly 5 0
+bar 5 0
+lighting 5 0
+die 5 0
+packed 5 0
+intense 5 0
+crashed 5 0
+rips 5 0
+across 5 0
+equal 5 0
+hub 5 0
+deleting 5 0
+reward 5 0
+led 5 0
+pointless 5 0
+patch 5 0
+lets 5 0
+comparing 5 0
+protection 5 0
+seamlessly 5 0
+careful 5 0
+pulled 5 0
+trigger 5 0
+catch 5 0
+battlefront 5 0
+platforms 5 1
+speak 5 0
+cooling 5 0
+states 5 0
+bandicoot 5 0
+brighter 5 0
+par 5 0
+instructions 5 0
+wonderfully 5 0
+redemption 5 0
+parts 5 0
+hardrive 5 0
+items 5 0
+anybody 5 0
+trust 5 0
+complement 5 0
+slimmer 5 0
+known 5 0
+no-brainer 5 0
+ultimate 5 0
+grandsons 5 0
+general 5 0
+keeping 5 0
+speedy 5 0
+# 5 0
+father 5 0
+location 5 0
+beauty 5 0
+lovers 5 0
+counsel 5 0
+dissapointed 5 0
+entertaining 5 0
+debated 5 0
+tested 5 0
+core 5 0
+blueray 5 0
+instantly 5 0
+teenagers 5 0
+ethernet 5 0
+pricing 5 0
+motion 5 0
+alive 5 0
+19 5 0
+playability 5 0
+contrast 5 0
+tcl 5 0
+p 5 0
+certainly 5 0
+hybrid 5 0
+land 5 0
+industry 5 0
+push 5 0
+speaks 5 0
+comment 5 0
+installing 5 0
+rules 5 0
+vertical 5 0
+met 5 0
+compact 5 0
+changer 5 0
+spare 5 0
+choosing 5 0
+sport 5 1
+hand 5 1
+upset 5 0
+gifts 5 1
+utilizing 5 0
+sistem 5 0
+sufficient 5 0
+harddrive 5 0
+error 5 0
+stores 5 1
+auto 5 0
+televisions 5 1
+asking 5 0
++ 5 0
+m 5 0
+somehow 5 0
+pricy 5 0
+shopping 5 0
+weight 5 0
+gamed 5 0
+appreciated 5 0
+incredibly 5 0
+sister 5 0
+leg 5 0
+3. 5 0
+idea 5 0
+includes 5 0
+limit 5 0
+packs 5 0
+electronic 5 0
+liking 5 0
+perfection 5 0
+minimum 5 0
+lagging 5 0
+transition 5 0
+boot 5 0
+5ghz 5 0
+2018 5 0
+won 5 0
+resident 5 0
+evil 5 0
+plunge 5 0
+watched 5 0
+minimal 5 0
+4pro 5 0
+fullest 5 0
+pure 5 0
+hunter 5 0
+200 4 0
+pre-existing 4 0
+d 4 0
+automatically 4 0
+accept 4 0
+rendered 4 0
+particularly 4 0
+earned 4 0
+shot 4 0
+layout 4 0
+santa 4 1
+extreme 4 0
+younger 4 0
+bc 4 0
+hooking 4 0
+learning 4 0
+ratchet 4 0
+clank 4 0
+pro.i 4 0
+human 4 0
+tad 4 0
+eye 4 1
+devs 4 0
+ultimately 4 0
+specific 4 0
+releasing 4 0
+2017. 4 0
+pads 4 0
+maximize 4 0
+transaction 4 0
+boots 4 0
+frequently 4 0
+loudly 4 0
+e3 4 0
+laggy 4 0
+sort 4 0
+field 4 0
+car 4 0
+communicate 4 0
+feeling 4 0
+navigation 4 0
+ram 4 0
+buyer 4 0
+random 4 0
+girl 4 0
+lan 4 0
+exchanged 4 0
+@ 4 0
+350 4 0
+randomly 4 0
+ejecting 4 0
+phone 4 0
+artifacts 4 0
+self 4 0
+pa4 4 0
+geek 4 0
+squad 4 0
+graphically 4 0
+interest 4 0
+cloud 4 0
+impeccable 4 0
+checked 4 0
+10x 4 0
+road 4 0
+primary 4 0
+assemble 4 0
+financing 4 0
+guys 4 0
+high-end 4 0
+nonetheless 4 0
+group 4 0
+door 4 0
+un 4 0
+growing 4 0
+acting 4 0
+grand 4 0
+spotify 4 0
+expansion 4 0
+definetly 4 0
+members 4 0
+glasses 4 0
+epic 4 0
+demanding 4 0
+stoked 4 0
+fair 4 0
+plain 4 0
+log 4 0
+gow 4 0
+usability 4 0
+copy 4 0
+listen 4 0
+introduction 4 0
+outputs 4 0
+sitting 4 0
+predecessor 4 0
+created 4 0
+companies 4 0
+scene 4 1
+loses 4 0
+alright 4 0
+profiles 4 0
+processors 4 1
+bored 4 0
+subscription 4 0
+backward 4 0
+heats 4 0
+49 4 0
+fighting 4 0
+packaging 4 0
+popular 4 0
+lags 4 1
+sits 4 0
+outside 4 0
+called 4 0
+launching 4 0
+vudu 4 0
+soo 4 0
+consumer 4 0
+local 4 0
+unsure 4 0
+fanboy 4 0
+worker 4 0
+ha 4 0
+ark 4 0
+wide 4 0
+shines 4 0
+y 4 0
+organized 4 0
+regularly 4 0
+valentine 4 0
+remarkable 4 0
+attention 4 0
+budget 4 0
+anyways 4 0
+obsolete 4 0
+middle 4 0
+requires 4 0
+greatness 4 0
+enjoyment 4 0
+stress 4 0
+mid 4 0
+users 4 0
+wins 4 0
+spends 4 0
+knowledge 4 0
+brilliant 4 0
+overheated 4 0
+lcd 4 0
+technical 4 0
+area 4 0
+heck 4 0
+downstairs 4 0
+nonstop 4 0
+cuz 4 0
+amd 4 0
+stations 4 1
+unbeatable 4 0
+res 4 0
+cousins 4 0
+exchange 4 1
+do-ca 4 0
+bells 4 0
+whistles 4 0
+info 4 0
+talked 4 0
+wonder 4 0
+meant 4 0
+reader 4 0
+imaging 4 0
+remotes 4 0
+surf 4 0
+sonys 4 0
+triple 4 0
+answered 4 0
+questions 4 0
+p4 4 0
+amaze 4 0
+lasted 4 0
+l 4 0
+40 4 0
+snappy 4 0
+charging 4 0
+4.50 4 0
+elite 4 0
+battery 4 0
+fortnight 4 0
+essential 4 0
+16 4 0
+distance 4 0
+graduation 4 0
+google 4 0
+enable 4 0
+join 4 0
+company 4 0
+transferring 4 0
+activate 4 0
+highest 4 0
+13 4 0
+sick 4 0
+developed 4 0
+inside 4 0
+nut 4 0
+hdcp 4 0
+qualities 4 1
+everyway 4 0
+husbands 4 0
+psp 4 0
+punch 4 0
+array 4 0
+initial 4 0
+c 4 0
+spot 4 0
+treat 4 0
+videogames 4 0
+straight 4 0
+anywhere 4 0
+colorful 4 0
+board 4 0
+competitive 4 0
+matches 4 0
+logical 4 0
+matching 4 0
+stays 4 0
+invested 4 0
+ipad 4 0
+2. 4 0
+unlimited 4 0
+master 4 0
+reasonable 4 0
+nephews 4 0
+2020 4 0
+discount 4 0
+adult 4 0
+parental 4 0
+launched 4 0
+on-line 4 0
+fiance 4 0
+gran 4 0
+turismo 4 0
+that- 4 0
+machines 4 1
+browsing 4 0
+enhancing 4 0
+continues 4 0
+lil 4 0
+playstation4 4 0
+stated 4 0
+bill 4 0
+delete 4 0
+set-up 4 0
+wwii 4 0
+definitly 4 0
+associate 4 0
+served 4 0
+require 4 0
+willing 4 0
+leaving 4 0
+recomended 4 0
+stolen 4 0
+correct 4 0
+streamlined 3 0
+min 3 0
+introduced 3 0
+replaced.. 3 0
+purposes 3 0
+creed 3 0
+claims 3 0
+travel 3 0
+noted 3 0
+camera 3 0
+wasnt 3 0
+file 3 0
+indeed 3 0
+head 3 0
+homes 3 1
+answer 3 0
+bed 3 0
+substantial 3 0
+hated 3 0
+unique 3 0
+prove 3 0
+channels 3 0
+justice 3 0
+average 3 0
+enthusiast 3 0
+tastes 3 0
+remastered 3 0
+detroit 3 0
+candy 3 0
+spring 3 0
+obvious 3 0
+daddy 3 0
+directly 3 0
+sleep 3 0
+proper 3 0
+fills 3 0
+hookup 3 0
+flash 3 0
+couch 3 0
+fluent 3 0
+kicks 3 0
+skipping 3 0
+hisense 3 0
+places 3 0
+accounts 3 1
+stops 3 0
+rated 3 0
+wondering 3 0
+iii 3 0
+01 3 0
+showcase 3 0
+searching 3 0
+repurchase 3 0
+solidly 3 0
+hugest 3 0
+counts 3 0
+oddly 3 0
+overhaul 3 0
+thin 3 0
+btw 3 0
+theirs 3 0
+source 3 0
+throughly 3 0
+common 3 0
+unplug 3 0
+restart 3 0
+starts 3 0
+sending 3 0
+background 3 0
+repair 3 0
+changing 3 0
+challenging 3 0
+combat 3 0
+task 3 0
+dropping 3 0
+struck 3 0
+resolved 3 0
+everytime 3 0
+cares 3 0
+code 3 0
+refreshing 3 0
+leaps 3 0
+asus 3 0
+x900e 3 0
+blacks 3 0
+id 3 0
+bounds 3 0
+de 3 0
+unlock 3 0
+infamous 3 0
+improvment 3 0
+caught 3 0
+bummed 3 0
+fabulous 3 0
+construction 3 0
+six 3 0
+testing 3 0
+compatability 3 0
+guide 3 0
+2013 3 0
+title 3 1
+headsets 3 1
+question 3 0
+longtime 3 0
+reviewed 3 0
+social 3 0
+sharing 3 0
+proud 3 0
+fourth 3 0
+70 3 0
+dvr 3 0
+solve 3 0
+flow 3 0
+impact 3 0
+dedicated 3 0
+gig 3 0
+key 3 0
+xbox1x 3 0
+anniversary 3 0
+thinks 3 0
+raffle 3 0
+advised 3 0
+biased 3 0
+feedback 3 0
+individual 3 0
+upon 3 0
+unnecessary 3 0
+streamed 3 0
+monthly 3 0
+lightweight 3 0
+purchase.. 3 0
+air 3 0
+walk 3 0
+granted 3 0
+overly 3 0
+glued 3 0
+happen 3 0
+co-op 3 0
+lover 3 0
+whats 3 0
+mac 3 0
+definatly 3 0
+browse 3 0
+son-in-law 3 0
+awesomeness 3 0
+24 3 0
+visible 3 0
+occasionally 3 0
+infinite 3 0
+whim 3 0
+future-proof 3 0
+serves 3 0
+slips 3 0
+hundred 3 0
+bringing 3 0
+anticipated 3 0
+ten 3 0
+youre 3 0
+dualshock 3 0
+situation 3 0
+curve 3 0
+inserting 3 0
+warm 3 0
+justifies 3 0
+department 3 0
+renders 3 0
+responds 3 0
+se 3 0
+shell 3 0
+against 3 0
+thousand 3 0
+negligible 3 0
+partner 3 0
+hood 3 0
+gf 3 0
+edge 3 1
+forth 3 0
+invest 3 0
+rpg 3 0
+creates 3 0
+nervous 3 0
+term 3 1
+splurged 3 0
+cutting 3 0
+43 3 0
+relationship 3 0
+up-scaling 3 0
+supersampling 3 0
+shown 3 0
+realy 3 0
+increases 3 0
+definitive 3 0
+teen 3 0
+ita 3 0
+traditional 3 0
+period 3 0
+prob 3 0
+360. 3 0
+9 3 0
+23 3 0
+jack 3 0
+removed 3 0
+priced 3 0
+rewards 3 0
+name 3 0
+updating 3 0
+leaves 3 0
+views 3 0
+theres 3 0
+bluerays 3 0
+pro4 3 0
+playable 3 0
+finding 3 0
+evolution 3 0
+optimal 3 0
+carry 3 0
+defiantly 3 0
+deck 3 0
+steep 3 0
+confused 3 0
+vacation 3 0
+life-like 3 0
+happens 3 0
+transferred 3 0
+pre 3 0
+endless 3 0
+overseas 3 0
+adapter 3 0
+alongside 3 0
+sent 3 0
+sooo 3 0
+natural 3 0
+generations 3 1
+mother 3 0
+respond 3 0
+25 3 0
+addictive 3 0
+retired 3 0
+250 3 0
+terabytes 3 1
+shipped 3 0
+exceed 3 0
+expectation 3 1
+cover 3 0
+bright 3 0
+performing 3 0
+elder 3 0
+mentioned 3 0
+practice 3 0
+witcher 3 0
+ridiculous 3 0
+wired 3 0
+la 3 0
+2160p 3 0
+em 3 0
+reactive 3 0
+f 3 0
+overpriced 3 0
+nfl 3 0
+blackout 3 0
+drastic 3 0
+exception 3 0
+pushed 3 0
+kick 3 0
+andromeda 3 0
+body 3 0
+separately 3 0
+heaven 3 0
+round 3 0
+fight 3 0
+guardian 3 0
+ghost 3 0
+recon 3 0
+fool 3 0
+advantages 3 1
+cheaply 3 0
+crashing 3 0
+refurbished 3 0
+mom 3 0
+sit 3 0
+screens 3 1
+division 3 0
+talk 3 0
+aaa 3 0
+holiday 3 1
+breathtaking 3 0
+expert 3 0
+4k- 3 0
+insisted 3 0
+fire 3 0
+summer 3 0
+professional 3 0
+worried 3 0
+bundles 3 0
+guaranteed 3 0
+boosted 3 0
+lying 3 0
+mad 3 0
+vita 3 0
+1t 3 0
+100.00 3 0
+brainier 3 0
+helping 3 0
+quiter 3 0
+kill 3 0
+atari 3 0
+hey 3 0
+responsiveness 3 0
+owe 3 0
+loose 3 0
+share 3 0
+business 3 0
+entertains 3 0
+hi 3 0
+e 3 0
+finished 3 0
+.lol 3 0
+east 3 0
+messed 3 0
+fairly 3 0
+universe 3 0
+filled 3 0
+handling 3 0
+pleasure 3 0
+fallout 3 0
+adventures 3 0
+noticing 3 0
+factor 3 0
+wondered 3 0
+areas 3 0
+cabinet 3 0
+muy 3 0
+useless 3 0
+xbr 3 0
+roommates 3 0
+64 3 0
+loaded 3 0
+fornite 3 0
+pain 3 1
+rushed 3 0
+weird 3 0
+iteration 3 0
+loss 3 0
+traveling 3 0
+powerfull 3 0
+lived 3 0
+wit 3 0
+unopened 3 0
+attached 3 0
+stuck 3 0
+undecided 3 0
+outdated 3 0
+onto 3 0
+sized 2 0
+useable 2 0
+1s 2 0
+bullet 2 0
+65-inch 2 0
+driveclub 2 0
+batman 2 0
+route 2 0
+begin 2 0
+accidently 2 0
+carve 2 0
+reach 2 0
+go-to 2 0
+2-3 2 0
+watered 2 0
+blue-rays 2 0
+jumping 2 0
+desires 2 0
+exercise 2 0
+solely 2 0
+july 2 0
+loop 2 0
+reset 2 0
+..but 2 0
+behaved 2 0
+boring 2 0
+joystick 2 0
+prooof 2 0
+subscribe 2 0
+fronts 2 0
+multitasking 2 0
+albeit 2 0
+incapable 2 0
+optional 2 0
+appears 2 0
+resources 2 0
+trading 2 0
+excelente 2 0
+redemption.this 2 0
+created.the 2 0
+like.i 2 0
+greatest.always 2 0
+flaw 2 0
+among 2 0
+router 2 1
+ergonomic 2 0
+equivalent 2 0
+causing 2 0
+measure 2 0
+paste 2 0
+grizzly 2 0
+technically 2 0
+ejection 2 0
+c9 2 0
+aint 2 0
+shortfall 2 0
+outta 2 0
+floor 2 0
+million 2 0
+importantly 2 0
+successful 2 0
+togo 2 0
+equipped 2 0
+silly 2 0
+nb 2 0
+souls 2 0
+capture 2 0
+drives 2 1
+reception 2 0
+joined 2 0
+rich 2 0
+dramatically 2 0
+supplied 2 0
+shorted 2 0
+additionally 2 0
+optimised 2 0
+puting 2 0
+titles.and 2 0
+seals 2 0
+nevertheless 2 0
+ignore 2 0
+console.just 2 0
+pro.you 2 0
+plus.i 2 0
+.things 2 0
+environment 2 0
+jumped 2 0
+dock 2 0
+coworkers 2 0
+struggles 2 0
+relative 2 0
+bypass 2 0
+outperforms 2 0
+asks 2 0
+trick 2 0
+29 2 0
+18. 2 0
+damaged 2 0
+frost 2 0
+caused 2 0
+finishing 2 0
+touches 2 0
+glitching 2 0
+sessions 2 0
+grew 2 0
+converted 2 0
+downtime 2 0
+burned 2 0
+reboot 2 0
+virtually 2 0
+860ish 2 0
+storages 2 1
+fyi 2 0
+raw 2 0
+elegant 2 0
+prevues 2 0
+horrible 2 0
+credit 2 0
+tool 2 0
+timing 2 0
+upsetting 2 0
+recall 2 0
+mancave 2 0
+chunk 2 0
+flickers 2 0
+snow 2 0
+milliseconds 2 0
+becomes 2 0
+discover 2 0
+dualshok 2 0
+xboxs 2 0
+tube 2 0
+bandwidth 2 0
+non-stop 2 0
+peace 2 0
+bout 2 0
+great. 2 0
+utilizes 2 0
+listening 2 0
+necessity 2 0
+rig 2 0
+enclosed 2 0
+spaces 2 1
+justified 2 0
+dreamed 2 0
+sucker 2 0
+caveat 2 0
+attempting 2 0
+spinning 2 0
+periods 2 0
+genres 2 0
+track 2 0
+donating 2 0
+bags 2 0
+rapping 2 0
+drawbacks 2 0
+day1 2 0
+driving 2 0
+force 2 0
+349 2 0
+cleaned 2 0
+tear 2 0
+dust 2 0
+robust 2 0
+shocked 2 0
+buddies 2 0
+prize 2 0
+fortunate 2 0
+character 2 0
+agree 2 0
+xobox 2 0
+january 2 0
+surprisingly 2 0
+verses 2 0
+showed 2 0
+champ 2 0
+interaction 2 0
+responsible 2 0
+pics 2 0
+cent 2 0
+plethora 2 0
+2k18 2 0
+wi-fi 2 0
+clips 2 0
+stepped 2 0
+seams 2 0
+maximum 2 0
+render 2 0
+consideration 2 0
+numerous 2 0
+uno 2 0
+identical 2 0
+racing 2 0
+cords 2 0
+curious 2 0
+basement 2 0
+panel 2 0
+pairing 2 0
+charger 2 0
+consistently 2 0
+gripe 2 0
+haters 2 0
+premier 2 0
+manageable 2 0
+crispy 2 0
+visit 2 0
+smother 2 0
+consle 2 0
+..he 2 0
+surpassed 2 0
+ridiculously 2 0
+junk 2 0
+bulkier 2 0
+allot 2 0
+complains 2 0
+recommand 2 0
+realm 2 0
+220v 2 0
+converter 2 0
+iq 2 0
+buddy 2 0
+deliver 2 0
+ample 2 0
+headache 2 0
+farpoint 2 0
+interactive 2 0
+tremendously 2 0
+causes 2 0
+basis 2 0
+grest 2 0
+must-have 2 0
+overdue 2 0
+respectful 2 0
+approach 2 0
+application 2 0
+realism 2 0
+cleans 2 0
+cake 2 0
+warned 2 0
+farcry 2 0
+battle 2 0
+fighter 2 0
+mic 2 0
+moments 2 0
+don 2 0
+weekends 2 0
+immensely 2 0
+speechless 2 0
+advancing 2 0
+legacy 2 0
+bugs 2 0
+sooooo 2 0
+lovely 2 0
+camper 2 0
+struggle 2 0
+purpose 2 0
+a++ 2 0
+miles 2 0
+whit 2 0
+ps4.. 2 0
+unleash 2 0
+ut 2 0
+chord 2 0
+programming 2 0
+steroids 2 0
+p50 2 0
+names 2 0
+programs 2 0
+roku 2 0
+deff 2 0
+titanfall 2 0
+ultrahd 2 0
+differs 2 0
+connector 2 0
+backside 2 0
+whereas 2 0
+versatility 2 0
+handful 2 0
+marked 2 0
+featured 2 0
+believer 2 0
+firecuda 2 0
+terribly 2 0
+predictable 2 0
+pushing 2 0
+select 2 0
+tasks 2 0
+outputting 2 0
+surprising 2 0
+necessities 2 0
+consumers 2 0
+financial 2 0
+m55-e0 2 0
+swine 2 0
+create 2 0
+excelled 2 0
+reached 2 0
+benchmark 2 0
+walmart 2 0
+3-year 2 0
+39 2 0
+reassuring 2 0
+temperatures 2 0
+rating 2 0
+stepson 2 0
+lego 2 0
+park 2 0
+falling 2 0
+varied 2 0
+upstairs 2 0
+.that 2 0
+volumes 2 0
+fav 2 0
+defently 2 0
+someday 2 0
+shy 2 0
+lines 2 0
+lady 2 0
+ect 2 0
+nope 2 0
+encountered 2 0
+diference 2 0
+natively 2 0
+anyday 2 0
+filling 2 0
+ordinary 2 0
+andi 2 0
+fell 2 0
+hearing 2 0
+comments 2 0
+85 2 0
+cmon 2 0
+heightens 2 0
+recording 2 0
+communication 2 0
+luxury 2 0
+lit 2 0
+essentially 2 0
+2018. 2 0
+marginal 2 0
+fail 2 0
+9500 2 0
+ftw 2 0
+preorder 2 0
+consule 2 0
+becuase 2 0
+locking 2 0
+80 2 0
+4-k 2 0
+requirements 2 0
+sets 2 0
+remakes 2 0
+x1 2 0
+animation 2 0
+fresh 2 0
+recommendation 2 0
+reccommend 2 0
+pops 2 0
+streamer 2 0
+disconnect 2 0
+monitors 2 1
+unparalleled 2 0
+resulution 2 0
+comparability 2 0
+dip 2 0
+possibilities 2 0
+lasts 2 0
+pixelation 2 0
+minecraft 2 0
+multimedia 2 0
+powerhouse 2 0
+award 2 0
+proven 2 0
+scenes 2 1
+adventure 2 0
+soundbar 2 0
+dough 2 0
+compares 2 0
+ending 2 0
+recognition 2 0
+regualr 2 0
+hard-drive 2 0
+astonishing 2 0
+crafted 2 0
+entirely 2 0
+appearance 2 0
+splurge 2 0
+pack 2 0
+expense 2 0
+favorites 2 0
+dearly 2 0
+checkerboarding 2 0
+alternative 2 0
+cuts 2 1
+tier 2 0
+inexpensive 2 0
+checkout 2 0
+exclusively 2 0
+falls 2 0
+periodically 2 0
+grateful 2 0
+watches 2 0
+ac 2 0
+replacing 2 0
+directions 2 0
+reconnect 2 0
+reduced 2 0
+reaction 2 0
+blood 2 0
+accessibility 2 0
+receiving 2 0
+losing 2 0
+creating 2 0
+legit 2 0
+hence 2 0
+debate 2 0
+ok. 2 0
+.this 2 0
+alike 2 0
+gamestop 2 0
+functional 2 0
+hrd 2 0
+art 2 0
+rhe 2 0
+lighter 2 0
+goggles 2 0
+lunch 2 0
+winning 2 0
+walked 2 0
+aa 2 0
+eliminate 2 0
+immersed 2 0
+glacier 2 0
+consola 2 0
+reputation 2 0
+explore 2 0
+various 2 0
+written 2 0
+ill 2 0
+nfs 2 0
+i7 2 0
+book 2 0
+nioh 2 0
+55in 2 0
+1.4 2 0
+2.2. 2 0
+disappoints 2 0
+annoyance 2 0
+buggy 2 0
+sadly 2 0
+pushes 2 0
+pixels 2 0
+sign 2 0
+himself 2 0
+microphone 2 0
+figuring 2 0
+grate 2 0
+steam 2 0
+pcs 2 1
+die-hard 2 0
+passed 2 0
+editions 2 0
+wall 2 0
+exceptionally 2 0
+opt 2 0
+percent 2 0
+smile 2 0
+jaw 2 0
+cards 2 0
+seagate 2 0
+backup 2 0
+scrolls 2 0
+advice 2 0
+adopter 2 0
+syndrom 2 0
+palm 2 0
+bland 2 0
+browsing.. 2 0
+trailer 2 0
+unresponsive 2 0
+crap 2 0
+anazing 2 0
+lowest 2 0
+welcomed 2 0
+-_- 2 0
+[ 2 0
+] 2 0
+worse 2 0
+section 2 1
+configured 2 0
+ff15 2 0
+sight 2 0
+choppy 2 0
+blames 2 0
+disapoint 2 0
+hurts 2 0
+pace 2 0
+deep 2 0
+ecosystem 2 0
+rainy 2 0
+greta 2 0
+sharpness 2 0
+sticking 2 0
+category 2 0
+overheats 2 0
+1440 2 0
+savings 2 0
+2x 2 0
+obsessed 2 0
+x-mas 2 0
+undoubtedly 2 0
+telling 2 0
+perhaps 2 0
+countless 2 0
+puppy 2 0
+❤️ 2 0
+plasma 2 0
+charm 2 0
+wowed 2 0
+joining 2 0
+deserved 2 0
+gt 2 0
+inventory 2 0
+courteous 2 0
+cashier 2 0
+paper 2 0
+tree 2 0
+.he 2 0
+al 2 0
+scale 2 0
+swapped 2 0
+att 2 0
+installs 2 0
+united 2 0
+rocking 2 0
+hero 2 0
+i. 2 0
+levels 2 0
+shame 2 0
+warrants 2 0
+expand 2 0
+blurry 2 0
+mind-challenging 2 0
+customers 2 0
+apparently 2 0
+workers 2 0
+4khd 2 0
+synced 2 0
+perfomance 2 0
+versus 2 0
+polished 2 0
+rocket 2 0
+league 2 0
+proofing 2 0
+scored 2 0
+roll 2 0
+convenience 2 0
+soccer 2 0
+daughters 2 0
+offerings 2 0
+precision 2 0
+outshines 2 0
+th 2 0
+combine 2 0
+beefed 2 0
+assassin 2 0
+5k 2 0
+direct 2 0
+well.. 2 0
+giant 2 0
+projector 2 0
+glorious 2 0
+keyboard 2 0
+exelent 2 0
+flexible 2 0
+.i 2 0
+youll 2 0
+extensive 2 0
+complex 2 0
+delivering 2 0
+element 2 0
+toy 2 0
+yay 2 0
+adapt 2 0
+excellently 2 0
+offline 2 0
+nights 2 1
+tough 2 0
+promises 2 0
+stylish 2 0
+hopes 2 0
+2.2 2 0
+magnificent 2 0
+aging 2 0
+8000 2 0
+surface 2 0
+plastic 2 0
+upgradable 2 0
+butter 2 0
+contemplating 2 0
+3-4 2 0
+bomb 2 0
+cross 2 0
+sata 2 0
+elated 2 0
+r 2 0
+gta5 2 0
+behind 2 0
+jk 2 0
+glitch 2 0
+arrival 2 0
+tends 2 0
+breath 2 0
+excitement 2 0
+sturdy 2 0
+happy.. 2 0
+summary 2 0
+kicking 2 0
+occupied 2 0
+worries 2 0
+lightening 2 0
+knocking 2 0
+coupon 2 0
+onex 2 0
+games.. 2 0
+5-6 2 0
+pleasant 2 0
+failed 2 0
+skip 2 0
+ps4.the 2 0
+ups 2 0
+tradition 2 0
+crunchyroll 2 0
+adjust 2 0
+limits 2 0
+schedules 2 0
+buttery 2 0
+eve 2 0
+heating 2 0
+remotely 2 0
+delayed 2 0
+thanksgiving 2 0
+solo 2 0
+extraordinary 2 0
+sailing 2 0
+recommending 2 0
+granddaughter 2 0
+explained 2 0
+daugther 2 0
+closer 2 0
+heighten 2 0
+enrich 2 0
+lead 2 0
+poor 2 0
+playstaion 2 0
+graphs 2 0
+absolutly 2 0
+calming 2 0
+kills 2 0
+gap 2 0
+slot 2 0
+complained 2 0
+encourage 2 0
+modem 2 0
+sky 2 0
+vastly 2 0
+siblings 2 0
+flicker 2 0
+fancy 2 0
+unplugged 2 0
+inconvenient 2 0
+worthless 2 0
+> 2 0
+producto 2 0
+buena 2 0
+amazing.. 2 0
+childhood 2 0
+leaf 2 0
+blower 2 0
+juiced 2 0
+produced 2 0
+perk 2 0
+hang 2 0
+football 2 0
+snappier 2 0
+stages 2 0
+2014 2 0
+promise 2 0
+scouts 2 0
+stayed 2 0
+fails 2 0
+repeatedly 2 0
+mission 2 0
+community 2 0
+twin 2 0
+integration 2 0
+graphix 2 0
+killer 2 0
+brutal 2 0
+2020. 2 0
+researched 2 0
+fellow 2 0
+lucky 2 0
+rediculous 2 0
+message 2 0
+thief 2 0
+gun 2 0
+stupid 2 0
+pickup 2 0
+yrs 2 0
+marvelous 2 0
+ty 2 0
+powered 2 0
+nature 2 0
+immersion 2 0
+1x 2 0
+displayed 2 0
+represent 2 0
+direction 2 0
+bold 2 0
+headphone 2 1
+pumped 2 0
+wishes 2 0
+outdid 2 0
+timer 2 0
+generated 2 0
+promotion 2 0
+payment 2 0
+worlds 2 0
+operations 2 0
+aged 2 0
+inches 2 0
+swapping 2 0
+split 2 0
+bag 2 0
+downloadable 2 0
+planet 2 0
+kudos 2 0
+ex 2 0
+minus 2 0
+apart 2 0
+personalize 2 0
+mem 2 0
+immaculate 2 0
+stepping 2 0
+attach 2 0
+ranging 2 0
+costly 2 0
+addicted 2 0
+mold 2 0
+achievable 2 0
+..great 2 0
+nier 2 0
+strictly 2 0
+soooo 2 0
+burn 2 0
+drag 2 0
+gifted 2 0
+season 2 0
+complications 2 0
+xbone 2 0
+amaizing 2 0
+kicked 2 0
+rechargeable 2 0
+wires 2 0
+dorm 2 0
+needing 2 0
+til 2 0
+grown 2 0
+thankful 2 0
+en 2 0
+gbs 2 0
+tops 2 0
+requirement 2 0
+on-off 2 0
+.great 2 0
+signing 2 0
+bluetooth 2 0
+rented 2 0
+ecstatic 2 0
+collector 2 0
+exelente 2 0
+abit 2 0
+blah 2 0
+differance 2 0
+apple 2 0
+delighted 2 0
+shuts 2 0
+gow4 2 0
+became 2 0
+jealous 2 0
+travels 2 0
+becoming 2 0
+unboxing 2 0
+trade-in 2 0
+-4k 2 0
+imagined 2 0
+terrible 2 0
+whoop 2 0
+inclusion 1 0
+touchpad 1 0
+moderate 1 0
+assassins 1 0
+origins 1 0
+ans 1 0
+placement 1 0
+brazil 1 0
+upclocked 1 0
+movements 1 0
+uhdbd 1 0
+3ds 1 0
+arguably 1 0
+active 1 0
+mid-gen 1 0
+dispute 1 0
+19. 1 0
+2016. 1 0
+icons 1 0
+abyx 1 0
+formats 1 1
+pleasing 1 0
+med 1 0
+accoutrements 1 0
+grasping 1 0
+concepts 1 0
+manuals 1 0
+in-store 1 0
+halfway 1 0
+benefited 1 0
+following 1 0
+upping 1 0
+js9000 1 0
+drakes 1 0
+fortune 1 0
+boos 1 0
+smartest 1 0
+dual-band 1 0
+fraction 1 0
+settle 1 0
+lesser 1 0
+tour 1 0
+x1s 1 0
+tiny 1 0
+clue 1 0
+kryonaut 1 0
+cheaped 1 0
+chips 1 0
+louad 1 0
+lateral 1 0
+gammer 1 0
+records 1 0
+ol 1 0
+indy 1 0
+indy-scribable 1 0
+healthy 1 0
+.snap 1 0
+magic 1 0
+flicks 1 0
+visualization 1 0
+unimpressed 1 0
+mmo 1 0
+30fps 1 0
+thicker 1 0
+sidelines 1 0
+nearest 1 0
+mgs4 1 0
+remaster 1 0
+accessing 1 0
+ship 1 0
+girlfriends 1 0
+aleutian 1 0
+islands 1 0
+supers 1 0
+ampling 1 0
+prominent 1 0
+8500. 1 0
+upgade 1 0
+servers 1 0
+arent 1 0
+irritations 1 0
+electrically-fried 1 0
+non-slim 1 0
+restoring 1 0
+backed 1 0
+supersampled 1 0
+universally 1 0
+navigating 1 0
+elsse 1 0
+say.. 1 0
+ff 1 0
+15. 1 0
+parties 1 0
+score 1 0
+cue 1 0
+respect 1 0
+strip 1 0
+acts 1 0
+doomed 1 0
+maker 1 0
+edges 1 1
+scour 1 0
+migration 1 0
+dogs 1 0
+acceleration 1 0
+shooters 1 0
+certificates 1 0
+squeeze 1 0
+re- 1 0
+establish 1 0
+recieved 1 0
+shd 1 0
+obligated 1 0
+guarantee 1 0
+favors 1 0
+roared 1 0
+winners 1 0
+quibble 1 0
+rocketfish 1 0
+audioquest 1 0
+ssaa 1 0
+method 1 0
+downscaled 1 0
+multi-task 1 0
+littlebigplanet 1 0
+resogun 1 0
+activating 1 0
+thrown 1 0
+weary 1 0
+25- 1 0
+outrageous 1 0
+tbh 1 0
+intriguing 1 0
+600+ 1 0
+intention 1 0
+flickering 1 0
+switcc 1 0
+tempered 1 0
+nitpick 1 0
+despise 1 0
+lied 1 0
+4k.this 1 0
+cuh-7200 1 0
+learned 1 0
+brightness 1 0
+wind 1 0
+tunnel 1 0
+hobby 1 0
+b.b 1 0
+table 1 0
+'pro 1 0
+249 1 0
+longed 1 0
+.mkv 1 0
+h265 1 0
+niceties 1 0
+499 1 0
+k4 1 0
+verticle 1 0
+collects 1 0
+continually 1 0
+recipient 1 0
+spectacle 1 0
+acquisition 1 0
+chrismas 1 0
+kit 1 0
+hdr+ 1 0
+1,2,3 1 0
+olds 1 0
+dowloads 1 0
+popping 1 0
+blackest 1 0
+goons 1 0
+hiding 1 0
+corners 1 0
+attack 1 0
+that.otherwise 1 0
+concoles 1 0
+trophies 1 0
+rumored 1 0
+impress 1 0
+gtx 1 0
+1070 1 0
+limb 1 0
+psu 1 0
+coil 1 0
+whine 1 0
+appeares 1 0
+..on 1 0
+n.sane 1 0
+trilogy 1 0
+checking 1 0
+evident 1 0
+overtook 1 0
+thrill 1 0
+seven 1 0
+vendor 1 0
+colored 1 0
+mail 1 0
+pvr 1 0
+alittle 1 0
+unobtainable 1 0
+frim 1 0
+multitask 1 0
+simultaneously 1 0
+recommends 1 0
+55-inch 1 0
+satisfying 1 0
+gameing 1 0
+visua 1 0
+7215b 1 0
+oustanding 1 0
+appreciable 1 0
+twitch.tv 1 0
+sirelias93 1 0
+stall 1 0
+cleaning 1 0
+experts 1 0
+.my 1 0
+ps4.pro 1 0
+numero 1 0
+oppinion 1 0
+2006 1 0
+.well 1 0
+legendary 1 0
+substantially 1 0
+assetto 1 0
+boss 1 0
+x1x 1 0
+analog 1 0
+prizes 1 0
+office 1 0
+nuts 1 0
+concol 1 0
+protect 1 0
+damaging 1 0
+betweeen 1 0
+buffer 1 0
+cherish 1 0
+die- 1 0
+c-40 1 0
+presents 1 0
+inti 1 0
+bond 1 0
+trialing 1 0
+customizable 1 0
+updgrade 1 0
+definey 1 0
+chosen 1 0
+16th 1 0
+playtstation 1 0
+backgrounds 1 0
+accident 1 0
+gametime 1 0
+ernough 1 0
+charges 1 0
+greedy 1 0
+breathe 1 0
+donate 1 0
+ony 1 0
+o.g 1 0
+increíble 1 0
+nerd 1 0
+vet 1 0
+geeksquad 1 0
+life—so 1 0
+complimented 1 0
+hardwork.kodus 1 0
+anyone.. 1 0
+ir 1 0
+fights 1 0
+recognize 1 0
+performance.great 1 0
+laughs 1 0
+hi-res 1 0
+simplicity 1 0
+selective 1 0
+turtles 1 0
+oppose 1 0
+approved 1 0
+110v 1 0
+somebody 1 0
+south 1 0
+america 1 0
+bam 1 0
+quadruple 1 0
+grat 1 0
+shatter 1 0
+12-year-old 1 0
+kingdome 1 0
+can´t 1 0
+don´t 1 0
+misatke 1 0
+i´ll 1 0
+away.ps4 1 0
+entertainmentstand 1 0
+idk 1 0
+rev 1 0
+provider 1 0
+accesories 1 0
+sizable 1 0
+mmake 1 0
+gripes 1 0
+ps4.we 1 0
+focused 1 0
+session 1 0
+wiiu 1 0
+maintenance 1 0
+tooth 1 0
+reslly 1 0
+herself 1 0
+blurat 1 0
+ml11 1 0
+becouse 1 0
+waching 1 0
+orginial 1 0
+thr 1 0
+discrete 1 0
+fixing 1 0
+user- 1 0
+splitting 1 0
+expectaton 1 0
+appliances 1 0
+.ugh 1 0
+shower 1 0
+soworthbuyingit 1 0
+indications 1 0
+-pc 1 0
+era 1 0
+cheese 1 0
+pleople 1 0
+tyler 1 0
+tx 1 0
+scaling 1 0
+icing 1 0
+850e 1 0
+hits 1 0
+spots 1 0
+yeaaaaaaaaaaaaaa 1 0
+weeeeee 1 0
+player.. 1 0
+linked 1 0
+horizan 1 0
+30ppl 1 0
+built-in 1 0
+toshiba 1 0
+notably 1 0
+street 1 0
+jeje 1 0
+shed 1 0
+partial 1 0
+must-buy 1 0
+dtops 1 0
+facts 1 1
+stats 1 0
+great.graphics 1 0
+same.didnt 1 0
+meet 1 0
+wirelessly 1 0
+resisted 1 0
+roommate 1 0
+nerwork 1 0
+collecting 1 0
+uhf 1 0
+nicest 1 0
+failbox 1 0
+capped 1 0
+amazinggggggggg 1 0
+printer 1 0
+epson 1 0
+printers 1 0
+averything 1 0
+everitrhing 1 0
+stepchildren 1 0
+promo 1 0
+interact 1 0
+versital 1 0
+update-wise 1 0
+samsun 1 0
+open-box 1 0
+hardline 1 0
+rk 1 0
+adapts 1 0
+techno 1 0
+savey 1 0
+builds 1 0
+robots 1 0
+mensa 1 0
+ps4™ 1 0
+superstars 1 0
+transfers 1 0
+sub 1 0
+awaits 1 0
+enjoining 1 0
+peice 1 0
+substitute 1 0
+ongoing 1 0
+binging 1 0
+suped 1 0
+angled 1 0
+warfare 1 0
+mwr 1 0
+als 1 0
+solid-state 1 0
+altogether 1 0
+'boost 1 0
+isuper 1 0
+fundamentally 1 0
+logged 1 0
+request 1 0
+birthdays 1 0
+resale 1 0
+seeking 1 0
+i.e. 1 0
+mid-generation 1 0
+faux 1 0
+pas 1 0
+optimization 1 0
+label 1 0
+game-play 1 0
+storyline 1 0
+spectrum 1 0
+notes 1 0
+sshd 1 0
+transfered 1 0
+corruption 1 0
+heads 1 0
+uograded 1 0
+motherboard 1 0
+judgment 1 0
+baseline 1 0
+warrent 1 0
+incentives 1 0
+bombed 1 0
+xb1x 1 0
+advertise 1 0
+fox 1 0
+wishing 1 0
+circumstances 1 0
+pre-order 1 0
+brightest 1 0
+2011 1 0
+xb1 1 0
+hanging 1 0
+tight 1 0
+hopping 1 0
+bounce 1 0
+17. 1 0
+add-ons 1 0
+msrp 1 0
+delve 1 0
+nauseating 1 0
+quibbles 1 0
+occasional 1 0
+blackouts 1 0
+remedied 1 0
+up-gradable 1 0
+component 1 1
+bucome 1 0
+plalyable 1 0
+that..lol 1 0
+careered 1 0
+ventilated 1 0
+placed 1 0
+is.. 1 0
+incorporated 1 0
+jurassic 1 0
+develops 1 0
+foray 1 0
+treating 1 0
+pro-all 1 0
+system.great 1 0
+quickest 1 0
+trip 1 0
+preference 1 0
+tweak 1 0
+tom 1 0
+custom 1 0
+2160p.. 1 0
+computers 1 0
+notebooks 1 0
+dexterity 1 0
+req 1 0
+this-has 1 0
+5-10 1 0
+itseems 1 0
+n64 1 0
+beatsaber 1 0
+tacos 1 0
+hail 1 0
+commercials 1 0
+gold 1 0
+3000 1 0
+500gig 1 0
+soundl 1 0
+tv.tons 1 0
+ps3.cant 1 0
+serup 1 0
+complicating 1 0
+stands 1 1
+failures 1 0
+motivation 1 0
+boght 1 0
+cleare 1 0
+smothley 1 0
+wild 1 0
+bu 1 0
+850xd 1 0
+integrated 1 0
+awosome 1 0
+f1 1 0
+bitton 1 0
+wa 1 0
+vru 1 0
+trasitions 1 0
+downgraded 1 0
+to1080 1 0
+funness 1 0
+explanatory 1 0
+gret 1 0
+pkay 1 0
+bachelor 1 0
+loveeee 1 0
+collection.. 1 0
+holy 1 0
+smokes 1 0
+for.my 1 0
+screen.wireless 1 0
+funny 1 0
+mess 1 0
+sincerely 1 0
+bainer 1 0
+gaphics 1 0
+carried 1 0
+apply 1 0
+escpecially 1 0
+lod 1 0
+whites 1 0
+disposable 1 0
+income 1 0
+rachet 1 0
+clan 1 0
+.so 1 0
+videosystem 1 0
+75in 1 0
+bust 1 0
+clerk 1 0
+comfort 1 0
+buff 1 0
+decirtl 1 0
+arsenal 1 0
+deviate 1 0
+uohvddhhhcf 1 0
+n. 1 0
+fddh 1 0
+db 1 0
+jfffhgj 1 0
+jjgh 1 0
+heavily 1 0
+wet 1 0
+forza 1 0
+convert 1 0
+litttle 1 0
+role 1 0
+h4k 1 0
+space.this 1 0
+niche 1 0
+gain 1 0
+teens 1 0
+picks 1 1
+g5 1 0
+immidiately 1 0
+.f.o.e 1 0
+wear 1 0
+thankyou 1 0
+uograde 1 0
+gazillionaires 1 0
+2-4 1 0
+comparisons 1 1
+ítem 1 0
+smarttv 1 0
+dual-deck 1 0
+convince 1 0
+autistic 1 0
+installment 1 0
+continued 1 0
+thsi 1 0
+attachments 1 0
+cared 1 0
+obtaining 1 0
+muti 1 0
+bull 1 0
+rebooting 1 0
+motivate 1 0
+weekly 1 0
+liltte 1 0
+print 1 0
+be.though 1 0
+monitor.still 1 0
+prone 1 0
+secured 1 0
+time.great 1 0
+bay 1 0
+pre-loading 1 0
+playsyation 1 0
+sporadically 1 0
+desired 1 0
+actions 1 0
+remasters 1 0
+staples 1 0
+non-gaming 1 0
+relocating 1 0
+misses 1 0
+a1e 1 0
+p-series 1 0
+toward 1 0
+mu9500 1 0
+lauch 1 0
+tera 1 0
+proecessor 1 0
+damnage 1 0
+bite 1 0
+atention 1 0
+providing 1 0
+proved 1 0
+auction 1 0
+celebrate 1 0
+brother-in-law 1 0
+offense 1 0
+tricked 1 0
+distractions 1 0
+adulting. 1 0
+blk 1 0
+jam 1 0
+increasing 1 0
+efficiency 1 0
+proficiency 1 0
+ps4vr 1 0
+animated 1 0
+newley 1 0
+undamaged 1 0
+bug 1 0
+1gb 1 0
+like.most 1 0
+people.today 1 0
+-p 1 0
+resolition 1 0
+wicked 1 0
+fornight 1 0
+rolled 1 0
+meme 1 0
+boast 1 0
+10+ 1 0
+companion 1 0
+screws 1 0
+.kids 1 0
+specifications 1 0
+peripherals 1 0
+pro..i 1 0
+rewarding 1 0
+best.fast 1 0
+shiping 1 0
+song 1 0
+mores 1 0
+wush 1 0
+adequate 1 0
+dive 1 0
+co-worker 1 0
+voice 1 0
+crave 1 0
+grapfics 1 0
+evolve 1 0
+the1 1 0
+frame-rates 1 0
+hhd 1 0
+crapped 1 0
+55900e 1 0
+space.. 1 0
+extensively 1 0
+attractive 1 0
+tvm 1 0
+dangerous 1 0
+gteat 1 0
+sheer 1 0
+downscaling 1 0
+grapics 1 0
+theps4 1 0
+disease 1 0
+sunshine 1 0
+unicorns 1 0
+carries 1 0
+.better 1 0
+philippines 1 0
+volt 1 0
+tetris 1 0
+ps-exclusive 1 0
+mat 1 0
+repaiable 1 0
+1year 1 0
+wipeout 1 0
+omega 1 0
+showpieces 1 0
+departed 1 0
+afordable 1 0
+sparks 1 0
+nd 1 0
+producer 1 0
+nobody 1 0
+graffitic 1 0
+1995 1 0
+loyalist 1 0
+.holy 1 0
+mannnn 1 0
+manager 1 0
+joe 1 0
+chapman 1 0
+greenfield 1 0
+perfecto 1 0
+playsystiin 1 0
+sony-playstation 1 0
+console-jet 1 0
+fot 1 0
+recreation 1 0
+awful 1 0
+whining 1 0
+kingsom 1 0
+saga 1 0
+halvsies 1 0
+ad 1 0
+nauseum 1 0
+buttry 1 0
+cordless 1 0
+mobility 1 0
+le 1 0
+graffit 1 0
+appliance 1 0
+diagnose 1 0
+alil 1 0
+honey 1 0
+woukd 1 0
+7115b 1 0
+aka 1 0
+cristmas 1 0
+praise 1 0
+continuously 1 0
+handoff 1 0
+..the 1 0
+pro- 1 0
+'cause 1 0
+supersedes 1 0
+fly 1 0
+conflicted 1 0
+pieces 1 0
+meantime 1 0
+5th 1 0
+defined 1 0
+4kplayer 1 0
+wows 1 0
+op 1 0
+temp 1 0
+doubke 1 0
+incomplete 1 0
+solution 1 0
+13-year-old 1 0
+unit.. 1 0
+sonny 1 0
+gor 1 0
+trend 1 0
+salesman.ps4 1 0
+slingtv 1 0
+unforgettable 1 0
+oriented 1 0
+tomorrow 1 0
+ai 1 0
+hinting 1 0
+badly 1 0
+districts 1 0
+awesone 1 0
+anyhow 1 0
+preordered 1 0
+verrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrry 1 0
+reasonably 1 0
+udh 1 0
+vacuum 1 0
+parappa 1 0
+rapper 1 0
+photo 1 0
+v1.0 1 0
+nicks 1 0
+videogame 1 0
+do-everything 1 0
+marketplace 1 0
+whilst 1 0
+bet 1 0
+earning 1 0
+sweeter 1 0
+zombie 1 0
+parents 1 0
+tax 1 0
+august 1 0
+sum 1 0
+beating 1 0
+.no 1 0
+y'all 1 0
+mighty 1 0
+sufirts 1 0
+bryse 1 0
+ranks 1 0
+ladies 1 0
+gents 1 0
+causal 1 0
+fanatic 1 0
+rastro 1 0
+interfaces 1 1
+appear 1 0
+george 1 0
+orville 1 0
+1984 1 0
+dc 1 0
+supervillains 1 0
+gre-hics 1 0
+calibrate 1 0
+.plain 1 0
+07 1 0
+manually 1 0
+choice.. 1 0
+presented 1 0
+bee 1 0
+outdone 1 0
+awesome.. 1 0
+windows 1 0
+critical 1 0
+plentiful 1 0
+contacted 1 0
+sounding 1 0
+rocketship 1 0
+fast.love 1 0
+incrediblie 1 0
+dubs 1 0
+multiplatform 1 0
+typically 1 0
+camp 1 0
+❤️❤️❤️❤️my 1 0
+discounts 1 0
+agent 1 0
+assisted 1 0
+curtious 1 0
+highlighting 1 0
+incrediblely 1 0
+funciono 1 0
+que 1 0
+compre 1 0
+hicieron 1 0
+devolución 1 0
+suggestion 1 0
+explanation 1 0
+longest 1 0
+1080i 1 0
+65inch 1 0
+regulat 1 0
+encourages 1 0
+top-of-the-line 1 0
+tore 1 0
+sealed 1 0
+safe 1 0
+neatly 1 0
+disapoints 1 0
+husban 1 0
+situations 1 0
+advertesiment 1 0
+rivals 1 0
+grasp 1 0
+hahaha 1 0
+intel 1 0
+nvidia 1 0
+borderlands 1 0
+injoys 1 0
+resort 1 0
+recoment 1 0
+consolé 1 0
+mbps 1 0
+resource 1 0
+ultra-realistic 1 0
+commerciality 1 0
+perpetual 1 0
+disclaimer 1 0
+bias 1 0
+hater 1 0
+hubs 1 0
+boxes 1 1
+1-4 1 0
+9th 1 0
+viewed 1 0
+hoops 1 0
+p75 1 0
+effortless 1 0
+reggie 1 0
+wash 1 0
+defective 1 0
+heated 1 0
+dated 1 0
+remodel 1 0
+anxious 1 0
+gen. 1 0
+serial 1 0
+statin 1 0
+powers 1 1
+dusty.. 1 0
+fantaqstic 1 0
+solidifies 1 0
+existed 1 0
+30min 1 0
+si 1 0
+ce 1 0
+82in 1 0
+sub-menus 1 0
+already.if 1 0
+7-year 1 0
+ii 1 0
+ve 1 0
+favorite.. 1 0
+co-workers 1 0
+bases 1 0
+good.. 1 0
+ps..exelent 1 0
+grafics.. 1 0
+associates 1 0
+ourselves 1 0
+ot 1 0
+intently 1 0
+history 1 0
+produxt 1 0
+djsja 1 0
+impressively 1 0
+outdoing 1 0
+discounted 1 0
+silk 1 0
+consolemy 1 0
+suck 1 0
+purchase.meets 1 0
+excluding 1 0
+readily 1 0
+checkered 1 0
+.good 1 0
+gp 1 0
+challenge.loves 1 0
+strength 1 0
+durability 1 0
+faming 1 0
+plans 1 0
+um 1 0
+fudge 1 0
+girls 1 0
+chassis 1 0
+marry 1 0
+entry 1 1
+bandwagon 1 0
+.have 1 0
+android 1 0
+worh 1 0
+suburban 1 0
+step-up 1 0
+huddle 1 0
+classy 1 0
+soul 1 0
+orange 1 0
+profile 1 0
+declutter 1 0
+fourteen 1 0
+recimmended 1 0
+vihkd 1 0
+shutting 1 0
+fulfilled 1 0
+stutters 1 0
+2k17 1 0
+ps4..the 1 0
+playstaition 1 0
+gamong 1 0
+ll 1 0
+frds 1 0
+blogs 1 0
+remaking 1 0
+streaming.i 1 0
+oicture 1 0
+uprgrade 1 0
+concerning 1 0
+c7 1 0
+replaying 1 0
+desperately 1 0
+uve 1 0
+antenna 1 0
+stations- 1 0
+3x 1 0
+850 1 0
+ops 1 0
+subtle 1 0
+copied 1 0
+425gb 1 0
+90 1 0
+300- 1 0
+duo 1 0
+differential 1 0
+scenery 1 0
+realise 1 0
+disable 1 0
+downsides 1 0
+rent 1 0
+piano 1 0
+uninstall 1 0
+reinstall 1 0
+tempted 1 0
+por 1 0
+dozen 1 0
+loyalty 1 0
+vertically 1 0
+enemy 1 0
+checkboard 1 0
+progression 1 0
+differences.. 1 0
+evasive 1 0
+bt 1 0
+misinformed 1 0
+pleased.thank 1 0
+strive 1 0
+clearest 1 0
+cleanest 1 0
+amas 1 0
+deffenitly 1 0
+wuth 1 0
+impulse 1 0
+engaged 1 0
+adjustment 1 0
+bicycle 1 0
+motorcycle 1 0
+googles 1 0
+hog 1 0
+diffence 1 0
+iv 1 0
+retro 1 0
+5.0 1 0
+syncs 1 0
+.ca 1 0
+wrong. 1 0
+uncle 1 0
+spike 1 0
+videocard 1 0
+accelerated 1 0
+consoul 1 0
+ends 1 1
+optimize 1 0
+.but 1 0
+dodgers 1 0
+.not 1 0
+blocking 1 0
+thesmokesession 1 0
+fluently 1 0
+diffenetly 1 0
+diffenet 1 0
+operate.highly 1 0
+20+ 1 0
+folder 1 0
+scheme 1 0
+finds 1 0
+frusrating 1 0
+brilliantly 1 0
+veteran 1 0
+sun 1 0
+platfor 1 0
+mixed 1 0
+powww 1 0
+1000x 1 0
+owed 1 0
+faaaast 1 0
+speedier 1 0
+sata3 1 0
+pricey..better 1 0
+deal..you 1 0
+love.. 1 0
+grownups 1 0
+scott 1 0
+delay 1 0
+furious 1 0
+adjusting 1 0
+serve 1 0
+smoking 1 0
+​​the 1 0
+neat 1 0
+slowdown 1 0
+diehard 1 0
+guessing 1 0
+disapointed 1 0
+exceceptionally 1 0
+class 1 0
+opinions 1 1
+tin 1 0
+student 1 0
+bouns 1 0
+irritating 1 0
+x-biggbrother 1 0
+derek 1 0
+verify 1 0
+explaining 1 0
+technologies 1 1
+stood 1 0
+one.they 1 0
+happpppppyyyyyyy 1 0
+sunny 1 0
+wrapping 1 0
+gaming.. 1 0
+spin 1 0
+prey 1 0
+lookin 1 0
+inlove 1 0
+coz 1 0
+credits 1 0
+awazingl 1 0
+doubling 1 0
+'twisted 1 0
+metal 1 0
+frequent 1 0
+sleekest 1 0
+gigapower 1 0
+fiber 1 0
+in-between 1 0
+grea 1 0
+phot 1 0
+teh 1 0
+uhd4k 1 0
+better.great 1 0
+120 1 0
+storeage 1 0
+lined 1 0
+guitar 1 0
+beef 1 0
+trade-up 1 0
+effiency 1 0
+possibility 1 0
+intelligent 1 0
+pits 1 0
+overheat 1 0
+accesses 1 0
+innovation 1 0
+downs 1 0
+optimizes 1 0
+entering 1 0
+graphics=sold 1 0
+tweaks 1 0
+-1 1 0
+block 1 0
+vent 1 0
+horrid 1 0
+horizontal 1 0
+slanted 1 0
+lasagna 1 0
+x-2 1 0
+insides 1 0
+happily 1 0
+'4k 1 0
+replaceable 1 0
+althought 1 0
+vines 1 0
+.and 1 0
+mommy 1 0
+c8 1 0
+indecisive 1 0
+imade 1 0
+criteria 1 0
+feud 1 0
+attract 1 0
+dents 1 0
+scratches 1 0
+footage 1 0
+cityscape 1 0
+web-slinging 1 0
+possibly 1 0
+corvette 1 0
+prius 1 0
+unlocks 1 0
+sensational 1 0
+promotional 1 0
+a+++ 1 0
+spriderman 1 0
+dolby 1 0
+vision 1 0
+good,1tb 1 0
+sat 1 0
+cube 1 0
+i´ve 1 0
+2016 1 0
+bluffton 1 0
+taxes 1 0
+desktop 1 0
+system.i 1 0
+novel 1 0
+cutscenes 1 0
+lists 1 0
+rock 1 0
+xboz 1 0
+spitting 1 0
+luvs 1 0
+alden 1 0
+uploads 1 0
+horse 1 0
+giveaways 1 0
+0 1 0
+conversion 1 0
+uprgade 1 0
+alternatively 1 0
+underpowered 1 0
+ludicrously 1 0
+milestone 1 0
+ma 1 0
+frnz 1 0
+values 1 0
+bcuz 1 0
+believing 1 0
+fabulously 1 0
+high-performance 1 0
+satisfaction 1 0
+unoptimized 1 0
+mode.i 1 0
+hesistate 1 0
+hitch 1 0
+survival 1 0
+evolved 1 0
+maddon 1 0
+feelvery 1 0
+waa 1 0
+funnest 1 0
+everywhere 1 0
+wonky 1 0
+again.my 1 0
+it.his 1 0
+optinion 1 0
+naphau 1 0
+pakistan 1 0
+characte 1 0
+password 1 0
+retina 1 0
+concole 1 0
+ughmazing 1 0
+mow 1 0
+ore 1 0
+good-looking 1 0
+buyed 1 0
+purposeful 1 0
+boyfriends 1 0
+envy 1 0
+unaware 1 0
+seemingly 1 0
+current-gen 1 0
+8yr 1 0
+preparation 1 0
+medium 1 1
+gaming.supports 1 0
+games.uncharted 1 0
+grow 1 0
+tools 1 0
+.brought 1 0
+adn 1 0
+eprecommend 1 0
+lifting 1 0
+goin 1 0
+hassle 1 0
+quitter 1 0
+ugraded 1 0
+meaner 1 0
+viedonl 1 0
+driven 1 0
+pinnacle 1 0
+rendering.4k 1 0
+— 1 0
+descent 1 0
+coollllllllllllllllllllllllllllll 1 0
+cousin 1 0
+doctor 1 0
+money.. 1 0
+suits 1 0
+swear 1 0
+links 1 0
+30hz 1 0
+..i 1 0
+china.the 1 0
+wound 1 0
+purchaser 1 0
+puzzling 1 0
+wonders 1 0
+oldest 1 0
+fooled 1 0
+targeted 1 0
+promoted 1 0
+memorable 1 0
+spice 1 0
+cold 1 0
+gets. 1 0
+supper 1 0
+pro+ 1 0
+tv= 1 0
+busters 1 0
+pre-ordered 1 0
+paperweight 1 0
+non-ps4 1 0
+upted 1 0
+accustomed 1 0
+mesmerizing 1 0
+obliged 1 0
+chimney 1 0
+rush 1 0
+luke 1 0
+benq 1 0
+t.v. 1 0
+security 1 0
+violent 1 0
+misconception 1 0
+besuty 1 0
+recomendate 1 0
+costing 1 0
+arm 1 0
+vizeo 1 0
+badheadphones 1 0
+1300 1 0
+1.5 1 0
+underneath 1 0
+awkward 1 0
+material 1 0
+exterior 1 0
+morr 1 0
+zippy 1 0
+urge 1 0
+.wow 1 0
+covered 1 0
+diffrent 1 0
+2+ 1 0
+backlit 1 0
+hue 1 0
+js8500 1 0
+iw 1 0
+requiring 1 0
+weve 1 0
+attacment 1 0
+everithing 1 0
+familiarize 1 0
+7-10 1 0
+performes 1 0
+lottery 1 0
+excuses 1 0
+thebwhole 1 0
+familt 1 0
+cars 1 0
+warning 1 0
+addicting 1 0
+transitioning 1 0
+messaging 1 0
+beefier 1 0
+restarted 1 0
+wider 1 0
+consumption 1 0
+sauce 1 0
+lotta 1 0
+50uh5500 1 0
+sees 1 0
+instantaneous 1 0
+snob 1 0
+abfew 1 0
+certificate 1 0
+performer 1 0
+mandatory 1 0
+0s4 1 0
+siked 1 0
+fantastical 1 0
+zelda 1 0
+twists 1 0
+secrets 1 0
+thumb 1 0
+priceless 1 0
+flexibility 1 0
+opposed 1 0
+nuff 1 0
+columbus 1 0
+wth 1 0
+hides 1 0
+newphew 1 0
+deserve 1 0
+beaitful 1 0
+eyeing 1 0
+phenominal 1 0
+dips 1 0
+2015 1 0
+certsinly 1 0
+videophile 1 0
+buy.. 1 0
+ironic 1 0
+shaper 1 0
+redesigned 1 0
+mafia 1 0
+brown 1 0
+orignal 1 0
+attentions 1 0
+insertion 1 0
+grands 1 0
+trainer 1 0
+evey 1 0
+34 1 0
+dry 1 0
+sluggish 1 0
+entails 1 0
+guts 1 0
+smashed 1 0
+dang 1 0
+expandable 1 0
+coontinued 1 0
+asre 1 0
+appropriate 1 0
+regert 1 0
+coop 1 0
+cool.totally 1 0
+it.i 1 0
+staying 1 0
+tells 1 0
+shadow 1 0
+medical 1 0
+wasted 1 0
+graphics.my 1 0
+ecreational 1 0
+outlet 1 0
+blazing 1 0
+guns 1 0
+artillery 1 0
+interconnectivity 1 0
+weight.. 1 0
+midway 1 0
+slower 1 0
+cures 1 0
+holdover 1 0
+golden 1 0
+hasnt 1 0
+fantastic.. 1 0
+fiancée 1 0
+mhw 1 0
+gadgets 1 0
+iiii 1 0
+loll 1 0
+edited 1 0
+pray 1 0
+nabbed 1 0
+easyto 1 0
+inconvenience 1 0
+valid 1 0
+rare 1 0
+any.everything 1 0
+avail 1 0
+occupies 1 0
+organzied 1 0
+yaaaaaaaaaay 1 0
+tohours 1 0
+trial 1 0
+go.cant 1 0
+game.. 1 0
+glitched 1 0
+unexpectedly 1 0
+backlog 1 0
+amazimg 1 0
+jessiehernandez 1 0
+supporter 1 0
+availble 1 0
+cunsumer 1 0
+wire 1 0
+chain 1 0
+lowered 1 0
+hassle-free 1 0
+huger 1 0
+vue™ 1 0
+playstation™ 1 0
+immense 1 0
+pity 1 0
+neighbor 1 0
+greeted 1 0
+courtesy 1 0
+otheriwse 1 0
+apex 1 0
+departure 1 0
+anti-aliasing 1 0
+loudest 1 0
+beginners 1 0
+amy 1 0
+apt 1 0
+nba2k18 1 0
+repaired 1 0
+mashing 1 0
+sealer 1 0
+upgrade.it 1 0
+cave 1 0
+nightmare 1 0
+worst 1 0
+burnt 1 0
+refund 1 0
+down.i 1 0
+☺ 1 0
+1995. 1 0
+60-70 1 0
+.com 1 0
+rally 1 0
+system..cant 1 0
+novice 1 0
+whatching 1 0
+grpahics 1 0
+warranted 1 0
+machine.. 1 0
+layouts 1 0
+impression 1 0
+ux 1 0
+privacy 1 0
+counter 1 0
+scales 1 0
+redbox 1 0
+ps-4 1 0
+moves 1 0
+prosesing 1 0
+vwry 1 0
+valkyrie 1 0
+comeback 1 0
+sped 1 0
+troubleshooting 1 0
+resolve 1 0
+yearly 1 0
+deference 1 0
+spotted 1 0
+mastered 1 0
+abaolutely 1 0
+matte 1 0
+eat 1 0
+7th 1 0
+niece 1 0
+grahics 1 0
+grass 1 0
+outs 1 0
+dumb 1 0
+1,000 1 0
+cann 1 0
+yep 1 0
+lottttttt 1 0
+addiction 1 0
+gateway 1 0
+satisfy 1 0
+realsytic 1 0
+devastating 1 0
+it.plus 1 0
+stutter 1 0
+fad 1 0
+platino 1 0
+fixes 1 0
+competing 1 0
+improving 1 0
+super-charged 1 0
+amaing 1 0
+kinks 1 0
+dear 1 0
+nana 1 0
+lately 1 0
+consuls 1 0
+njoy 1 0
+friends.watching 1 0
+touted 1 0
+glaring 1 0
+omission 1 0
+dissapoint 1 0
+kidd 1 0
+stocked 1 0
+iam 1 0
+count 1 0
+clearness 1 0
+replacment 1 0
+dazzling 1 0
+simplified 1 0
+boasts 1 0
+also.. 1 0
+recharge 1 0
+hesitated 1 0
+wouldnt 1 0
+hardest 1 0
+sign-up 1 0
+heartbeat 1 0
+quirk 1 0
+fixable 1 0
+assumes 1 0
+br 1 0
+7kseries 1 0
+generous 1 0
+mindblowing 1 0
+overt 1 0
+.thank 1 0
+poll 1 0
+dance 1 0
+cops 1 0
+csn 1 0
+shipment 1 0
+types 1 0
+2019-20 1 0
+slice 1 0
+bread 1 0
+ea 1 0
+absolutley 1 0
+acceptable 1 0
+..not 1 0
+marketly 1 0
+gamin 1 0
+shoot 1 0
+streamin 1 0
+.game 1 0
+82 1 0
+consume 1 0
+1980 1 0
+insync 1 0
+playong 1 0
+overcast 1 0
+s4 1 0
+ahve 1 0
+llaystation 1 0
+statiion 1 0
+geting 1 0
+abut 1 0
+hiccup 1 0
+likevthe 1 0
+earpiece 1 0
+1080. 1 0
+hen 1 0
+champion 1 0
+standing 1 0
+dominate 1 0
+standalone 1 0
+inception 1 0
+ventured 1 0
+supposedly 1 0
+overlooked 1 0
+foster 1 0
+collaboration 1 0
+biggie 1 0
+unknown 1 0
+greats 1 0
+does't 1 0
+tablet 1 0
+educational 1 0
+tanks 1 0
+feed 1 0
+gods 1 1
+strongest 1 0
+ores 1 0
+cookie 1 0
+slims 1 0
+xboxes 1 0
+years-hope 1 0
+iwould 1 0
+recommendto 1 0
+configurations 1 0
+well-built 1 0
+wealth 1 0
+up.one 1 0
+mose 1 0
+eith 1 0
+emoji 1 0
+goid 1 0
+15-20 1 0
+traveled 1 0
+sighing 1 0
+according 1 0
+deferent 1 0
+ubest 1 0
+upt 1 0
+graffic 1 0
+system..and 1 0
+playsytation 1 0
+game-ey 1 0
+tv.the 1 0
+onscreen 1 0
+revisions 1 0
+loud.. 1 0
+distracting 1 0
+revision 1 0
+10th 1 0
+realese 1 0
+.powerful 1 0
+excellant 1 0
+hammer 1 0
+es 1 0
+buen 1 0
+lo 1 0
+voy 1 0
+usar 1 0
+calidad 1 0
+accident- 1 0
+reset- 1 0
+unexpected 1 0
+eventhough 1 0
+palsy 1 0
+100-150 1 0
+advise 1 0
+sup 1 0
+couples 1 0
+900f 1 0
+stoning 1 0
+harmony 1 0
+ks 1 0
+x930e 1 0
+symphony 1 0
+excellence 1 0
+pears 1 0
+moreover 1 0
+from.. 1 0
+poured 1 0
+rescue 1 0
+bonuses 1 0
+were'nt 1 0
+investing 1 0
+pubg 1 0
+struggled 1 0
+interruptions 1 0
+maneuver 1 0
+families 1 1
+logins 1 0
+gettting 1 0
+800 1 0
+day-one 1 0
+objects 1 0
+adaptation 1 0
+noticibly 1 0
+introduce 1 0
+gentleman 1 0
+reguilar 1 0
+❤️bestbuy 1 0
+2cd 1 0
+ugpraged 1 0
+3.0. 1 0
+severely 1 0
+encouraged 1 0
+bundle.only 1 0
+rely 1 0
+waaaay 1 0
+fins 1 0
+researching 1 0
+decades 1 0
+cub 1 0
+raising 1 0
+troops 1 0
+thaaaank 1 0
+itching 1 0
+under-age 1 0
+syestem 1 0
+wven 1 0
+finaly 1 0
+wifey 1 0
+.will 1 0
+chunky 1 0
+internals 1 0
+inevitable 1 0
+stack 1 0
+look. 1 0
+bargain 1 0
+earbuds 1 0
+.if 1 0
+..go 1 0
+storm 1 0
+incorporate 1 0
+underestimated 1 0
+palette 1 0
+steady 1 0
+dishonored 1 0
+63 1 0
+suffers 1 0
+m70-e3 1 0
+configure 1 0
+impossible 1 0
+ppl 1 0
+rural 1 0
+stretched 1 0
+pixilated 1 0
+user-friendly 1 0
+grantrismo 1 0
+tone 1 0
+pixel 1 0
+outout 1 0
+equally 1 0
+rd2 1 0
+admired 1 0
+shout 1 0
+braintree 1 0
+christimas 1 0
+slowed 1 0
+link 1 0
+.worth 1 0
+ungrade 1 0
+lean 1 0
+deny 1 0
+75-inch 1 0
+timevto 1 0
+graphics. 1 0
+intresting 1 0
+uncharterd 1 0
+silky 1 0
+55kickin 1 0
+arguing 1 0
+lacked 1 0
+success 1 0
+sandwich 1 0
+..fun 1 0
+z 1 0
+wary 1 0
+asides 1 0
+spouse 1 0
+coding 1 0
+estimated 1 0
+firstly 1 0
+waranty 1 0
+freinds 1 0
+familys 1 1
+breaker 1 1
+typical 1 0
+anywho 1 0
+wwould 1 0
+recommed 1 0
+salem 1 0
+nh 1 0
+express 1 0
+.get 1 0
+⭐️⭐️⭐️⭐️⭐️ 1 0
+plex 1 0
+x-boxes 1 0
+prefers 1 0
+espectacular 1 0
+redesign 1 0
+smiles 1 0
+compliments 1 0
+mu 1 0
+chosent 1 0
+genre 1 0
+on..works 1 0
+fantastic..glad 1 0
+mu8500 1 0
+should.. 1 0
+syatem 1 0
+locked 1 0
+centuries 1 0
+wnough 1 0
+sytems 1 0
+puirchased 1 0
+ejoying 1 0
+24-7 1 0
+simulation 1 0
+15th 1 0
+rear 1 0
+treated 1 0
+jajaja 1 0
+graficks 1 0
+awsomw 1 0
+iy 1 0
+gifts-for 1 0
+deducted 1 0
+plugging 1 0
+930e 1 0
+m-cable 1 0
+attest 1 0
+originals 1 0
+mu8000 1 0
+inc 1 0
+gender 1 0
+negaitive 1 0
+lmapy 1 0
+..works 1 0
+activity 1 0
+all..music 1 0
+welll 1 0
+player.easy 1 0
+pinball 1 0
+advertisements 1 0
+baked 1 0
+sorta 1 0
+painless 1 0
+club 1 0
+precise 1 0
+throughout 1 0
+waist 1 0
+t.v.. 1 0
+green 1 0
+displaying 1 0
+etc..sony 1 0
+implement 1 0
+all..seem 1 0
+obsession 1 0
+4k-bluray 1 0
+clunky 1 0
+friggin 1 0
+mobile 1 0
+phones 1 0
+out..it 1 0
+better1 1 0
+beaten 1 0
+iten 1 0
+thx 1 0
+pitched 1 0
+sudden 1 0
+clip 1 0
+qulity 1 0
+cycle 1 0
+remains 1 0
+quality.. 1 0
+tv-wise 1 0
+post 1 0
+wander 1 0
+galaxy 1 0
+inventoryy 1 0
+++ 1 0
+creeps 1 0
+darn 1 0
+dlc 1 0
+difficulty 1 0
+discern 1 0
+higher-end 1 0
+slap 1 0
+advancements 1 0
+accomplished 1 0
+rox 1 0
+..best 1 0
+auntie 1 0
+settings-network-test 1 0
+seemseems 1 0
+sides 1 0
+prevent 1 0
+confusion 1 0
+principal 1 0
+connectors 1 0
+wih 1 0
+amlb 1 0
+= 1 0
+salesperson 1 0
+knowledgable 1 0
+activities 1 0
+3tb 1 0
+fast.. 1 0
+inability 1 0
+tiger 1 0
+woods 1 0
+ps14 1 0
+speculation 1 0
+4i 1 0
+room.. 1 0
+smoother.. 1 0
+achieve 1 0
+instances 1 0
+thow 1 0
+buggiest 1 0
+.seems 1 0
+warn 1 0
+savvy 1 0
+theit 1 0
+apperatus 1 0
+dime 1 0
+fromps3 1 0
+ro 1 0
+dried 1 0
+rotten 1 0
+gristle 1 0
+tenderloin 1 0
+smoothest 1 0
+bast 1 0
+retirement 1 0
+maps 1 0
+hair 1 0
+forgot 1 0
+benching 1 0
+lazyboy 1 0
+treats 1 0
+bothered 1 0
+dowm 1 0
+lookes 1 0
+awsom 1 0
+mines 1 0
+stadia 1 0
+three.but 1 0
+desicion 1 0
+remarks 1 0
+grphics 1 0
+withe 1 0
+catching 1 0
+resist 1 0
+college 1 0
+'home 1 0
+controlling 1 0
+apparent 1 0
+4-5 1 0
+pss 1 0
+dust-free 1 0
+deeper 1 0
+vouch 1 0
+regretting 1 0
+ismart 1 0
+75inch 1 0
+wether 1 0
+zombies 1 0
+gains 1 0
+wireless- 1 0
+victories 1 0
+transistion 1 0
+planned 1 0
+afterwards 1 0
+failure 1 0
+engage 1 0
+first-party 1 0
+chan 1 0
+scratched 1 0
+lmao 1 0
+daughtershe 1 0
+scaled 1 0
+equiptment 1 0
+portal 1 0
+qyickly 1 0
+vice 1 0
+yhe 1 0
+j 1 0
+scarce 1 0
+cryptic 1 0
+reinstalling 1 0
+ten- 1 0
+defs 1 0
+seldom 1 0
+preferable 1 0
+bough 1 0
+cheapest 1 0
+13th 1 0
+plucked 1 0
+signs 1 0
+ripped 1 0
+ps4.also 1 0
+breast 1 0
+games. 1 0
+bo3 1 0
+dud 1 0
+fingers 1 0
+crossed 1 0
+overwatch 1 0
+worths 1 0
+proofed 1 0
+petty 1 0
+cbs 1 0
+smoothed 1 0
+devise 1 0
+nascar 1 0
+playstationtillidie 1 0
+contact 1 0
+folks 1 0
+cartwheel 1 0
+futuristic 1 0
+closing 1 0
+consules 1 0
+flowing 1 0
+ade 1 0
+yours 1 0
+unrivaled 1 0
+hosting 1 0
+ike 1 0
+telltale 1 0
+.amazing 1 0
+advertises 1 0
+flows 1 0
+dude 1 0
+53 1 0
+procedure 1 0
+calibration 1 0
+socks 1 0
+tv. 1 0
+home.. 1 0
+merry 1 0
+superfast 1 0
+surroundsound 1 0
+28-inch 1 0
+freesync 1 0
+mg28uq 1 0
+dependable 1 0
+demos 1 0
+therefore 1 0
+teenaged 1 0
+houston 1 0
+refunded 1 0
+unplayable 1 0
+surge 1 0
+lucked 1 0
+tinrd 1 0
+plat 1 0
+non-disk 1 0
+killing 1 0
+exclusoves 1 0
+heightened 1 0
+jst 1 0
+purchase.love 1 0
+vrs 1 0
+playtime 1 0
+i'be 1 0
+sizing 1 0
+realizing 1 0
+hzd 1 0
+aventura 1 0
+pupular 1 0
+cylinders 1 0
+fire-stick 1 0
+realizehow 1 0
+fatalities 1 0
+mortal 1 0
+kombat 1 0
+xl 1 0
+indulge 1 0
+flag 1 0
+system.it 1 0
+expected.. 1 0
+resolution.. 1 0
+asset 1 0
+completed 1 0
+30yrs 1 0
+sega 1 0
+conditions 1 0
+cats 1 0
+rrally 1 0
+materials 1 0
+brand-new 1 0
+smoke 1 0
+bass 1 0
+distortion 1 0
+escape 1 0
+13year 1 0
+accompany 1 0
+anime 1 0
+aligned 1 0
+theu 1 0
+blinking 1 0
+quality..i 1 0
+gamers.. 1 0
+5tb 1 0
+muc 1 0
+h 1 0
+i´m 1 0
+avatar 1 0
+900 1 0
+fuss 1 0
+rates.. 1 0
+ice 1 0
+unto 1 0
+minimizes 1 0
+s7 1 0
+broadcast 1 0
+ball 1 0
+doom 1 0
+sicc 1 0
+drivers 1 0
+commend 1 0
+tou 1 0
+inmersed 1 0
+eric 1 0
+wonderfull 1 0
+tactile 1 0
+have.. 1 0
+seat 1 0
+resurrect 1 0
+applucarions 1 0
+sharpest 1 0
+..e.g 1 0
+hook-up 1 0
+register 1 0
+diligently 1 0
+inferior 1 0
+oder 1 0
+did- 1 0
+snap 1 0
+playstation.. 1 0
+review.. 1 0
+hav 1 0
+utilized 1 0
+igor 1 0
+forma 1 0
+attempted 1 0
+telli 1 0
+differentiate 1 0
+mid-cycle 1 0
+marginally 1 0
+strems 1 0
+dragging 1 0
+exct 1 0
+wearing 1 0
+hates 1 0
+homework 1 0
+errors.over 1 0
+ecelent 1 0
+stored 1 0
+locally 1 0
+bead 1 0
+preform 1 0
+typing 1 0
+28 1 0
+circulation 1 0
+unavoidable 1 0
+lagged 1 0
+doubled 1 0
+beenholding 1 0
+commented 1 0
+lile 1 0
+iterations 1 0
+explode 1 0
+surpasses 1 0
+interactions 1 0
+all-round 1 0
+usage 1 0
+concerned 1 0
+gratefully 1 0
+accepted 1 0
+dandy 1 0
+blame 1 0
+boxing 1 0
+followed 1 0
+bucket 1 0
+acct 1 0
+enjoing 1 0
+..plays 1 0
+dimensions 1 0
+lone 1 0
+jukebox 1 0
+panther 1 0
+bath 1 0
+tub 1 0
+appreciation 1 0
+unnoticeable 1 0
+defects 1 0
+1- 1 0
+2- 1 0
+downer 1 0
+shares 1 0
+infamously 1 0
+chipset 1 0
+practically 1 0
+sanity 1 0
+outlets 1 0
+demands 1 0
+lasting 1 0
+vibrant.. 1 0
+netflx 1 0
+'it 1 0
+.very 1 0
+graphics.better 1 0
+graphics.easy 1 0
+up.he 1 0
+stumped 1 0
+hottest 1 0
+powerrrrrr 1 0
+transport 1 0
+heart 1 0
+sp1 1 0
+ps4- 1 0
+winding 1 0
+recommendas 1 0
+kiddos 1 0
+psyched 1 0
+upgrase 1 0
+4k..i 1 0
+strange 1 0
+gears 1 0
+accent 1 0
+shoes 1 0
+engineering 1 0
+gots 1 0
+.love 1 0
+compairison.tv 1 0
+interfase 1 0
+partnered 1 0
+console.lots 1 0
+feet 1 0
+concerns..great 1 0
+diving 1 0
+selected 1 0
+appeal 1 0
+shortage 1 0
+ridiculousy 1 0
+grabbed 1 0
+5.0ghz 1 0
+1ms 1 0
+awesomely 1 0
+paragon 1 0
+it.was 1 0
+notchs 1 0
+induction 1 0
+thier 1 0
+sensual 1 0
+carrying 1 0
+noisey 1 0
+honesty 1 0
+judge 1 0
+drm 1 0
+bamboozle 1 0
+.looks 1 0
+thks 1 0
+powerfuk 1 0
+contender 1 0
+deph 1 0
+refuse 1 0
+discription 1 0
+mini 1 0
+purchase1 1 0
+youngster 1 0
+eldest 1 0
+hoarder 1 0
+alleviate 1 0
+bickering 1 0
+argueing 1 0
+screaming 1 0
+yelling 1 0
+improvments 1 0
+colour 1 0
+gprshics 1 0
+gigabit 1 0
+twins 1 0
+coworker 1 0
+conseole 1 0
+cod3 1 0
+beloved 1 0
+heights 1 0
+inv 1 0
+failing 1 0
+expands 1 0
+compatiable 1 0
+nieces 1 0
+a+++++ 1 0
+deaf-autistic 1 0
+blank 1 0
+pro..allowing 1 0
+tv..great 1 0
+consloe 1 0
+5stars 1 0
+yell 1 0
+smack 1 0
+easer 1 0
+determine 1 0
+formate 1 0
+xbr850 1 0
+myselfree 1 0
+mony 1 0
+drawing 1 0
+gamming 1 0
+ps4.he 1 0
+extent 1 0
+saver 1 0
+werent 1 0
+ffvii 1 0
+remake 1 0
+distract 1 0
+argue 1 0
+wich 1 0
+pleasurable 1 0
+hicups 1 0
+badicoot 1 0
+pro..uts 1 0
+scenarios 1 0
+fantastico 1 0
+abe 1 0
+text 1 0
+doenloads 1 0
+und 1 0
+sacrifice 1 0
+statisfied 1 0
+purchuse 1 0
+tweeked 1 0
+ks8500 1 0
+ya 1 0
+storing 1 0
+can~t 1 0
+truth..the 1 0
+realistic.plenty 1 0
+xbox.. 1 0
+k8000 1 0
+gear 1 0
+grafix 1 0
+3.. 1 0
+challenges 1 0
+casuals 1 0
+cases 1 1
+spell 1 0
+bounding 1 0
+hesitation 1 0
+understood 1 0
+ribbon 1 0
+stucks 1 0
+codes 1 0
+corrupted 1 0
+database 1 0
+non-playable 1 0
+integrate 1 0
+skill 1 0
+probs 1 0
+animates 1 0
+website 1 0
+columbia 1 0
+mo 1 0
+cams 1 0
+efficiently 1 0
+aboslute 1 0
+version.. 1 0
+di 1 0
+dnot 1 0
+tec 1 0
+evolving 1 0
+upgrade- 1 0
+acquired 1 0
+similiar 1 0
+exact 1 0
+< 1 0
+coupons 1 0
+fri 1 0
+uptick 1 0
+..amazing 1 0
+challenge 1 0
+client 1 0
+aims 1 0
+succeed 1 0
+hidden 1 0
+messing 1 0
+garbage 1 0
+cramp 1 0
+inducing 1 0
+knocks 1 0
+sleeping 1 0
+pro..blah 1 0
+4.5 1 0
+upside 1 0
+arrive 1 0
+thoughts 1 0
+becoz 1 0
+nigbt 1 0
+plainly 1 0
+harness 1 0
+lengthy 1 0
+stability 1 0
+pro-updated 1 0
+slam 1 0
+theses 1 0
+superseded 1 0
+7100 1 0
+exellant 1 0
+replacement.its 1 0
+frozen 1 0
+setting.the 1 0
+absence 1 0
+pro. 1 0
+whoops 1 0
+weighting 1 0
+rgb 1 0
+enchanced 1 0
+a4k 1 0
+.it 1 0
+ghosts.it 1 0
+at1tb 1 0
+diversity 1 0
+genres.games 1 0
+broforce.. 1 0
+guys.. 1 0
+guts.. 1 0
+scrolling 1 0
+butt 1 0
+digging 1 0
+breyer 1 0
+invisible 1 0
+warmed 1 0
+setp 1 0
+proves 1 0
+esp 1 0
+opportunities 1 0
+concept 1 0
+vibrance 1 0
+gratified 1 0
+steal 1 0
+beeped 1 0
+seasoned 1 0
+duck 1 0
+hunt.. 1 0
+princeton 1 0
+claim 1 0
+boggling 1 0
+joy 1 0
+brawler 1 0
+100+ 1 0
+excuse 1 0
+high-def 1 0
+smiling 1 0
+improvementso 1 0
+games.i 1 0
+habe 1 0
+fun.i 1 0
+iffy 1 0
+anthem 1 0
+enchanchment 1 0
+switches 1 1
+espically 1 0
+gtaphics 1 0
+sporting 1 0
+cast 1 0
+target 1 0
+upsclaing 1 0
+ps4plus 1 0
+possession 1 0
+uuuhfff 1 0
+iphone 1 0
+adjusted 1 0
+manufacturer 1 0
+absoultly 1 0
+matrmerial 1 0
+coverage 1 0
+honored 1 0
+assume 1 0
+fats 1 0
+handled 1 0
+tissue 1 0
+all-in-one 1 0
+delightful 1 0
+censor 1 0
+differy 1 0
+4tb 1 0
+already.. 1 0
+malfunctioned 1 0
+niceeeeeeeeeeeeeeeeee 1 0
+much.. 1 0
+below 1 0
+noises 1 0
+privy 1 0
+roids 1 0
+gráfic 1 0
+storting 1 0
+submerge 1 0
+hars 1 0
+ext 1 0
+ssddrive 1 0
+monopoly 1 0
+gigabites 1 0
+regarding 1 0
+panels 1 0
+skimp 1 0
+troubleshoot 1 0
+ecstatics 1 0
+slowly 1 0
+joke 1 0
+suitable 1 0
+persona 1 0
+rejoice 1 0
+century 1 0
+prodynamic 1 0
+markets 1 1
+competes 1 0
+lousy 1 0
+raining 1 0
+carefully 1 0
+suddenly 1 0
+taller 1 0
+coasters 1 0
+lift 1 0
+centimeter 1 0
+ps4— 1 0
+associated 1 0
+expansive 1 0
+dependability 1 0
+frame-rate 1 0
+default 1 0
+scalability 1 0
+pull 1 0
+rate~ 1 0
+loosing 1 0
+scratching 1 0
+decor 1 0
+deployment 1 0
+relieve 1 0
+supercharged 1 0
+wore 1 0
+fir 1 0
+dramamine 1 0
+whiles 1 1
+quaility 1 0
+grandpa 1 0
+thick 1 0
+sceptical 1 0
+ditch 1 0
+breaks 1 0
+roof 1 0
+vey 1 0
+ps4.improves 1 0
+launches 1 1
+surely 1 0
+cancelled 1 0
+gamessss 1 1
+terabite 1 0
+oro 1 0
+easy-to-hold 1 0
+widely 1 0
+shared 1 0
+internationally 1 0
+global 1 0
+parked 1 0
+logo 1 0
+purist 1 0
+jus 1 0
+suhdtv 1 0
+wolfenstein 1 0
+buitifully 1 0
+lie 1 0
+childrens 1 0
+ffiv 1 0
+oversight 1 0
+gift.. 1 0
+logistical 1 0
+ny 1 0
+splendidly 1 0
+deduct 1 0
+enterteiment 1 0
+720p 1 0
+pixelated 1 0
+playsations 1 0
+realiabl 1 0
+wither 1 0
+entreatment 1 0
+logitech 1 0
+g29 1 0
+steering 1 0
+wheel 1 0
+9yr 1 0
+souped-up 1 0
+xbot 1 0
+development 1 0
+graphics.. 1 0
+mood 1 0
+quickness 1 0
+proiduct 1 0
+truley 1 0
+pressed 1 0
+x900f 1 0
+mouse 1 0
+centers 1 1
+ganes 1 0
+playstation.great 1 0
+steeaming 1 0
+increasingly 1 0
+frustrated 1 0
+inconsistent 1 0
+addressed 1 0
+concerns 1 0
+dustinct 1 0
+fires 1 0
+bog 1 0
+lobbies 1 0
+toll 1 0
+melt 1 0
+thiis 1 0
+decisive 1 0
+grwat 1 0
+system.. 1 0
+warefare 1 0
+ie 1 0
+netflick 1 0
+sims 1 0
+learnto 1 0
+consolen 1 0
+thinner 1 0
+massively 1 0
+bonehead 1 0
+hace 1 0
+speakers 1 1
+upres 1 0
+fill 1 0
+defintely 1 0
+mike 1 0
+rory 1 0
+sage 1 0
+adore 1 0
+thoses 1 0
+bloodborne 1 0
+hobbies 1 0
+amazin 1 0
+mint 1 0
+behavior 1 0
+cheat 1 0
+freakin 1 0
+plastation4 1 0
+..and 1 0
+.exactly 1 0
+weather 1 0
+exists 1 0
+sayin 1 0
+..replaced 1 0
+….. 1 0
+satisfeted 1 0
+curisosity 1 0
+fist 1 0
+powder 1 0
+-processing 1 0
+ccontent 1 0
+-3 1 0
+-hard 1 0
+fatboy 1 0
+poorly 1 0
+systwm 1 0
+ps3.. 1 0
+wifii 1 0
+suppliers 1 0
+men 1 0
+bonding 1 0
+conception 1 0
+nah 1 0
+doe 1 0
+humble 1 0
+moon 1 0
+awewweeeeeeeewwwwwww.. 1 0
+earphones 1 0
+consile 1 0
+anticipation 1 0
+4days 1 0
+opening 1 0
+onchristmas 1 0
+timely 1 0
+manner 1 0
+site 1 0
+selves 1 0
+thins 1 0
+innovator 1 0
+luck 1 0
+no-brained 1 0
+size- 1 0
+product.it 1 0
+program 1 0
+65ks8500 1 0
+juegos 1 0
+memoria 1 0
+vale 1 0
+pena 1 0
+inversión 1 0
+el 1 0
+bone 1 0
+waifus 1 0
+preapre 1 0
+watts 1 0
+380. 1 0
+automata 1 0
+continuous 1 0
+reluctant 1 0
+revamped 1 0
+rumors 1 0
+up-scales 1 0
+start.. 1 0
+cables.. 1 0
+outstanding.. 1 0
+annoyed 1 0
+8000. 1 0
+bluerey 1 0
+strived 1 0
+discovering 1 0
+drake 1 0
+99 1 0
+statue 1 0
+nore 1 0
+mkxl 1 0
+memories 1 1
+youth 1 0
+beneficial 1 0
+ofnthe 1 0
+generational 1 0
+spentusing 1 0
+manage 1 0
+turbo 1 0
+flight 1 0
+gamses 1 0
+etc. 1 0
+hd10 1 0
+ti.e 1 0
+cameras 1 0
+globe 1 0
+reduce 1 0
+ventilation 1 0
+goad 1 0
+i️t 1 0
+..if 1 0
+unfortunate 1 0
+hick-ups 1 0
+menat 1 0
+cinnamon 1 0
+renting 1 0
+cents 1 0
+describe 1 0
+conrollers 1 0
+former 1 0
+48 1 0
+beyer 1 0
+reads 1 0
+insert 1 0
+magnifying 1 0
+glass 1 0
+locate 1 0
+tittles 1 0
+susch 1 0
+relocated 1 0
+excluded 1 0
+dudes 1 0
+mount 1 0
+formally 1 0
+rd 1 0
+palyataion 1 0
+policy 1 0
+tapes 1 0
+align 1 0
+collateral 1 0
+outer 1 0
+xd 1 0
+cyber 1 0
+monday 1 0
+contemporary 1 0
+it.been 1 0
+medal 1 0
+honer 1 0
+far.looking 1 0
+metro 1 0
+exodus 1 0
+effortlessly 1 0
+assign 1 0
+mans 1 1
+well-made 1 0
+godson 1 0
