@@ -63,7 +63,7 @@ class Example(object):
             article_words = article_words[:hps.max_enc_steps.value]
         self.enc_len = len(article_words)  # store the length after truncation but before padding
         self.enc_input = [vocab.word2id(w) for w in article_words]  # list of word ids; OOVs are represented by the id for UNK token
-        self.enc_aspect_input = [vocab.word2aspect(w) for w in article_words] # list of 0 and 1; if 0 word is not an aspect, if 1 word is an aspect.
+        self.enc_aspect_input = self.get_enc_aspect_rank(article_words, vocab, hps.max_dec_sen_num.value) # list of 0 and 1; if 0 word is not an aspect, if 1 word is an aspect.
         self.original_review_input = input
         self.original_review_output = review
 
@@ -95,7 +95,7 @@ class Example(object):
     
         self.enc_len = len(article_words)  # store the length after truncation but before padding
         self.enc_input = [vocab.word2id(w) for w in article_words]  # list of word ids; OOVs are represented by the id for UNK token
-        self.enc_aspect_input = [vocab.word2aspect(w) for w in article_words] # list of 0 and 1; if 0 word is not an aspect, if 1 word is an aspect.
+        self.enc_aspect_input = self.get_enc_aspect_rank(article_words, vocab, hps.max_dec_sen_num.value)
         self.original_review_input = review_summary[0] # review to be summarized
         self.original_review_output = review_summary[1] # summary
 
@@ -199,9 +199,30 @@ class Example(object):
     while len(self.enc_input) < max_len:
       self.enc_input.append(pad_id)
 
-    while len(self.enc_aspect_input) < max_len:
-      self.enc_aspect_input.append(pad_id)
+    diff = max_len - self.enc_aspect_input.shape[1]
+    if diff > 0:
+      np.pad(self.enc_aspect_input, [(0, 0), (0, diff)], mode="constant")
 
+  def get_enc_aspect_rank(self, sequence, vocab, max_sen_num):
+    """
+    Args:
+      sequence: list of strings (words).
+      vocab: data.Vocab
+      max_sen_num: int, maximum sentence number of decoder
+    """
+    H = [vocab.word2nmfH(w) for w in sequence]
+    H = np.array(H) # shape = (sequence_len, H_topic_num)
+    H = H.T # shape = (H_topic_num, sequence_len)
+    row_sum = np.sum(H, axis=1) # shape = (H_topic_num, )
+    aspect_rank = np.argsort(row_sum * -1.0)[:max_sen_num]
+
+    H_rank = H[aspect_rank, :] # shape = (max_sen_num, sequence_len)
+    word_aspect = np.where(H_rank > 0.001)
+
+    # Create mask
+    aspect_mask = np.zeros([max_sen_num, len(sequence)])
+    aspect_mask[word_aspect] = 1
+    return aspect_mask
 
 class Batch(object):
   """Class representing a minibatch of train/val/test examples for text summarization."""
@@ -234,7 +255,7 @@ class Batch(object):
 
     # Initialize the numpy arrays
     # Note: our enc_batch can have different length (second dimension) for each batch because we use dynamic_rnn for the encoder.
-    self.enc_aspect_batch = np.zeros((hps.batch_size.value, max_enc_seq_len), dtype=np.int32)
+    self.enc_aspect_batch = np.zeros((hps.batch_size.value, hps.max_dec_sen_num.value, max_enc_seq_len), dtype=np.int32)
     self.enc_batch = np.zeros((hps.batch_size.value, max_enc_seq_len), dtype=np.int32)
     self.enc_lens = np.zeros((hps.batch_size.value), dtype=np.int32)
     #self.enc_padding_mask = np.zeros((hps.batch_size.value, max_enc_seq_len), dtype=np.float32)

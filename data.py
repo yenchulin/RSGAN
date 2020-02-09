@@ -23,6 +23,8 @@ import csv
 import json
 from tensorflow.core.example import example_pb2
 import codecs
+import numpy as np
+from nltk.stem import WordNetLemmatizer
 
 # <s> and </s> are used in the data files to segment the abstracts into sentences. They don't receive vocab ids.
 SENTENCE_START = '<s>'
@@ -40,12 +42,14 @@ STOP_DECODING_DOCUMENT = '[STOPDOC]' # This has a vocab id
 class Vocab(object):
   """Vocabulary class for mapping between words and ids (integers)"""
 
-  def __init__(self, vocab_file, max_size):
+  def __init__(self, vocab_file, max_size, nmf_H_file, H_vocab_file):
     """Creates a vocab of up to max_size words, reading from the vocab_file. If max_size is 0, reads the entire vocab file.
 
     Args:
       vocab_file: path to the vocab file, which is assumed to contain "<word> <frequency> <aspect or not>" on each line, sorted with most frequent word first. This code doesn't actually use the frequencies, though.
       max_size: integer. The maximum size of the resulting Vocabulary."""
+    self._nmf_H = np.load(glob.glob(nmf_H_file)[0])
+    self._word_to_nmf_H_id = {}
     self._word_to_aspect = {}
     self._word_to_id = {}
     self._id_to_word = {}
@@ -78,6 +82,26 @@ class Vocab(object):
           break
 
     print ("Finished constructing vocabulary of %i total words. Last word added: %s" % (self._count, self._id_to_word[self._count-1]))
+
+    # Read nmf H file
+    with open(glob.glob(H_vocab_file)[0], 'r') as f:
+      H_vocab = f.readline()
+      H_vocab = H_vocab.split() # list of string (nouns)
+    
+    lemmatizer = WordNetLemmatizer()
+    for word in self._word_to_id:
+      lemma_word = lemmatizer.lemmatize(word)
+      try:
+        idx = H_vocab.index(lemma_word)
+        self._word_to_nmf_H_id[word] = idx
+      except ValueError:
+        pass
+
+  def word2nmfH(self, word):
+    if word not in self._word_to_nmf_H_id:
+      return np.zeros(self._nmf_H.shape[0])
+    nmf_H_id = self._word_to_nmf_H_id[word]
+    return self._nmf_H[:, nmf_H_id]
 
   def word2aspect(self, word):
     """Returns 1 if a word (string) is an aspect. Returns 0 if a word is not an aspect"""

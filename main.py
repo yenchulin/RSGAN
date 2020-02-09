@@ -50,6 +50,8 @@ FLAGS = tf.app.flags.FLAGS
 # Where to find data
 tf.app.flags.DEFINE_string('data_path', 'review_generation_dataset/train/* ', 'Path expression to tf.Example datafiles. Can include wildcards to access multiple datafiles.')
 tf.app.flags.DEFINE_string('vocab_path', 'review_generation_dataset/vocab.txt', 'Path expression to text vocabulary file.')
+tf.app.flags.DEFINE_string('nmf_H_path', 'review_generation_dataset/*_H.npy', 'Path expression to text vocabulary file.')
+tf.app.flags.DEFINE_string('H_vocab_path', 'review_generation_dataset/*_H_vocab.txt', 'Path expression to text vocabulary file.')
 
 # Important settings
 tf.app.flags.DEFINE_string('mode', 'train', 'must be one of adversarial_train/train_generator/train_discriminator')
@@ -395,7 +397,7 @@ def main(unused_argv):
     else:
       raise Exception("Logdir %s doesn't exist. Run in train mode to create it." % (FLAGS.log_root))
 
-  vocab = Vocab(FLAGS.vocab_path, FLAGS.vocab_size) # create a vocabulary
+  vocab = Vocab(FLAGS.vocab_path, FLAGS.vocab_size, FLAGS.nmf_H_path, FLAGS.H_vocab_path) # create a vocabulary
 
 
   # Make a namedtuple hps, containing the values of the hyperparameters that the model needs

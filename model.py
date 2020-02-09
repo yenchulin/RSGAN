@@ -88,7 +88,7 @@ class Generator(object):
     hps = self._hps
 
     if FLAGS.run_method == 'auto-encoder':
-        self._enc_aspect_batch = tf.placeholder(tf.int32, [hps.batch_size.value, None], name='enc_aspect_batch')
+        self._enc_aspect_batch = tf.placeholder(tf.int32, [hps.batch_size.value, hps.max_dec_sen_num.value, None], name='enc_aspect_batch')
         self._enc_batch = tf.placeholder(tf.int32, [hps.batch_size.value, None], name='enc_batch')
         self._enc_lens = tf.placeholder(tf.int32, [hps.batch_size.value], name='enc_lens')
         #self._enc_padding_mask = tf.placeholder(tf.float32, [hps.batch_size.value, None], name='enc_padding_mask')
@@ -238,8 +238,7 @@ class Generator(object):
             encoder_outputs_word = tf.reshape(
                 tf.tile(tf.expand_dims(encoder_outputs_word, axis=1), [1, hps.max_dec_sen_num.value,1, 1]),
                 [hps.batch_size.value* hps.max_dec_sen_num.value, -1, hps.hidden_dim.value*2])
-            enc_aspect_batch = tf.reshape(
-                tf.tile(tf.expand_dims(self._enc_aspect_batch, axis=1), [1, hps.max_dec_sen_num.value, 1]),
+            enc_aspect_batch = tf.reshape(self._enc_aspect_batch,
                 [hps.batch_size.value* hps.max_dec_sen_num.value, -1])
             sentence_level_cell = tf.contrib.rnn.LSTMCell(
                 hps.hidden_dim.value,
