@@ -63,7 +63,7 @@ class Example(object):
             article_words = article_words[:hps.max_enc_steps.value]
         self.enc_len = len(article_words)  # store the length after truncation but before padding
         self.enc_input = [vocab.word2id(w) for w in article_words]  # list of word ids; OOVs are represented by the id for UNK token
-        self.enc_aspect_input = self.get_enc_aspect_rank(article_words, vocab, hps.max_dec_sen_num.value) # list of 0 and 1; if 0 word is not an aspect, if 1 word is an aspect.
+        self.enc_aspect_input = self.get_enc_aspect_input(article_words, vocab, hps.max_dec_sen_num.value) # list of 0 and 1; if 0 word is not an aspect of a given topic, if 1 word is an aspect of a given topic.
         self.original_review_input = input
         self.original_review_output = review
 
@@ -95,7 +95,7 @@ class Example(object):
     
         self.enc_len = len(article_words)  # store the length after truncation but before padding
         self.enc_input = [vocab.word2id(w) for w in article_words]  # list of word ids; OOVs are represented by the id for UNK token
-        self.enc_aspect_input = self.get_enc_aspect_rank(article_words, vocab, hps.max_dec_sen_num.value)
+        self.enc_aspect_input = self.get_enc_aspect_input(article_words, vocab, hps.max_dec_sen_num.value) # list of 0 and 1; if 0 word is not an aspect of a given topic, if 1 word is an aspect of a given topic.
         self.original_review_input = review_summary[0] # review to be summarized
         self.original_review_output = review_summary[1] # summary
 
@@ -203,12 +203,18 @@ class Example(object):
     if diff > 0:
       np.pad(self.enc_aspect_input, [(0, 0), (0, diff)], mode="constant")
 
-  def get_enc_aspect_rank(self, sequence, vocab, max_sen_num):
+  def get_enc_aspect_input(self, sequence, vocab, max_sen_num):
     """
+    Use NMF result (H) to find the top most probable topic of a sentence (sequence),
+    than if any word in the sentence has larger membership to a topic, mask = 1.
+
     Args:
       sequence: list of strings (words).
       vocab: data.Vocab
       max_sen_num: int, maximum sentence number of decoder
+
+    Returns:
+      aspect_mask: ndarray, shape = (max_sen_num, sequence_len), different aspect mask for different topic with 0 and 1
     """
     H = [vocab.word2nmfH(w) for w in sequence]
     H = np.array(H) # shape = (sequence_len, H_topic_num)
@@ -217,7 +223,7 @@ class Example(object):
     aspect_rank = np.argsort(row_sum * -1.0)[:max_sen_num]
 
     H_rank = H[aspect_rank, :] # shape = (max_sen_num, sequence_len)
-    word_aspect = np.where(H_rank > 0.001)
+    word_aspect = np.where(H_rank > 0.001) # membership should be larger than 0.001 (threshold)
 
     # Create mask
     aspect_mask = np.zeros([max_sen_num, len(sequence)])
