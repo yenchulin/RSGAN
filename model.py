@@ -123,10 +123,11 @@ class Generator(object):
   def _add_encoder(self, encoder_inputs, seq_len):
 
     with tf.variable_scope('encoder'):
-      cell_fw = tf.contrib.rnn.LSTMCell(self._hps.hidden_dim.value, initializer=self.rand_unif_init, state_is_tuple=True)
-      cell_bw = tf.contrib.rnn.LSTMCell(self._hps.hidden_dim.value, initializer=self.rand_unif_init, state_is_tuple=True)
-      ((encoder_outputs_forward, encoder_outputs_backward), (fw_st, bw_st)) = tf.nn.bidirectional_dynamic_rnn(cell_fw, cell_bw, encoder_inputs, dtype=tf.float32, sequence_length=seq_len, swap_memory=True)
-    return fw_st, bw_st, tf.concat([encoder_outputs_forward, encoder_outputs_backward],axis=-1)
+      lstm = tf.keras.layers.LSTM(self._hps.hidden_dim.value, kernel_initializer=self.rand_unif_init, return_sequences=True, return_state=True)
+      encoder_outputs, fw_h, fw_c, bw_h, bw_c = tf.keras.layers.Bidirectional(lstm)(encoder_inputs)
+      fw_st = tf.nn.rnn_cell.LSTMStateTuple(fw_c, fw_h)
+      bw_st = tf.nn.rnn_cell.LSTMStateTuple(bw_c, bw_h)
+    return fw_st, bw_st, encoder_outputs
 
   def _reduce_states(self, fw_st, bw_st):
     """Add to the graph a linear layer to reduce the encoder's final FW and BW state into a single initial state for the decoder. This is needed because the encoder is bidirectional but the decoder is not.
