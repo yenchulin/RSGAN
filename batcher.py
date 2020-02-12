@@ -223,11 +223,12 @@ class Example(object):
     aspect_rank = np.argsort(row_sum * -1.0)[:max_sen_num]
 
     H_rank = H[aspect_rank, :] # shape = (max_sen_num, sequence_len)
-    word_aspect = np.where(H_rank > 0.001) # membership should be larger than 0.001 (threshold)
+    is_aspect = np.where(np.sum(H_rank, axis=0) != 0) # filter out words whose memberships are all 0 (get word index)
+    word_aspect = np.argmax(H_rank, axis=0)[is_aspect] # get the largest membership
 
     # Create mask
     aspect_mask = np.zeros([max_sen_num, len(sequence)])
-    aspect_mask[word_aspect] = 1
+    aspect_mask[word_aspect, is_aspect] = 1
     return aspect_mask
 
 class Batch(object):
