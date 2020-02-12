@@ -201,7 +201,7 @@ class Example(object):
 
     diff = max_len - self.enc_aspect_input.shape[1]
     if diff > 0:
-      np.pad(self.enc_aspect_input, [(0, 0), (0, diff)], mode="constant")
+      self.enc_aspect_input = np.pad(self.enc_aspect_input, [(0, 0), (0, diff)], mode="constant")
 
   def get_enc_aspect_input(self, sequence, vocab, max_sen_num):
     """
