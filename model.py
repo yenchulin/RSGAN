@@ -89,7 +89,7 @@ class Generator(object):
 
     if FLAGS.run_method == 'auto-encoder':
         self._enc_aspect_batch = tf.placeholder(tf.int32, [hps.batch_size.value, hps.max_dec_sen_num.value, None], name='enc_aspect_batch')
-        self._enc_batch = tf.placeholder(tf.int32, [hps.batch_size.value, None], name='enc_batch')
+        self._enc_batch = tf.placeholder(tf.int32, [hps.batch_size.value, hps.max_enc_sen_num.value, None], name='enc_batch')
         self._enc_lens = tf.placeholder(tf.int32, [hps.batch_size.value], name='enc_lens')
         #self._enc_padding_mask = tf.placeholder(tf.float32, [hps.batch_size.value, None], name='enc_padding_mask')
 
@@ -123,7 +123,7 @@ class Generator(object):
   def _add_encoder(self, encoder_inputs, seq_len):
 
     with tf.variable_scope('encoder'):
-      lstm = tf.keras.layers.LSTM(self._hps.hidden_dim.value, kernel_initializer=self.rand_unif_init, return_sequences=True, return_state=True)
+      lstm = tf.keras.layers.LSTM(self._hps.hidden_dim.value, kernel_initializer=self.rand_unif_init, return_sequences=True, return_state=True, stateful=True)
       encoder_outputs, fw_h, fw_c, bw_h, bw_c = tf.keras.layers.Bidirectional(lstm)(encoder_inputs)
       fw_st = tf.nn.rnn_cell.LSTMStateTuple(fw_c, fw_h)
       bw_st = tf.nn.rnn_cell.LSTMStateTuple(bw_c, bw_h)

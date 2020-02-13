@@ -88,13 +88,22 @@ class Example(object):
         review_summary = review.split("####")
 
         # Review to be summarized
-        article = review_summary[0] # string
-        article_words = article.split()  # list of strings
-        if len(article_words) > hps.max_enc_steps.value: # truncation if longer
-            article_words = article_words[:hps.max_enc_steps.value]
+        article = sent_tokenize(review_summary[0]) # list of strings (sentences)
+        article_sentences = [x.strip() for x in article] # remove spaces
+        article_words = [] # shape = (max_enc_sen_num, max_enc_steps), NOTE: axis 1 may be shorter since only truncation is done
+        for i in range(len(article_sentences)):
+            if i >= hps.max_enc_sen_num.value:
+                article_words = article_words[:hps.max_enc_sen_num.value]
+                break
+            article_sen = article_sentences[i] # string
+            article_sen_words = article_sen.split() # list of strings (words)
+            if len(article_sen_words) > hps.max_enc_steps.value: # truncation if longer
+                article_sen_words = article_sen_words[:hps.max_enc_steps.value]
+            article_words.append(article_sen_words)
     
         self.enc_len = len(article_words)  # store the length after truncation but before padding
-        self.enc_input = [vocab.word2id(w) for w in article_words]  # list of word ids; OOVs are represented by the id for UNK token
+        self.enc_sen_len = [len(sen) for sen in article_words]
+        self.enc_input = [[vocab.word2id(w) for w in sen] for sen in article_words]  # list of word ids; OOVs are represented by the id for UNK token
         self.enc_aspect_input = self.get_enc_aspect_input(article_words, vocab, hps.max_dec_sen_num.value) # list of 0 and 1; if 0 word is not an aspect of a given topic, if 1 word is an aspect of a given topic.
         self.original_review_input = review_summary[0] # review to be summarized
         self.original_review_output = review_summary[1] # summary
@@ -194,12 +203,24 @@ class Example(object):
       while len(self.target) < max_sen_num:
           self.target.append([pad_doc_id for i in range(max_sen_len)])
 
-  def pad_encoder_input_aspect(self, max_len, pad_id):
+  def pad_encoder_input_aspect(self, max_sen_len, max_sen_num, pad_id):
     """Pad the encoder input and aspect input sequence with pad_id up to max_len."""
-    while len(self.enc_input) < max_len:
-      self.enc_input.append(pad_id)
+    
+    while len(self.enc_sen_len) < max_sen_num:
+          self.enc_sen_len.append(1)
 
-    diff = max_len - self.enc_aspect_input.shape[1]
+    # Pad for input sequence
+    # 1. pad each sentence
+    # 2. pad whole paragraph
+    for i in range(self.enc_len):
+        while len(self.enc_input[i]) < max_sen_len:
+            self.enc_input[i].append(pad_id)
+    
+    while len(self.enc_input) < max_sen_num:
+        self.enc_input.append([pad_id for i in range(max_sen_len)])
+
+    # Pad for aspect input
+    diff = max_sen_num * max_sen_len - self.enc_aspect_input.shape[1]
     if diff > 0:
       self.enc_aspect_input = np.pad(self.enc_aspect_input, [(0, 0), (0, diff)], mode="constant")
 
@@ -209,13 +230,15 @@ class Example(object):
     than if any word in the sentence has larger membership to a topic, mask = 1.
 
     Args:
-      sequence: list of strings (words).
+      sequence: list of list of strings (sentences -> words).
       vocab: data.Vocab
       max_sen_num: int, maximum sentence number of decoder
 
     Returns:
       aspect_mask: ndarray, shape = (max_sen_num, sequence_len), different aspect mask for different topic with 0 and 1
     """
+    sequence = [w for sen in sequence for w in sen]
+
     H = [vocab.word2nmfH(w) for w in sequence]
     H = np.array(H) # shape = (sequence_len, H_topic_num)
     H = H.T # shape = (H_topic_num, sequence_len)
@@ -253,16 +276,16 @@ class Batch(object):
 
     #print ([ex.enc_len for ex in example_list])
 
-    max_enc_seq_len = max([ex.enc_len for ex in example_list])
+    max_enc_seq_len = max([sen_len for ex in example_list for sen_len in ex.enc_sen_len])
 
     # Pad the encoder input sequences up to the length of the longest sequence
     for ex in example_list:
-      ex.pad_encoder_input_aspect(max_enc_seq_len, self.pad_id)
+      ex.pad_encoder_input_aspect(max_enc_seq_len, hps.max_enc_sen_num.value, self.pad_id)
 
     # Initialize the numpy arrays
     # Note: our enc_batch can have different length (second dimension) for each batch because we use dynamic_rnn for the encoder.
-    self.enc_aspect_batch = np.zeros((hps.batch_size.value, hps.max_dec_sen_num.value, max_enc_seq_len), dtype=np.int32)
-    self.enc_batch = np.zeros((hps.batch_size.value, max_enc_seq_len), dtype=np.int32)
+    self.enc_aspect_batch = np.zeros((hps.batch_size.value, hps.max_dec_sen_num.value, hps.max_enc_sen_num.value* max_enc_seq_len), dtype=np.int32)
+    self.enc_batch = np.zeros((hps.batch_size.value, hps.max_enc_sen_num.value, max_enc_seq_len), dtype=np.int32)
     self.enc_lens = np.zeros((hps.batch_size.value), dtype=np.int32)
     #self.enc_padding_mask = np.zeros((hps.batch_size.value, max_enc_seq_len), dtype=np.float32)
 
