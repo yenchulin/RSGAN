@@ -464,7 +464,6 @@ def main(unused_argv):
     if not os.path.exists("test_sample_generated"): os.mkdir("test_sample_generated")
     
     
-    dis_batcher.train_queue = [] # clear pre-train data loaded previouly
     gen_losses = []
     dis_losses = []
     for epoch in range(10):
@@ -486,7 +485,7 @@ def main(unused_argv):
                                             "test_max_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_negative",
                                             200)
 
-            dis_batcher.train_queue += dis_batcher.fill_example_queue("train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive/*")
+            dis_batcher.train_queue = dis_batcher.fill_example_queue("train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive/*")
             dis_batcher.train_queue += dis_batcher.fill_example_queue("train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_negative/*")
             dis_batcher.train_batch = dis_batcher.create_batches(mode="train", shuffleis=True)
 
