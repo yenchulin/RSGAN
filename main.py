@@ -491,7 +491,7 @@ def main(unused_argv):
             dis_batcher.train_batch = dis_batcher.create_batches(mode="train", shuffleis=True)
 
             #dis_batcher.valid_batch = dis_batcher.train_batch
-            dis_losses += run_train_discriminator(model_dis, 5, dis_batcher, dis_batcher.get_batches(mode="train"),
+            dis_losses += run_train_discriminator(model_dis, 3, dis_batcher, dis_batcher.get_batches(mode="train"),
                                                   sess_dis, saver_dis, train_dir_dis)
     
     # Plot loss of Generator
