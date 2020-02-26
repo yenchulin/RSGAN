@@ -42,12 +42,16 @@ STOP_DECODING_DOCUMENT = '[STOPDOC]' # This has a vocab id
 class Vocab(object):
   """Vocabulary class for mapping between words and ids (integers)"""
 
-  def __init__(self, vocab_file, max_size, nmf_H_file, H_vocab_file):
+  def __init__(self, vocab_file, max_size, nmf_H_file, H_vocab_file, min_count):
     """Creates a vocab of up to max_size words, reading from the vocab_file. If max_size is 0, reads the entire vocab file.
 
     Args:
       vocab_file: path to the vocab file, which is assumed to contain "<word> <frequency> <aspect or not>" on each line, sorted with most frequent word first. This code doesn't actually use the frequencies, though.
-      max_size: integer. The maximum size of the resulting Vocabulary."""
+      max_size: integer. The maximum size of the resulting Vocabulary.
+      nmf_H_file: path to the nmf H file, which contains word-topic membership values.
+      H_vocab_file: path to the H vocab file, which indicates the word in nmf H file.
+      min_count: integer. The minimum frequency to allow a word to be added into Vocabulary.
+    """
     self._nmf_H = np.load(glob.glob(nmf_H_file)[0])
     self._word_to_nmf_H_id = {}
     self._word_to_aspect = {}
@@ -67,6 +71,8 @@ class Vocab(object):
         pieces = line.split()
         if len(pieces) != 3:
           print ('Warning: incorrectly formatted line in vocabulary file: %s\n' % line)
+          continue
+        if int(pieces[1]) < min_count: # filter out the words with low frequency
           continue
         w = pieces[0]
         if w in [SENTENCE_START, SENTENCE_END, UNKNOWN_TOKEN, PAD_TOKEN, START_DECODING, STOP_DECODING,STOP_DECODING_DOCUMENT]:

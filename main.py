@@ -79,7 +79,8 @@ tf.app.flags.DEFINE_integer('batch_size', 32, 'minibatch size') # for discrimina
 tf.app.flags.DEFINE_integer('max_enc_steps', 150, 'max timesteps of encoder (max source text tokens)') # for generator
 #tf.app.flags.DEFINE_integer('max_dec_steps', 200, 'max timesteps of decoder (max summary tokens)') # for generator
 tf.app.flags.DEFINE_integer('min_dec_steps', 35, 'Minimum sequence length of generated summary. Applies only for beam search decoding mode') # for generator
-tf.app.flags.DEFINE_integer('vocab_size', 6224, 'Size of vocabulary. These will be read from the vocabulary file in order. If the vocabulary file contains fewer words than this number, or if this number is set to 0, will take all words in the vocabulary file.')
+tf.app.flags.DEFINE_integer('vocab_size', 3379, 'Size of vocabulary. These will be read from the vocabulary file in order. If the vocabulary file contains fewer words than this number, or if this number is set to 0, will take all words in the vocabulary file.')
+tf.app.flags.DEFINE_integer('min_count', 2, 'Minimum frequency to allow a word to be added into vocabulary')
 tf.app.flags.DEFINE_float('lr', 0.6, 'learning rate') # for discriminator and generator
 tf.app.flags.DEFINE_float('adagrad_init_acc', 0.1, 'initial accumulator value for Adagrad') # for discriminator and generator
 tf.app.flags.DEFINE_float('rand_unif_init_mag', 0.02, 'magnitude for lstm cells random uniform inititalization') # for discriminator and generator
@@ -397,7 +398,7 @@ def main(unused_argv):
     else:
       raise Exception("Logdir %s doesn't exist. Run in train mode to create it." % (FLAGS.log_root))
 
-  vocab = Vocab(FLAGS.vocab_path, FLAGS.vocab_size, FLAGS.nmf_H_path, FLAGS.H_vocab_path) # create a vocabulary
+  vocab = Vocab(FLAGS.vocab_path, FLAGS.vocab_size, FLAGS.nmf_H_path, FLAGS.H_vocab_path, FLAGS.min_count) # create a vocabulary
 
 
   # Make a namedtuple hps, containing the values of the hyperparameters that the model needs
