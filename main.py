@@ -216,11 +216,6 @@ def output_to_batch(current_batch, result, batcher, dis_batcher):
                 decoded_words = decoded_words
             if len(decoded_words) < 2:
                 continue
-            if len(decoded_words_all) > 0:
-                new_set1 = set(decoded_words_all[len(decoded_words_all) - 1].split())
-                new_set2 = set(decoded_words)
-                if len(new_set1 & new_set2) > 0.5 * len(new_set2):
-                    continue
             if decoded_words[-1] != '.' and decoded_words[-1] != '!' and decoded_words[-1] != '?':
                 decoded_words.append('.')
             decoded_output = ' '.join(decoded_words).strip()  # single string
