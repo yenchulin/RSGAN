@@ -201,7 +201,7 @@ class Example(object):
 
     diff = max_len - self.enc_aspect_input.shape[1]
     if diff > 0:
-      self.enc_aspect_input = np.pad(self.enc_aspect_input, [(0, 0), (0, diff)], mode="constant")
+      self.enc_aspect_input = np.pad(self.enc_aspect_input, [(0, 0), (0, diff), (0, 0)], mode="constant")
 
   def get_enc_aspect_input(self, sequence, vocab, max_sen_num):
     """
@@ -214,7 +214,7 @@ class Example(object):
       max_sen_num: int, maximum sentence number of decoder
 
     Returns:
-      aspect_mask: ndarray, shape = (max_sen_num, sequence_len), different aspect mask for different topic with 0 and 1
+      aspect_feature: ndarray, shape = (max_sen_num, sequence_len), different aspect mask for different topic with 0 and 1
     """
     H = [vocab.word2nmfH(w) for w in sequence]
     H = np.array(H) # shape = (sequence_len, H_topic_num)
@@ -227,9 +227,9 @@ class Example(object):
     word_aspect = np.argmax(H_rank, axis=0)[is_aspect] # get the largest membership
 
     # Create mask
-    aspect_mask = np.zeros([max_sen_num, len(sequence)])
-    aspect_mask[word_aspect, is_aspect] = 1
-    return aspect_mask
+    aspect_feature = np.zeros([max_sen_num, len(sequence), H.shape[0]])
+    aspect_feature[word_aspect, is_aspect] = H.T[is_aspect]
+    return aspect_feature
 
 class Batch(object):
   """Class representing a minibatch of train/val/test examples for text summarization."""
@@ -262,7 +262,7 @@ class Batch(object):
 
     # Initialize the numpy arrays
     # Note: our enc_batch can have different length (second dimension) for each batch because we use dynamic_rnn for the encoder.
-    self.enc_aspect_batch = np.zeros((hps.batch_size.value, hps.max_dec_sen_num.value, max_enc_seq_len), dtype=np.int32)
+    self.enc_aspect_batch = np.zeros((hps.batch_size.value, hps.max_dec_sen_num.value, max_enc_seq_len, 18), dtype=np.int32)
     self.enc_batch = np.zeros((hps.batch_size.value, max_enc_seq_len), dtype=np.int32)
     self.enc_lens = np.zeros((hps.batch_size.value), dtype=np.int32)
     #self.enc_padding_mask = np.zeros((hps.batch_size.value, max_enc_seq_len), dtype=np.float32)

@@ -20,7 +20,7 @@ def my_attention_decoder(decoder_inputs,
 							dtype=None,
 							scope=None,
 							initial_state_attention=False,
-							aspect_mask=None):
+							aspect_feature=None):
 	"""RNN decoder with attention for the sequence-to-sequence model.
 	In this context "attention" means that, during decoding, the RNN can look up
 	information in the additional tensor attention_states, and it does this by
@@ -97,6 +97,9 @@ def my_attention_decoder(decoder_inputs,
 			hidden_features.append(nn_ops.conv2d(hidden, k, [1, 1, 1, 1], "SAME")) # Do Convolution, get a hidden feature, shape = [batch, height, width, channels]
 			v.append(variable_scope.get_variable("AttnV_%d" % a, [attn_hidden_dim]))
 
+		if aspect_feature is not None:
+			aspect_hidden_dim = aspect_feature.get_shape()[2].value
+
 		state = initial_state
 
 		def attention(query):
@@ -137,11 +140,15 @@ def my_attention_decoder(decoder_inputs,
 				query = array_ops.concat(query_list, 1)
 			for a in xrange(num_heads):
 				with variable_scope.variable_scope("Aspect_Attention_%d" % a):
-					y = Linear(query, attn_hidden_dim, True)(query) # transform query (decoder current state) to attn_hidden_dim size
-					y = array_ops.reshape(y, [-1, 1, 1, attn_hidden_dim])
+					with variable_scope.variable_scope("Aspect_hidden"):
+						aspect_hidden = array_ops.reshape(aspect_feature, [batch_size * attn_timestep, aspect_hidden_dim])
+						aspect_hidden = Linear(aspect_hidden, attn_hidden_dim, True)(aspect_hidden)
+						aspect_hidden = array_ops.reshape(aspect_hidden, [-1, attn_timestep, 1, attn_hidden_dim])
+					with variable_scope.variable_scope("Decoder_state"):
+						y = Linear(query, attn_hidden_dim, True)(query) # transform query (decoder current state) to attn_hidden_dim size
+						y = array_ops.reshape(y, [-1, 1, 1, attn_hidden_dim])
 					# Attention mask is a softmax of v^T * tanh(...).
-					s = math_ops.reduce_sum(v[a] * math_ops.tanh(hidden_features[a] + y), [2, 3]) # hidden feature comes from attention_state, "+" is element-wise plus, v[a] is key
-					s = s * tf.cast(aspect_mask, tf.float32)
+					s = math_ops.reduce_sum(v[a] * math_ops.tanh(aspect_hidden + y), [2, 3]) # hidden feature comes from attention_state, "+" is element-wise plus, v[a] is key
 					a = nn_ops.softmax(s)
 					# Now calculate the attention-weighted vector d.
 					d = math_ops.reduce_sum(array_ops.reshape(a, [-1, attn_timestep, 1, 1]) * hidden, [1, 2])
@@ -181,7 +188,7 @@ def my_attention_decoder(decoder_inputs,
 				attns = attention(state)
 			
 			# Run the aspect attention mechanism.
-			if aspect_mask is not None:
+			if aspect_feature is not None:
 				aspect_attns = aspect_attention(state)
 				with variable_scope.variable_scope("Meta_Attention"):
 					metas = []

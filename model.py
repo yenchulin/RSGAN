@@ -88,7 +88,7 @@ class Generator(object):
     hps = self._hps
 
     if FLAGS.run_method == 'auto-encoder':
-        self._enc_aspect_batch = tf.placeholder(tf.int32, [hps.batch_size.value, hps.max_dec_sen_num.value, None], name='enc_aspect_batch')
+        self._enc_aspect_batch = tf.placeholder(tf.float32, [hps.batch_size.value, hps.max_dec_sen_num.value, None, 18], name='enc_aspect_batch')
         self._enc_batch = tf.placeholder(tf.int32, [hps.batch_size.value, None], name='enc_batch')
         self._enc_lens = tf.placeholder(tf.int32, [hps.batch_size.value], name='enc_lens')
         #self._enc_padding_mask = tf.placeholder(tf.float32, [hps.batch_size.value, None], name='enc_padding_mask')
@@ -155,7 +155,7 @@ class Generator(object):
       return tf.contrib.rnn.LSTMStateTuple(new_c, new_h) # Return new cell and state
 
 
-  def _add_decoder(self, loop_function, loop_function_max, loop_given_function, input, attention_state, aspect_mask):  # input batch sequence dim
+  def _add_decoder(self, loop_function, loop_function_max, loop_given_function, input, attention_state, aspect_feature):  # input batch sequence dim
 
     hps = self._hps
 
@@ -175,24 +175,24 @@ class Generator(object):
 
     decoder_outputs_pretrain,_ = my_attention_decoder(
       input, self._dec_in_state,attention_state,
-      cell, loop_function=None, aspect_mask=aspect_mask
+      cell, loop_function=None, aspect_feature=aspect_feature
     )
 
 
     with tf.variable_scope(tf.get_variable_scope(), reuse=True):
         decoder_outputs_sample_generator,_ = my_attention_decoder(
             input, self._dec_in_state,attention_state,
-            cell, loop_function=loop_function, aspect_mask=aspect_mask
+            cell, loop_function=loop_function, aspect_feature=aspect_feature
         )
 
         decoder_outputs_max_generator, _ = my_attention_decoder(
             input, self._dec_in_state,attention_state,
-            cell, loop_function=loop_function_max, aspect_mask=aspect_mask
+            cell, loop_function=loop_function_max, aspect_feature=aspect_feature
         )
 
         decoder_outputs_given_sample_generator, _ = my_attention_decoder(
             input, self._dec_in_state,attention_state,
-            cell, loop_function=loop_given_function, aspect_mask=aspect_mask
+            cell, loop_function=loop_given_function, aspect_feature=aspect_feature
         )
 
         '''decoder_outputs_generator_rollout = tf.contrib.legacy_seq2seq.rnn_decoder(
@@ -239,7 +239,7 @@ class Generator(object):
                 tf.tile(tf.expand_dims(encoder_outputs_word, axis=1), [1, hps.max_dec_sen_num.value,1, 1]),
                 [hps.batch_size.value* hps.max_dec_sen_num.value, -1, hps.hidden_dim.value*2])
             enc_aspect_batch = tf.reshape(self._enc_aspect_batch,
-                [hps.batch_size.value* hps.max_dec_sen_num.value, -1])
+                [hps.batch_size.value* hps.max_dec_sen_num.value, -1, 18])
             sentence_level_cell = tf.contrib.rnn.LSTMCell(
                 hps.hidden_dim.value,
                 initializer=tf.random_uniform_initializer(-0.1, 0.1, seed=113),
@@ -270,7 +270,7 @@ class Generator(object):
 
       # 4 different decoders (loop function is different, loop function defines the relation between current decoder output and nex decoder input)
       # the following code are doing reshape and add a linear layer + bias for the 4 decoder
-      decoder_outputs_pretrain, decoder_outputs_sample_generator, decoder_outputs_max_generator, decoder_outputs_given_sample_generator= self._add_decoder(loop_function=loop_function, loop_function_max = loop_function_max, loop_given_function = loop_given_function, input=emb_dec_inputs, attention_state=encoder_outputs_word, aspect_mask=enc_aspect_batch)
+      decoder_outputs_pretrain, decoder_outputs_sample_generator, decoder_outputs_max_generator, decoder_outputs_given_sample_generator= self._add_decoder(loop_function=loop_function, loop_function_max = loop_function_max, loop_given_function = loop_given_function, input=emb_dec_inputs, attention_state=encoder_outputs_word, aspect_feature=enc_aspect_batch)
 
       decoder_outputs_pretrain = tf.reshape(decoder_outputs_pretrain,
                                    [hps.batch_size.value*hps.max_dec_sen_num.value* hps.max_dec_steps.value, hps.hidden_dim.value])
