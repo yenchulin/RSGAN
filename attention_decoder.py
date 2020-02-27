@@ -136,7 +136,7 @@ def my_attention_decoder(decoder_inputs,
 						assert ndims == 2
 				query = array_ops.concat(query_list, 1)
 			for a in xrange(num_heads):
-				with variable_scope.variable_scope("Attention_%d" % a):
+				with variable_scope.variable_scope("Aspect_Attention_%d" % a):
 					y = Linear(query, attn_hidden_dim, True)(query) # transform query (decoder current state) to attn_hidden_dim size
 					y = array_ops.reshape(y, [-1, 1, 1, attn_hidden_dim])
 					# Attention mask is a softmax of v^T * tanh(...).
@@ -182,12 +182,12 @@ def my_attention_decoder(decoder_inputs,
 			
 			# Run the aspect attention mechanism.
 			if aspect_mask is not None:
+				aspect_attns = aspect_attention(state)
 				with variable_scope.variable_scope("Meta_Attention"):
 					metas = []
 					for a in xrange(num_heads):
 						w2 = variable_scope.get_variable("MetaW1_%d" % a, [attn_hidden_dim])
 						w3 = variable_scope.get_variable("MetaW2_%d" % a, [attn_hidden_dim])
-						aspect_attns = aspect_attention(state)
 						meta = math_ops.tanh(w2 * attns[a] + w3 * aspect_attns[a])
 						metas.append(meta)
 					attns = metas
