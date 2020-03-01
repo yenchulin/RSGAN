@@ -218,17 +218,21 @@ class Example(object):
     """
     H = [vocab.word2nmfH(w) for w in sequence]
     H = np.array(H) # shape = (sequence_len, H_topic_num)
-    H = H.T # shape = (H_topic_num, sequence_len)
-    row_sum = np.sum(H, axis=1) # shape = (H_topic_num, )
-    aspect_rank = np.argsort(row_sum * -1.0)[:max_sen_num]
 
-    H_rank = H[aspect_rank, :] # shape = (max_sen_num, sequence_len)
-    is_aspect = np.where(np.sum(H_rank, axis=0) != 0) # filter out words whose memberships are all 0 (get word index)
-    word_aspect = np.argmax(H_rank, axis=0)[is_aspect] # get the largest membership
+    is_aspect = np.where(np.sum(H, axis=1) != 0) # filter out words whose memberships are all 0 (get word index)
+    word_aspect = np.argmax(H, axis=1)[is_aspect] # get the largest membership
+    unique, counts = np.unique(word_aspect, return_counts=True)
+    aspect_rank = unique[np.argsort(counts * -1)]
 
     # Create mask
-    aspect_feature = np.zeros([max_sen_num, len(sequence), H.shape[0]])
-    aspect_feature[word_aspect, is_aspect] = H.T[is_aspect]
+    aspect_feature = np.zeros([H.shape[1], len(sequence), H.shape[1]])
+    aspect_feature[word_aspect, is_aspect] = H[is_aspect]
+    aspect_feature = aspect_feature[aspect_rank][:max_sen_num]
+
+    # Pad if aspect number < max_sen_num
+    diff = max_sen_num - aspect_feature.shape[0]
+    if diff > 0:
+        aspect_feature = np.pad(aspect_feature, [(0, diff), (0, 0), (0, 0)], mode="constant")
     return aspect_feature
 
 class Batch(object):
