@@ -64,6 +64,7 @@ class Example(object):
         self.enc_len = len(article_words)  # store the length after truncation but before padding
         self.enc_input = [vocab.word2id(w) for w in article_words]  # list of word ids; OOVs are represented by the id for UNK token
         self.enc_aspect_input = self.get_enc_aspect_input(article_words, vocab, hps.max_dec_sen_num.value) # list of 0 and 1; if 0 word is not an aspect of a given topic, if 1 word is an aspect of a given topic.
+        self.enc_sentiment_input = self.get_enc_sentiment_input(article_words, vocab)
         self.original_review_input = input
         self.original_review_output = review
 
