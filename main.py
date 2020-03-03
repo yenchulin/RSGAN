@@ -79,6 +79,7 @@ tf.app.flags.DEFINE_integer('batch_size', 32, 'minibatch size') # for discrimina
 tf.app.flags.DEFINE_integer('max_enc_steps', 150, 'max timesteps of encoder (max source text tokens)') # for generator
 #tf.app.flags.DEFINE_integer('max_dec_steps', 200, 'max timesteps of decoder (max summary tokens)') # for generator
 tf.app.flags.DEFINE_integer('min_dec_steps', 35, 'Minimum sequence length of generated summary. Applies only for beam search decoding mode') # for generator
+tf.app.flags.DEFINE_integer('sentiment_dim', 13, 'max timesteps of encoder (max source text tokens)') # for generator
 tf.app.flags.DEFINE_integer('vocab_size', 3393, 'Size of vocabulary. These will be read from the vocabulary file in order. If the vocabulary file contains fewer words than this number, or if this number is set to 0, will take all words in the vocabulary file.')
 tf.app.flags.DEFINE_integer('min_count', 2, 'Minimum frequency to allow a word to be added into vocabulary')
 tf.app.flags.DEFINE_float('lr', 0.6, 'learning rate') # for discriminator and generator
@@ -397,7 +398,7 @@ def main(unused_argv):
 
 
   # Make a namedtuple hps, containing the values of the hyperparameters that the model needs
-  hparam_list = ['mode', 'lr', 'adagrad_init_acc', 'rand_unif_init_mag', 'trunc_norm_init_std', 'max_grad_norm', 'hidden_dim', 'emb_dim', 'batch_size', 'max_dec_sen_num','max_dec_steps', 'max_enc_steps']
+  hparam_list = ['mode', 'lr', 'adagrad_init_acc', 'rand_unif_init_mag', 'trunc_norm_init_std', 'max_grad_norm', 'hidden_dim', 'emb_dim', 'batch_size', 'max_dec_sen_num','max_dec_steps', 'max_enc_steps', 'sentiment_dim']
   hps_dict = {}
   for key,val in FLAGS.__flags.items(): # for each flag
     if key in hparam_list: # if it's in the list

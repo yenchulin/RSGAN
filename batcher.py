@@ -242,7 +242,9 @@ class Example(object):
 
   def get_enc_sentiment_input(self, sequence, vocab):
     sentiment_feature = [vocab.word2sentiment(w) for w in sequence]
-    sentiment_feature = np.array(sentiment_feature) # shape = (sequence_len, senti_info_num)
+    sentiment_feature = np.array(sentiment_feature) # shape = (sequence_len, sentiment_dim)
+    if sentiment_feature.shape[1] != self.hps.sentiment_dim.value:
+        raise Exception('Sentiment feature vector shape is not correct, expect %d but get %d' % (self.hps.sentiment_dim.value, sentiment_feature.shape[1]))
     return sentiment_feature
       
 class Batch(object):
@@ -277,7 +279,7 @@ class Batch(object):
     # Initialize the numpy arrays
     # Note: our enc_batch can have different length (second dimension) for each batch because we use dynamic_rnn for the encoder.
     self.enc_aspect_batch = np.zeros((hps.batch_size.value, hps.max_dec_sen_num.value, max_enc_seq_len, 18), dtype=np.float32)
-    self.enc_sentiment_batch = np.zeros((hps.batch_size.value, max_enc_seq_len, 13), dtype=np.float32)
+    self.enc_sentiment_batch = np.zeros((hps.batch_size.value, max_enc_seq_len, hps.sentiment_dim.value), dtype=np.float32)
     self.enc_batch = np.zeros((hps.batch_size.value, max_enc_seq_len), dtype=np.int32)
     self.enc_lens = np.zeros((hps.batch_size.value), dtype=np.int32)
     #self.enc_padding_mask = np.zeros((hps.batch_size.value, max_enc_seq_len), dtype=np.float32)
