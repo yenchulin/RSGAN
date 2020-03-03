@@ -16,33 +16,18 @@
 
 """This is the top-level file to train, evaluate or test your summarization model"""
 
-import sys
-from random import shuffle
-from tqdm import trange
-import time
-import codecs
-import data
-import os
-import math, os
+import codecs, data, json, os, re, util
 import tensorflow as tf
 import numpy as np
-from collections import namedtuple
 import batcher_discriminator as bd
+from collections import namedtuple
 from data import Vocab
-from batcher import Example
-from batcher import Batch
-from batcher import GenBatcher
+from batcher import Example, Batch, GenBatcher
 from batcher_discriminator import DisBatcher
 from model import Generator
 from discriminator import Discriminator
-import json
-from generated_sample import  Generated_sample
-from result_evaluate import Evaluate
-import util
-import re
-
-import nltk
-from tensorflow.python import debug as tf_debug
+from generated_sample import Generated_sample
+from tqdm import trange
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 FLAGS = tf.app.flags.FLAGS
