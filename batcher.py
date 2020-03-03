@@ -266,7 +266,7 @@ class Batch(object):
 
     # Initialize the numpy arrays
     # Note: our enc_batch can have different length (second dimension) for each batch because we use dynamic_rnn for the encoder.
-    self.enc_aspect_batch = np.zeros((hps.batch_size.value, hps.max_dec_sen_num.value, max_enc_seq_len, 18), dtype=np.int32)
+    self.enc_aspect_batch = np.zeros((hps.batch_size.value, hps.max_dec_sen_num.value, max_enc_seq_len, 18), dtype=np.float32)
     self.enc_batch = np.zeros((hps.batch_size.value, max_enc_seq_len), dtype=np.int32)
     self.enc_lens = np.zeros((hps.batch_size.value), dtype=np.int32)
     #self.enc_padding_mask = np.zeros((hps.batch_size.value, max_enc_seq_len), dtype=np.float32)
