@@ -96,6 +96,7 @@ class Example(object):
         self.enc_len = len(article_words)  # store the length after truncation but before padding
         self.enc_input = [vocab.word2id(w) for w in article_words]  # list of word ids; OOVs are represented by the id for UNK token
         self.enc_aspect_input = self.get_enc_aspect_input(article_words, vocab, hps.max_dec_sen_num.value) # list of 0 and 1; if 0 word is not an aspect of a given topic, if 1 word is an aspect of a given topic.
+        self.enc_sentiment_input = self.get_enc_sentiment_input(article_words, vocab)
         self.original_review_input = review_summary[0] # review to be summarized
         self.original_review_output = review_summary[1] # summary
 
@@ -203,6 +204,10 @@ class Example(object):
     if diff > 0:
       self.enc_aspect_input = np.pad(self.enc_aspect_input, [(0, 0), (0, diff), (0, 0)], mode="constant")
 
+    diff = max_len - self.enc_sentiment_input.shape[0]
+    if diff > 0:
+        self.enc_sentiment_input = np.pad(self.enc_sentiment_input, [(0, diff), (0, 0)], mode="constant")
+
   def get_enc_aspect_input(self, sequence, vocab, max_sen_num):
     """
     Use NMF result (H) to find the top most probable topic of a sentence (sequence),
@@ -235,6 +240,11 @@ class Example(object):
         aspect_feature = np.pad(aspect_feature, [(0, diff), (0, 0), (0, 0)], mode="constant")
     return aspect_feature
 
+  def get_enc_sentiment_input(self, sequence, vocab):
+    sentiment_feature = [vocab.word2sentiment(w) for w in sequence]
+    sentiment_feature = np.array(sentiment_feature) # shape = (sequence_len, senti_info_num)
+    return sentiment_feature
+      
 class Batch(object):
   """Class representing a minibatch of train/val/test examples for text summarization."""
 
@@ -267,6 +277,7 @@ class Batch(object):
     # Initialize the numpy arrays
     # Note: our enc_batch can have different length (second dimension) for each batch because we use dynamic_rnn for the encoder.
     self.enc_aspect_batch = np.zeros((hps.batch_size.value, hps.max_dec_sen_num.value, max_enc_seq_len, 18), dtype=np.float32)
+    self.enc_sentiment_batch = np.zeros((hps.batch_size.value, max_enc_seq_len, 13), dtype=np.float32)
     self.enc_batch = np.zeros((hps.batch_size.value, max_enc_seq_len), dtype=np.int32)
     self.enc_lens = np.zeros((hps.batch_size.value), dtype=np.int32)
     #self.enc_padding_mask = np.zeros((hps.batch_size.value, max_enc_seq_len), dtype=np.float32)
@@ -275,6 +286,7 @@ class Batch(object):
     for i, ex in enumerate(example_list):
       #print (ex.enc_input)
       self.enc_aspect_batch[i, :] = ex.enc_aspect_input[:]
+      self.enc_sentiment_batch[i, :] = ex.enc_sentiment_input[:]
       self.enc_batch[i, :] = ex.enc_input[:]
       self.enc_lens[i] = ex.enc_len
       '''for j in range(ex.enc_len):

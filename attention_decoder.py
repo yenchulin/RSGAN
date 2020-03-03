@@ -20,7 +20,8 @@ def my_attention_decoder(decoder_inputs,
 							dtype=None,
 							scope=None,
 							initial_state_attention=False,
-							aspect_feature=None):
+							aspect_feature=None,
+							sentiment_feature=None):
 	"""RNN decoder with attention for the sequence-to-sequence model.
 	In this context "attention" means that, during decoding, the RNN can look up
 	information in the additional tensor attention_states, and it does this by
@@ -100,6 +101,9 @@ def my_attention_decoder(decoder_inputs,
 		if aspect_feature is not None:
 			aspect_hidden_dim = aspect_feature.get_shape()[2].value
 
+		if sentiment_feature is not None:
+			sentiment_hidden_dim = sentiment_feature.get_shape()[2].value
+
 		state = initial_state
 
 		def attention(query):
@@ -155,6 +159,35 @@ def my_attention_decoder(decoder_inputs,
 					ds.append(array_ops.reshape(d, [-1, attn_hidden_dim]))
 			return ds
 
+		def sentiment_attention(query):
+			""" Use sentiment feature vectors to replace encoder output states, then perform attention mechanism.
+				- query: decoder current state, tuple (h, c)
+			"""
+			ds = [] # Results of attention reads will be stored here.
+			if nest.is_sequence(query): # If the query is a tuple, flatten it.
+				query_list = nest.flatten(query)
+				for q in query_list: # Check that ndims == 2 if specified.
+					ndims = q.get_shape().ndims
+					if ndims:
+						assert ndims == 2
+				query = array_ops.concat(query_list, 1)
+			for a in xrange(num_heads):
+				with variable_scope.variable_scope("Sentiment_Attention_%d" % a):
+					with variable_scope.variable_scope("Sentiment_hidden"):
+						sentiment_hidden = array_ops.reshape(sentiment_feature, [batch_size * attn_timestep, sentiment_hidden_dim])
+						sentiment_hidden = Linear(sentiment_hidden, attn_hidden_dim, True)(sentiment_hidden)
+						sentiment_hidden = array_ops.reshape(sentiment_hidden, [-1, attn_timestep, 1, attn_hidden_dim])
+					with variable_scope.variable_scope("Decoder_state"):
+						y = Linear(query, attn_hidden_dim, True)(query) # transform query (decoder current state) to attn_hidden_dim size
+						y = array_ops.reshape(y, [-1, 1, 1, attn_hidden_dim])
+					# Attention mask is a softmax of v^T * tanh(...).
+					s = math_ops.reduce_sum(v[a] * math_ops.tanh(sentiment_hidden + y), [2, 3]) # hidden feature comes from attention_state, "+" is element-wise plus, v[a] is key
+					a = nn_ops.softmax(s)
+					# Now calculate the attention-weighted vector d.
+					d = math_ops.reduce_sum(array_ops.reshape(a, [-1, attn_timestep, 1, 1]) * hidden, [1, 2])
+					ds.append(array_ops.reshape(d, [-1, attn_hidden_dim]))
+			return ds
+
 		outputs = []
 		prev = None
 		attns = [array_ops.zeros([batch_size, attn_hidden_dim], dtype=dtype) for _ in xrange(num_heads)] # list, shape = (B, H) * num_heads
@@ -187,15 +220,17 @@ def my_attention_decoder(decoder_inputs,
 			else:
 				attns = attention(state)
 			
-			# Run the aspect attention mechanism.
-			if aspect_feature is not None:
-				aspect_attns = aspect_attention(state)
+			# Run the aspect/sentiment attention mechanism.
+			if aspect_feature is not None or sentiment_feature is not None:
+				aspect_attns = aspect_attention(state) if aspect_feature is not None else [0] * num_heads
+				sentiment_attns = sentiment_attention(state) if sentiment_feature is not None else [0] * num_heads
 				with variable_scope.variable_scope("Meta_Attention"):
 					metas = []
 					for a in xrange(num_heads):
 						w2 = variable_scope.get_variable("MetaW1_%d" % a, [attn_hidden_dim])
 						w3 = variable_scope.get_variable("MetaW2_%d" % a, [attn_hidden_dim])
-						meta = math_ops.tanh(w2 * attns[a] + w3 * aspect_attns[a])
+						w4 = variable_scope.get_variable("MetaW3_%d" % a, [attn_hidden_dim])
+						meta = math_ops.tanh(w2 * attns[a] + w3 * aspect_attns[a] + w4 * sentiment_attns[a])
 						metas.append(meta)
 					attns = metas
 

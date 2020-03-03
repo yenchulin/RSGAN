@@ -22,8 +22,10 @@ import struct
 import csv
 import json
 from tensorflow.core.example import example_pb2
+from senticnet5 import senticnet
 import codecs
 import numpy as np
+import pandas as pd
 from nltk.stem import WordNetLemmatizer
 
 # <s> and </s> are used in the data files to segment the abstracts into sentences. They don't receive vocab ids.
@@ -54,6 +56,7 @@ class Vocab(object):
     """
     self._nmf_H = np.load(glob.glob(nmf_H_file)[0])
     self._word_to_nmf_H_id = {}
+    self._word_to_sentiment = {}
     self._word_to_aspect = {}
     self._word_to_id = {}
     self._id_to_word = {}
@@ -94,6 +97,14 @@ class Vocab(object):
       H_vocab = f.readline()
       H_vocab = H_vocab.split() # list of string (nouns)
     
+    # Read senticnet5.py
+    senticnet_df = pd.DataFrame.from_dict(senticnet, orient='index', columns=['pleasantness_value', 'attention_value', 'sensitivity_value', 'aptitude_value', 'primary_mood', 'secondary_mood', 'polarity_label', 'polarity_value', 'semantics1', 'semantics2', 'semantics3', 'semantics4', 'semantics5'])
+    senticnet_df = senticnet_df[['pleasantness_value', 'attention_value', 'sensitivity_value', 'aptitude_value', 'polarity_value', 'primary_mood']]
+    mood_onehot = pd.get_dummies(senticnet_df['primary_mood'])
+    senticnet_df = senticnet_df.drop(['primary_mood'], axis=1) 
+    senticnet_df = pd.concat([senticnet_df, mood_onehot], axis=1)
+    senticnet_df = senticnet_df.apply(pd.to_numeric)
+
     lemmatizer = WordNetLemmatizer()
     for word in self._word_to_id:
       lemma_word = lemmatizer.lemmatize(word)
@@ -102,6 +113,16 @@ class Vocab(object):
         self._word_to_nmf_H_id[word] = idx
       except ValueError:
         pass
+
+      if lemma_word in senticnet:
+        sentiment_vector = senticnet_df.loc[lemma_word].values
+        self._word_to_sentiment[word] = sentiment_vector
+
+  def word2sentiment(self, word):
+    if word not in self._word_to_sentiment:
+      sentiment_vector_len = list(self._word_to_sentiment.values())[0].shape[0]
+      return np.zeros(sentiment_vector_len)
+    return self._word_to_sentiment[word]
 
   def word2nmfH(self, word):
     if word not in self._word_to_nmf_H_id:
