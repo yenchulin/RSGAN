@@ -88,7 +88,7 @@ class Generator(object):
     hps = self._hps
 
     if FLAGS.run_method == 'auto-encoder':
-        self._enc_aspect_batch = tf.placeholder(tf.float32, [hps.batch_size.value, hps.max_dec_sen_num.value, None, 18], name='enc_aspect_batch')
+        self._enc_aspect_batch = tf.placeholder(tf.float32, [hps.batch_size.value, hps.max_dec_sen_num.value, None, hps.aspect_dim.value], name='enc_aspect_batch')
         self._enc_sentiment_batch = tf.placeholder(tf.float32, [hps.batch_size.value, None, hps.sentiment_dim.value], name='enc_sentiment_batch')
         self._enc_batch = tf.placeholder(tf.int32, [hps.batch_size.value, None], name='enc_batch')
         self._enc_lens = tf.placeholder(tf.int32, [hps.batch_size.value], name='enc_lens')
@@ -241,10 +241,12 @@ class Generator(object):
                 tf.tile(tf.expand_dims(encoder_outputs_word, axis=1), [1, hps.max_dec_sen_num.value,1, 1]),
                 [hps.batch_size.value* hps.max_dec_sen_num.value, -1, hps.hidden_dim.value*2])
             enc_aspect_batch = tf.reshape(self._enc_aspect_batch,
-                [hps.batch_size.value* hps.max_dec_sen_num.value, -1, 18])
+                [hps.batch_size.value* hps.max_dec_sen_num.value, -1, hps.aspect_dim.value]
+            ) if FLAGS.aspect_attn else None
             enc_sentiment_batch = tf.reshape(
                 tf.tile(tf.expand_dims(self._enc_sentiment_batch, axis=1), [1, hps.max_dec_sen_num.value, 1, 1]),
-                [hps.batch_size.value* hps.max_dec_sen_num.value, -1, hps.sentiment_dim.value])
+                [hps.batch_size.value* hps.max_dec_sen_num.value, -1, hps.sentiment_dim.value]
+            ) if FLAGS.senti_attn else None
             sentence_level_cell = tf.contrib.rnn.LSTMCell(
                 hps.hidden_dim.value,
                 initializer=tf.random_uniform_initializer(-0.1, 0.1, seed=113),

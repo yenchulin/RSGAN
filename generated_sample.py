@@ -10,6 +10,7 @@ import re
 from  result_evaluate import Evaluate
 import nltk
 from nltk.translate.bleu_score import corpus_bleu
+from tensorboardX import SummaryWriter
 FLAGS = tf.app.flags.FLAGS
 
 class Generated_sample(object):
@@ -169,6 +170,8 @@ class Generated_sample(object):
         tf.logging.info('bleu: '  + str(bleu_score))
         eva = Evaluate()
         eva.diversity_evaluate(negative_dir + "/*")
+        with SummaryWriter(FLAGS.log_root) as summary_writer:
+            summary_writer.add_scalar("Adversarial/Sample_Bleu", bleu_score)
 
 
     def generator_test_max_example(self, positive_dir, negative_dir, num_batch):
@@ -243,6 +246,8 @@ class Generated_sample(object):
         tf.logging.info('bleu: '  + str(bleu_score))
         eva = Evaluate()
         eva.diversity_evaluate(negative_dir + "/*")
+        with SummaryWriter(FLAGS.log_root) as summary_writer:
+            summary_writer.add_scalar("Adversarial/Max_Bleu", bleu_score)
 
     def generator_max_example(self, positive_dir, negative_dir, num_batch):
 

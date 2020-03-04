@@ -28,6 +28,7 @@ from model import Generator
 from discriminator import Discriminator
 from generated_sample import Generated_sample
 from tqdm import trange
+from tensorboardX import SummaryWriter
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 FLAGS = tf.app.flags.FLAGS
@@ -58,15 +59,28 @@ tf.app.flags.DEFINE_integer('max_dec_steps', 40, 'max timesteps of decoder (max 
 
 
 # Hyperparameters
+tf.app.flags.DEFINE_integer('g_pre_epoch', 100, 'pre-training epochs of generator')
+tf.app.flags.DEFINE_integer('d_pre_epoch', 250, 'pre-training epochs of discriminator')
+tf.app.flags.DEFINE_integer('adver_epoch', 40, 'training epochs of adversarial training')
+tf.app.flags.DEFINE_integer('g_adver_step', 1, 'training steps of generator in adversarial training')
+tf.app.flags.DEFINE_integer('d_adver_step', 3, 'training steps of discriminator in adversarial training')
+
+tf.app.flags.DEFINE_bool('aspect_attn', True, 'to use aspect attention or not')
+tf.app.flags.DEFINE_bool('senti_attn', True, 'to use sentiment attention or not')
+
 tf.app.flags.DEFINE_integer('hidden_dim', 256, 'dimension of RNN hidden states') # for discriminator and generator
 tf.app.flags.DEFINE_integer('emb_dim', 128, 'dimension of word embeddings') # for discriminator and generator
 tf.app.flags.DEFINE_integer('batch_size', 24, 'minibatch size') # for discriminator and generator
 tf.app.flags.DEFINE_integer('max_enc_steps', 150, 'max timesteps of encoder (max source text tokens)') # for generator
 #tf.app.flags.DEFINE_integer('max_dec_steps', 200, 'max timesteps of decoder (max summary tokens)') # for generator
 tf.app.flags.DEFINE_integer('min_dec_steps', 35, 'Minimum sequence length of generated summary. Applies only for beam search decoding mode') # for generator
-tf.app.flags.DEFINE_integer('sentiment_dim', 13, 'max timesteps of encoder (max source text tokens)') # for generator
+
+tf.app.flags.DEFINE_integer('sentiment_dim', 13, 'dimension of sentiment vectors (Senticnet 5 numeric values + one-hot encoding of 8 moods)') # for generator
+tf.app.flags.DEFINE_integer('aspect_dim', 18, 'dimension of aspect vectors (NMF topic number)') # for generator
+
 tf.app.flags.DEFINE_integer('vocab_size', 3393, 'Size of vocabulary. These will be read from the vocabulary file in order. If the vocabulary file contains fewer words than this number, or if this number is set to 0, will take all words in the vocabulary file.')
 tf.app.flags.DEFINE_integer('min_count', 2, 'Minimum frequency to allow a word to be added into vocabulary')
+
 tf.app.flags.DEFINE_float('lr', 0.6, 'learning rate') # for discriminator and generator
 tf.app.flags.DEFINE_float('adagrad_init_acc', 0.1, 'initial accumulator value for Adagrad') # for discriminator and generator
 tf.app.flags.DEFINE_float('rand_unif_init_mag', 0.02, 'magnitude for lstm cells random uniform inititalization') # for discriminator and generator
@@ -139,6 +153,7 @@ def run_pre_train(model, batcher, max_run_epoch, sess, saver, train_dir):
     Run pre-train for generator or discriminator.
     """
     losses = [] # loss of each epoch
+    summary_writer = SummaryWriter(FLAGS.log_root)
     for epoch in range(max_run_epoch):
         batches = batcher.get_batches(mode='train')
         
@@ -153,6 +168,7 @@ def run_pre_train(model, batcher, max_run_epoch, sess, saver, train_dir):
                 num_batch.set_postfix(loss=loss)
 
             losses.append(loss)
+            summary_writer.add_scalar('Pretrain/Generator_Loss', loss) if isinstance(model, Generator) else summary_writer.add_scalar('Pretrain/Discriminator_Loss', loss)
             
             if isinstance(model, Discriminator) and train_step % 10000 == 0:
                 saver.save(sess, train_dir + "/model", global_step=train_step)
@@ -167,6 +183,8 @@ def run_pre_train(model, batcher, max_run_epoch, sess, saver, train_dir):
     # Plot loss of the pre-train model
     figname = os.path.join("myexperiment", "pre-train_" + model.__class__.__name__ + "_loss.png")
     util.plotLineChart(range(max_run_epoch), losses, "epochs", "loss", figname)
+
+    summary_writer.close()
 
 def batch_to_batch(batch, batcher, dis_batcher):
     db_example_list = []
@@ -239,59 +257,64 @@ def output_to_batch(current_batch, result, batcher, dis_batcher):
         db_example_list.append(new_dis_example)
 
     return Batch(example_list, batcher._hps, batcher._vocab), bd.Batch(db_example_list, dis_batcher._hps, dis_batcher._vocab)
-def run_train_generator(model, discirminator_model, discriminator_sess, batcher, dis_batcher, batches, sess, saver, train_dir, generated):
+def run_train_generator(model, max_epoch, discirminator_model, discriminator_sess, batcher, dis_batcher, batches, sess, saver, train_dir, generated):
     """
     batches: batcher.Batch
     """
     tf.logging.info("Starting training generator")
     losses = []
-    with trange(len(batches), ascii=True) as num_batch: # len <= 1000, now len = 107
-        batch_loss = 0
-        batch_teacher_forcing_loss = 0
-        for step in num_batch: 
-            current_batch = batches[step] # ground truth data
-            results = model.run_eval_given_step(sess, current_batch) # given review to predict summary
-            new_batch, new_dis_batch = output_to_batch(current_batch, results, batcher, dis_batcher) # generated summary
-            reward = discirminator_model.run_ypred_auc(discriminator_sess, new_dis_batch) # use generated summary to predict reward, the reward here is equal to loss, that is, the higher the reward, the worse the model
-            
-            reward_sentence_level = reward['y_pred_auc_sentence']
-            for i in range(len(reward['y_pred_auc'])):
-                for j in range(len(reward['y_pred_auc'][i])):
-                    for k in range(len(reward['y_pred_auc'][i][j])):
-                        if reward['y_pred_auc'][i][j][k] > 12:
-                            reward['y_pred_auc'][i][j][k] = 12 / 10000.0 
-                        else:
-                            reward['y_pred_auc'][i][j][k] = reward['y_pred_auc'][i][j][k] / 10000.0
-            
-            reward['y_pred_auc'] = np.reshape(np.array(reward['y_pred_auc']), [batcher._hps.batch_size.value * batcher._hps.max_dec_sen_num.value, batcher._hps.max_dec_steps.value])
-            results = model.run_train_step(sess, new_batch, reward['y_pred_auc']) # use generated summary and its reward to calculate loss and update Generator
-            loss = results['loss']
-            batch_loss += loss / len(batches) # average the loss in same batch
+    summary_writer = SummaryWriter(FLAGS.log_root)
+    for epoch in range(max_epoch):
+        with trange(len(batches), ascii=True) as num_batch: # len <= 1000, now len = 107
+            num_batch.set_description("Epoch %i/%i" % (epoch+1, max_epoch))
+            batch_loss = 0
+            batch_teacher_forcing_loss = 0
+            for step in num_batch:
+                current_batch = batches[step] # ground truth data
+                results = model.run_eval_given_step(sess, current_batch) # given review to predict summary
+                new_batch, new_dis_batch = output_to_batch(current_batch, results, batcher, dis_batcher) # generated summary
+                reward = discirminator_model.run_ypred_auc(discriminator_sess, new_dis_batch) # use generated summary to predict reward, the reward here is equal to loss, that is, the higher the reward, the worse the model
+                
+                reward_sentence_level = reward['y_pred_auc_sentence']
+                for i in range(len(reward['y_pred_auc'])):
+                    for j in range(len(reward['y_pred_auc'][i])):
+                        for k in range(len(reward['y_pred_auc'][i][j])):
+                            if reward['y_pred_auc'][i][j][k] > 12:
+                                reward['y_pred_auc'][i][j][k] = 12 / 10000.0
+                            else:
+                                reward['y_pred_auc'][i][j][k] = reward['y_pred_auc'][i][j][k] / 10000.0
+                
+                reward['y_pred_auc'] = np.reshape(np.array(reward['y_pred_auc']), [batcher._hps.batch_size.value * batcher._hps.max_dec_sen_num.value, batcher._hps.max_dec_steps.value])
+                results = model.run_train_step(sess, new_batch, reward['y_pred_auc']) # use generated summary and its reward to calculate loss and update Generator
+                loss = results['loss']
+                batch_loss += loss / len(batches) # average the loss in same batch
 
-            # Add supervised learning to help train Generator, feeding true data will get a bigger loss, so update faster
-            new_dis_batch = batch_to_batch(current_batch, batcher, dis_batcher) # use ground truth data to make a Batch for Discriminator
-            reward = discirminator_model.run_ypred_auc(discriminator_sess, new_dis_batch) # use ground truth to predict reward
-            reward_sentence_level = reward['y_pred_auc_sentence']
-            for i in range(len(reward['y_pred_auc'])):
-                for j in range(len(reward['y_pred_auc'][i])):
-                    for k in range(len(reward['y_pred_auc'][i][j])):
-                        if reward['y_pred_auc'][i][j][k] > 12:
-                            reward['y_pred_auc'][i][j][k] = 1
-                        else:
-                            reward['y_pred_auc'][i][j][k] = reward['y_pred_auc'][i][j][k] / 10.0
+                # Add supervised learning to help train Generator, feeding true data will get a bigger loss, so update faster
+                new_dis_batch = batch_to_batch(current_batch, batcher, dis_batcher) # use ground truth data to make a Batch for Discriminator
+                reward = discirminator_model.run_ypred_auc(discriminator_sess, new_dis_batch) # use ground truth to predict reward
+                reward_sentence_level = reward['y_pred_auc_sentence']
+                for i in range(len(reward['y_pred_auc'])):
+                    for j in range(len(reward['y_pred_auc'][i])):
+                        for k in range(len(reward['y_pred_auc'][i][j])):
+                            if reward['y_pred_auc'][i][j][k] > 12:
+                                reward['y_pred_auc'][i][j][k] = 1
+                            else:
+                                reward['y_pred_auc'][i][j][k] = reward['y_pred_auc'][i][j][k] / 10.0
 
-            reward['y_pred_auc'] = np.reshape(np.array(reward['y_pred_auc']), [FLAGS.batch_size * batcher._hps.max_dec_sen_num.value, batcher._hps.max_dec_steps.value])
-            new_results = model.run_train_step(sess, current_batch, reward['y_pred_auc'])
-            teacher_forcing_loss = new_results['loss']
-            batch_teacher_forcing_loss += teacher_forcing_loss / len(batches) # average the loss in same batch
+                reward['y_pred_auc'] = np.reshape(np.array(reward['y_pred_auc']), [FLAGS.batch_size * batcher._hps.max_dec_sen_num.value, batcher._hps.max_dec_steps.value])
+                new_results = model.run_train_step(sess, current_batch, reward['y_pred_auc'])
+                teacher_forcing_loss = new_results['loss']
+                batch_teacher_forcing_loss += teacher_forcing_loss / len(batches) # average the loss in same batch
 
-            num_batch.set_postfix({
-                "loss": batch_loss,
-                "tf loss": batch_teacher_forcing_loss
-                })
-            
-            if step % 20 == 0: # 20 to make the x scale same as discriminator training as D trained with 5 epoch, and G has 100 batches
-                losses.append(loss)
+                num_batch.set_postfix({
+                    "loss": batch_loss,
+                    "tf loss": batch_teacher_forcing_loss
+                    })
+                
+                if step % 20 == 0: # 20 to make the x scale same as discriminator training as D trained with 5 epoch, and G has 100 batches
+                    losses.append(loss)
+                    summary_writer.add_scalar('Adversarial/Generator_Loss', loss)
+    summary_writer.close()
     return losses
 
 def print_discriminator_batch(batch):
@@ -345,6 +368,7 @@ def run_train_discriminator(model, max_epoch, batcher, batches, sess, saver, tra
     """
     tf.logging.info("Starting training discriminator")
     losses = []
+    summary_writer = SummaryWriter(FLAGS.log_root)
     for epoch in range(max_epoch):
         with trange(len(batches), ascii=True) as num_batch:
             num_batch.set_description("Epoch %i/%i" % (epoch+1, max_epoch))
@@ -361,6 +385,8 @@ def run_train_discriminator(model, max_epoch, batcher, batches, sess, saver, tra
                     run_test_discriminator(model, batcher, sess, saver, str(train_step))
             
             losses.append(batch_loss)
+            summary_writer.add_scalar('Adversarial/Discriminator_Loss', batch_loss)
+    summary_writer.close()
     return losses
 
 
@@ -383,7 +409,7 @@ def main(unused_argv):
 
 
   # Make a namedtuple hps, containing the values of the hyperparameters that the model needs
-  hparam_list = ['mode', 'lr', 'adagrad_init_acc', 'rand_unif_init_mag', 'trunc_norm_init_std', 'max_grad_norm', 'hidden_dim', 'emb_dim', 'batch_size', 'max_dec_sen_num','max_dec_steps', 'max_enc_steps', 'sentiment_dim']
+  hparam_list = ['mode', 'lr', 'adagrad_init_acc', 'rand_unif_init_mag', 'trunc_norm_init_std', 'max_grad_norm', 'hidden_dim', 'emb_dim', 'batch_size', 'max_dec_sen_num','max_dec_steps', 'max_enc_steps', 'aspect_dim', 'sentiment_dim']
   hps_dict = {}
   for key,val in FLAGS.__flags.items(): # for each flag
     if key in hparam_list: # if it's in the list
@@ -397,6 +423,35 @@ def main(unused_argv):
       if key in hparam_list:  # if it's in the list
           hps_dict[key] = val  # add it to the dict
   hps_discriminator = namedtuple("HParams", hps_dict.keys())(**hps_dict)
+
+  # Log hyperparameters to Tensorboard
+  with SummaryWriter(FLAGS.log_root) as summary_writer:
+    hparam_list = [
+        'g_pre_epoch',
+        'd_pre_epoch',
+        'adver_epoch',
+        'g_vs_d',
+        'batch_size', 
+        'emb_dim', 
+        'hidden_dim', 
+        'max_enc_steps', 
+        'max_dec_sen_num', 
+        'max_dec_steps', 
+        'vocab_size', 
+        'min_count',
+        'aspect_attn',
+        'senti_attn'
+    ]
+    for hp in hparam_list:
+        try: 
+            text_value = str(FLAGS[hp].value)
+        except KeyError:
+            if hp == 'g_vs_d':
+                text_value = '%d:%d' % (FLAGS.g_adver_step, FLAGS.d_adver_step)
+            else:
+                text_value = 'KeyError'
+        finally:
+            summary_writer.add_text(hp, text_value)
 
   # Create a batcher object that will create minibatches of data
   batcher = GenBatcher(vocab, hps_generator)
@@ -448,21 +503,21 @@ def main(unused_argv):
     
     gen_losses = []
     dis_losses = []
-    for epoch in range(10):
+    for epoch in range(FLAGS.adver_epoch):
         batches = batcher.get_batches(mode='train')
         for step in range(1):
 
-            gen_losses += run_train_generator(model, model_dis, sess_dis, batcher, dis_batcher, batches[step*1000:(step+1)*1000], sess_ge, saver_ge, train_dir_ge,generated)
+            gen_losses += run_train_generator(model, FLAGS.g_adver_step, model_dis, sess_dis, batcher, dis_batcher, batches[step*1000:(step+1)*1000], sess_ge, saver_ge, train_dir_ge,generated)
             generated.generator_sample_example("train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive", "train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_negative", 1000)
             #generated.generator_max_example("max_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive", "max_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_negetive", 200)
 
             tf.logging.info("test performance: ")
             tf.logging.info("epoch: "+str(epoch)+" step: "+str(step))
-            print("evaluate the diversity of DP-GAN (decode based on  max probability)")
+            print("evaluate the diversity of DP-GAN (decode based on sampling)")
             generated.generator_test_sample_example(
                 "test_sample_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_positive",
                 "test_sample_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_negative", 200)
-            print("evaluate the diversity of DP-GAN (decode based on sampling)")
+            print("evaluate the diversity of DP-GAN (decode based on max probability)")
             generated.generator_test_max_example("test_max_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_positive",
                                             "test_max_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_negative",
                                             200)
@@ -472,7 +527,7 @@ def main(unused_argv):
             dis_batcher.train_batch = dis_batcher.create_batches(mode="train", shuffleis=True)
 
             #dis_batcher.valid_batch = dis_batcher.train_batch
-            dis_losses += run_train_discriminator(model_dis, 3, dis_batcher, dis_batcher.get_batches(mode="train"),
+            dis_losses += run_train_discriminator(model_dis, FLAGS.d_adver_step, dis_batcher, dis_batcher.get_batches(mode="train"),
                                                   sess_dis, saver_dis, train_dir_dis)
     
     # Plot loss of Generator
@@ -490,7 +545,7 @@ def main(unused_argv):
     sess_ge, saver_ge, train_dir_ge = setup_training_generator(model)
     generated = Generated_sample(model, vocab, batcher, sess_ge)
     print("Start pre-training generator......")
-    run_pre_train(model, batcher, 100, sess_ge, saver_ge, train_dir_ge)
+    run_pre_train(model, batcher, FLAGS.g_pre_epoch, sess_ge, saver_ge, train_dir_ge)
 
     print("Generating negative examples......")
     generated.generator_train_negative_example()
@@ -509,7 +564,7 @@ def main(unused_argv):
     print("Start pre-training discriminator......")
     #run_test_discriminator(model_dis, dis_batcher, sess_dis, saver_dis, "test")
     if not os.path.exists("discriminator_result"): os.mkdir("discriminator_result")
-    run_pre_train(model_dis, dis_batcher, 250, sess_dis, saver_dis, train_dir_dis)
+    run_pre_train(model_dis, dis_batcher, FLAGS.d_pre_epoch, sess_dis, saver_dis, train_dir_dis)
 
     #util.load_ckpt(saver_ge, sess_ge, ckpt_dir="train-generator")
   else:
