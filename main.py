@@ -508,7 +508,7 @@ def main(unused_argv):
         for step in range(1):
 
             gen_losses += run_train_generator(model, FLAGS.g_adver_step, model_dis, sess_dis, batcher, dis_batcher, batches[step*1000:(step+1)*1000], sess_ge, saver_ge, train_dir_ge,generated)
-            generated.generator_sample_example("train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive", "train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_negative", 1000)
+            generated.generator_train_sample_example("train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive", "train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_negative", 1000)
             #generated.generator_max_example("max_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive", "max_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_negetive", 200)
 
             tf.logging.info("test performance: ")
@@ -548,8 +548,8 @@ def main(unused_argv):
     run_pre_train(model, batcher, FLAGS.g_pre_epoch, sess_ge, saver_ge, train_dir_ge)
 
     print("Generating negative examples......")
-    generated.generator_train_negative_example()
-    generated.generator_test_negative_example()
+    generated.generator_pretrain_train_example()
+    generated.generator_pretrain_test_example()
   elif hps_generator.mode.value == 'train_discriminator':
     print("Start pre-training......")
     model = Generator(hps_generator, vocab)

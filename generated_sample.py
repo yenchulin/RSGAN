@@ -1,17 +1,27 @@
-import os
-import json
-import time
-import codecs
+import codecs, data, json, nltk, os, re, shutil, time
 import tensorflow as tf
-import data
-import shutil
-import util
-import re
-from  result_evaluate import Evaluate
-import nltk
-from nltk.translate.bleu_score import corpus_bleu
+from nltk.translate.bleu_score import corpus_bleu, sentence_bleu
+from statistics import mean
 from tensorboardX import SummaryWriter
 FLAGS = tf.app.flags.FLAGS
+
+class Bleu(object):
+    bleu1_weight = (1, 0, 0, 0)
+    bleu2_weight = (0.5, 0.5, 0, 0)
+    bleu3_weight = (0.33, 0.33, 0.33, 0)
+    bleu4_weight = (0.25, 0.25, 0.25, 0.25)
+
+    @staticmethod
+    def summary_dict(bleu_scores):
+        """
+        Generate a dict for add_scalars() in tensorboardX.
+        # Args:
+        - bleu_scores: a tuple (list) with bleu-n scores
+        """
+        summary_dict = {}
+        for i in range(len(bleu_scores)):
+            summary_dict["bleu%s" % str(i + 1)] = bleu_scores[i]
+        return summary_dict
 
 class Generated_sample(object):
     def __init__(self, model, vocab, batcher, sess):
@@ -31,302 +41,14 @@ class Generated_sample(object):
         if not os.path.exists(self.train_sample_whole_negative_dir): os.mkdir(self.train_sample_whole_negative_dir)
         if not os.path.exists(self.test_sample_whole_positive_dir): os.mkdir(self.test_sample_whole_positive_dir)
         if not os.path.exists(self.test_sample_whole_negative_dir): os.mkdir(self.test_sample_whole_negative_dir)
-        self.temp_positive_dir = ""
-        self.temp_negative_dir =""
-        #if not os.path.exists(self.temp_positive_dir): os.mkdir(self.temp_positive_dir)
-        #if not os.path.exists(self.temp_negative_dir): os.mkdir(self.temp_negative_dir)
 
-
-    def generator_sample_example(self, positive_dir, negative_dir, num_batch):
-
-        self.temp_positive_dir = positive_dir
-        self.temp_negative_dir = negative_dir
-
-        if not os.path.exists(self.temp_positive_dir): os.mkdir(self.temp_positive_dir)
-        if not os.path.exists(self.temp_negative_dir): os.mkdir(self.temp_negative_dir)
-        shutil.rmtree(self.temp_negative_dir)
-        shutil.rmtree(self.temp_positive_dir)
-        if not os.path.exists(self.temp_positive_dir): os.mkdir(self.temp_positive_dir)
-        if not os.path.exists(self.temp_negative_dir): os.mkdir(self.temp_negative_dir)
-        counter = 0
-
-
-        for i in range(num_batch):
-            decode_result = self._model.run_eval_given_step(self._sess, self.batches[self.current_batch])
-
-
-            for i in range(FLAGS.batch_size):
-
-                decoded_words_all = []
-                original_review = self.batches[self.current_batch].original_review_output[i]
-
-                for j in range(FLAGS.max_dec_sen_num):
-
-                    output_ids = [int(t) for t in decode_result['generated'][i][j]][1:]
-                    decoded_words = data.outputids2words(output_ids, self._vocab, None)
-                    # Remove the [STOP] token from decoded_words, if necessary
-                    try:
-                        fst_stop_idx = decoded_words.index(data.STOP_DECODING)  # index of the (first) [STOP] symbol
-                        decoded_words = decoded_words[:fst_stop_idx]
-                    except ValueError:
-                        decoded_words = decoded_words
-
-                    if len(decoded_words)<2:
-                        continue
-
-                    decoded_output = ' '.join(decoded_words).strip()  # single string
-                    decoded_words_all.append(decoded_output)
-                decoded_words_all = ' '.join(decoded_words_all).strip()
-                try:
-                    fst_stop_idx = decoded_words_all.index(
-                        data.STOP_DECODING_DOCUMENT)  # index of the (first) [STOP] symbol
-                    decoded_words_all = decoded_words_all[:fst_stop_idx]
-                except ValueError:
-                    decoded_words_all = decoded_words_all
-                decoded_words_all = decoded_words_all.replace("[UNK] ", "")
-                decoded_words_all = decoded_words_all.replace("[UNK]", "")
-                decoded_words_all, _ = re.subn(r"(! ){2,}", "! ", decoded_words_all)
-                decoded_words_all, _ = re.subn(r"(\. ){2,}", ". ", decoded_words_all)
-                self.write_negtive_temp_to_json(original_review, decoded_words_all, counter)
-
-                counter += 1  # this is how many examples we've decoded
-            self.current_batch +=1
-            if self.current_batch >= len(self.batches):
-                self.current_batch = 0
-        
-        eva = Evaluate()
-        eva.diversity_evaluate(negative_dir + "/*")
-
-
-    def generator_test_sample_example(self, positive_dir, negative_dir, num_batch):
-
-        self.temp_positive_dir = positive_dir
-        self.temp_negative_dir = negative_dir
-
-        if not os.path.exists(self.temp_positive_dir): os.mkdir(self.temp_positive_dir)
-        if not os.path.exists(self.temp_negative_dir): os.mkdir(self.temp_negative_dir)
-        shutil.rmtree(self.temp_negative_dir)
-        shutil.rmtree(self.temp_positive_dir)
-        if not os.path.exists(self.temp_positive_dir): os.mkdir(self.temp_positive_dir)
-        if not os.path.exists(self.temp_negative_dir): os.mkdir(self.temp_negative_dir)
-        counter = 0
-        batches = self.test_batches
-        step = 0
-        list_hop = []
-        list_ref = []
-        
-
-        while step < len(batches):
-            
-            batch = batches[step]
-            step += 1
-
-            decode_result = self._model.run_eval_given_step(self._sess, batch)
-            #decode_result = self._model.run_eval_given_step(self._sess, self.batches[self.current_batch])
-
-
-            for i in range(FLAGS.batch_size):
-
-                decoded_words_all = []
-                original_review = batch.original_review_output[i]
-
-                for j in range(FLAGS.max_dec_sen_num):
-
-                    output_ids = [int(t) for t in decode_result['generated'][i][j]][1:]
-                    decoded_words = data.outputids2words(output_ids, self._vocab, None)
-                    # Remove the [STOP] token from decoded_words, if necessary
-                    try:
-                        fst_stop_idx = decoded_words.index(data.STOP_DECODING)  # index of the (first) [STOP] symbol
-                        decoded_words = decoded_words[:fst_stop_idx]
-                    except ValueError:
-                        decoded_words = decoded_words
-
-                    if len(decoded_words)<2:
-                        continue
-
-                    decoded_output = ' '.join(decoded_words).strip()  # single string
-                    decoded_words_all.append(decoded_output)
-                decoded_words_all = ' '.join(decoded_words_all).strip()
-                try:
-                    fst_stop_idx = decoded_words_all.index(
-                        data.STOP_DECODING_DOCUMENT)  # index of the (first) [STOP] symbol
-                    decoded_words_all = decoded_words_all[:fst_stop_idx]
-                except ValueError:
-                    decoded_words_all = decoded_words_all
-                decoded_words_all = decoded_words_all.replace("[UNK] ", "")
-                decoded_words_all = decoded_words_all.replace("[UNK]", "")
-                decoded_words_all, _ = re.subn(r"(! ){2,}", "! ", decoded_words_all)
-                decoded_words_all, _ = re.subn(r"(\. ){2,}", ". ", decoded_words_all)
-                self.write_negtive_temp_to_json(original_review, decoded_words_all, counter)
-                list_ref.append([nltk.word_tokenize(original_review)])
-                list_hop.append(nltk.word_tokenize(decoded_words_all))
-
-                counter += 1  # this is how many examples we've decoded
-            '''self.current_batch +=1
-            if self.current_batch >= len(self.batches):
-                self.current_batch = 0'''
-        
-        bleu_score = corpus_bleu(list_ref, list_hop)
-        tf.logging.info('bleu: '  + str(bleu_score))
-        eva = Evaluate()
-        eva.diversity_evaluate(negative_dir + "/*")
-        with SummaryWriter(FLAGS.log_root) as summary_writer:
-            summary_writer.add_scalar("Adversarial/Sample_Bleu", bleu_score)
-
-
-    def generator_test_max_example(self, positive_dir, negative_dir, num_batch):
-
-        self.temp_positive_dir = positive_dir
-        self.temp_negative_dir = negative_dir
-
-        if not os.path.exists(self.temp_positive_dir): os.mkdir(self.temp_positive_dir)
-        if not os.path.exists(self.temp_negative_dir): os.mkdir(self.temp_negative_dir)
-        shutil.rmtree(self.temp_negative_dir)
-        shutil.rmtree(self.temp_positive_dir)
-        if not os.path.exists(self.temp_positive_dir): os.mkdir(self.temp_positive_dir)
-        if not os.path.exists(self.temp_negative_dir): os.mkdir(self.temp_negative_dir)
-        counter = 0
-        batches = self.test_batches
-        step = 0
-        list_hop = []
-        list_ref = []
-
-        while step < len(batches):
-            
-            batch = batches[step]
-            step += 1
-
-            decode_result = self._model.max_generator(self._sess, batch)
-            #decode_result = self._model.run_eval_given_step(self._sess, self.batches[self.current_batch])
-
-
-            for i in range(FLAGS.batch_size):
-
-                decoded_words_all = []
-                original_review = batch.original_review_output[i]
-
-                for j in range(FLAGS.max_dec_sen_num):
-
-                    output_ids = [int(t) for t in decode_result['generated'][i][j]][1:]
-                    decoded_words = data.outputids2words(output_ids, self._vocab, None)
-                    # Remove the [STOP] token from decoded_words, if necessary
-                    try:
-                        fst_stop_idx = decoded_words.index(data.STOP_DECODING)  # index of the (first) [STOP] symbol
-                        decoded_words = decoded_words[:fst_stop_idx]
-                    except ValueError:
-                        decoded_words = decoded_words
-
-                    if len(decoded_words)<2:
-                        continue
-
-                    decoded_output = ' '.join(decoded_words).strip()  # single string
-                    decoded_words_all.append(decoded_output)
-                decoded_words_all = ' '.join(decoded_words_all).strip()
-                try:
-                    fst_stop_idx = decoded_words_all.index(
-                        data.STOP_DECODING_DOCUMENT)  # index of the (first) [STOP] symbol
-                    decoded_words_all = decoded_words_all[:fst_stop_idx]
-                except ValueError:
-                    decoded_words_all = decoded_words_all
-                decoded_words_all = decoded_words_all.replace("[UNK] ", "")
-                decoded_words_all = decoded_words_all.replace("[UNK]", "")
-                decoded_words_all, _ = re.subn(r"(! ){2,}", "! ", decoded_words_all)
-                decoded_words_all, _ = re.subn(r"(\. ){2,}", ". ", decoded_words_all)
-                self.write_negtive_temp_to_json(original_review, decoded_words_all, counter)
-                list_ref.append([nltk.word_tokenize(original_review)])
-                list_hop.append(nltk.word_tokenize(decoded_words_all))
-
-                counter += 1  # this is how many examples we've decoded
-            '''self.current_batch +=1
-            if self.current_batch >= len(self.batches):
-                self.current_batch = 0'''
-        
-        
-        bleu_score = corpus_bleu(list_ref, list_hop)
-        tf.logging.info('bleu: '  + str(bleu_score))
-        eva = Evaluate()
-        eva.diversity_evaluate(negative_dir + "/*")
-        with SummaryWriter(FLAGS.log_root) as summary_writer:
-            summary_writer.add_scalar("Adversarial/Max_Bleu", bleu_score)
-
-    def generator_max_example(self, positive_dir, negative_dir, num_batch):
-
-        self.temp_positive_dir = positive_dir
-        self.temp_negative_dir = negative_dir
-
-        if not os.path.exists(self.temp_positive_dir): os.mkdir(self.temp_positive_dir)
-        if not os.path.exists(self.temp_negative_dir): os.mkdir(self.temp_negative_dir)
-        shutil.rmtree(self.temp_negative_dir)
-        shutil.rmtree(self.temp_positive_dir)
-        if not os.path.exists(self.temp_positive_dir): os.mkdir(self.temp_positive_dir)
-        if not os.path.exists(self.temp_negative_dir): os.mkdir(self.temp_negative_dir)
-        counter = 0
-
-
-        for i in range(num_batch):
-            decode_result = self._model.max_generator(self._sess, self.batches[self.current_batch])
-
-
-            for i in range(FLAGS.batch_size):
-
-                decoded_words_all = []
-                original_review = self.batches[self.current_batch].original_review_output[i]
-
-                for j in range(FLAGS.max_dec_sen_num):
-
-                    output_ids = [int(t) for t in decode_result['generated'][i][j]]
-                    decoded_words = data.outputids2words(output_ids, self._vocab, None)
-                    # Remove the [STOP] token from decoded_words, if necessary
-                    try:
-                        fst_stop_idx = decoded_words.index(data.STOP_DECODING)  # index of the (first) [STOP] symbol
-                        decoded_words = decoded_words[:fst_stop_idx]
-                    except ValueError:
-                        decoded_words = decoded_words
-                    if len(decoded_words)<2:
-                        continue
-
-                    decoded_output = ' '.join(decoded_words).strip()  # single string
-                    decoded_words_all.append(decoded_output)
-                decoded_words_all = ' '.join(decoded_words_all).strip()
-                try:
-                    fst_stop_idx = decoded_words_all.index(
-                        data.STOP_DECODING_DOCUMENT)  # index of the (first) [STOP] symbol
-                    decoded_words_all = decoded_words_all[:fst_stop_idx]
-                except ValueError:
-                    decoded_words_all = decoded_words_all
-                decoded_words_all = decoded_words_all.replace("[UNK] ", "")
-                decoded_words_all = decoded_words_all.replace("[UNK]", "")
-                decoded_words_all, _ = re.subn(r"(! ){2,}", "! ", decoded_words_all)
-                decoded_words_all, _ = re.subn(r"(\. ){2,}", ". ", decoded_words_all)
-                self.write_negtive_temp_to_json(original_review, decoded_words_all, counter)
-
-                counter += 1  # this is how many examples we've decoded
-            self.current_batch +=1
-            if self.current_batch >= len(self.batches):
-                self.current_batch = 0
-
-        eva = Evaluate()
-        eva.diversity_evaluate(negative_dir + "/*")
-
-    def write_negtive_temp_to_json(self, positive, negative, counter):
-        positive_file = os.path.join(self.temp_positive_dir, "%06d.txt" % ((counter // 1000)))
-        negative_file = os.path.join(self.temp_negative_dir, "%06d.txt" % ((counter // 1000)))
-        write_positive_file = codecs.open(positive_file, "a", "utf-8")
-        write_negative_file = codecs.open(negative_file, "a", "utf-8")
-        dict = {"example": str(positive),
-                "label": str(1)
-                }
-        string_ = json.dumps(dict)
-        write_positive_file.write(string_ + "\n")
-
-        dict = {"example": str(negative),
-                "label": str(0)
-                }
-        string_ = json.dumps(dict)
-        write_negative_file.write(string_ + "\n")
-        write_negative_file.close()
-        write_positive_file.close()
-
+    def check_dir(self, positive_dir, negative_dir):
+        if not os.path.exists(positive_dir): os.mkdir(positive_dir)
+        if not os.path.exists(negative_dir): os.mkdir(negative_dir)
+        shutil.rmtree(negative_dir)
+        shutil.rmtree(positive_dir)
+        if not os.path.exists(positive_dir): os.mkdir(positive_dir)
+        if not os.path.exists(negative_dir): os.mkdir(negative_dir)
 
     def write_negtive_to_json(self, positive, negative, counter, positive_dir, negtive_dir):
         positive_file = os.path.join(positive_dir, "%06d.txt" % (counter // 1000))
@@ -347,105 +69,162 @@ class Generated_sample(object):
         write_negative_file.close()
         write_positive_file.close()
 
-    def generator_train_negative_example(self):
+    def process_generated_summary(self, batch, neg_summary, positive_dir, negative_dir, counter, doc2doc_bleu = False, sen2sen_bleu = False, group_sen_bleu = False):
+        doc_bleu_hyp, doc_bleu_ref, sen_bleu_hyp, sen_bleu_ref = [], [], [], []
+        group_bleu1, group_bleu2, group_bleu3, group_bleu4 = 0, 0, 0, 0
 
+        for i in range(FLAGS.batch_size):
+            decoded_words_all = []
+            pos_summary = batch.original_review_output[i]
+
+            for j in range(FLAGS.max_dec_sen_num):
+                output_ids = [int(t) for t in neg_summary['generated'][i][j]][1:]
+                decoded_words = data.outputids2words(output_ids, self._vocab, None)
+
+                # In the sentence, if there is a [STOP_DECODING] token, remove the words after the token.
+                try:
+                    fst_stop_idx = decoded_words.index(data.STOP_DECODING) # index of the (first) [STOP_DECODING] token
+                    decoded_words = decoded_words[:fst_stop_idx]
+                except ValueError:
+                    decoded_words = decoded_words
+
+                if len(decoded_words) < 2:
+                    continue
+
+                decoded_output = ' '.join(decoded_words).strip() # single string
+                decoded_words_all.append(decoded_output)
+            
+            decoded_words_all = ' '.join(decoded_words_all).strip()
+
+            # In the sample, if there is a [STOP_DECODING_DOCUMENT] token, remove the words after the token.
+            try:
+                fst_stop_idx = decoded_words_all.index(data.STOP_DECODING_DOCUMENT)  # index of the (first) [STOP_DECODING_DOCUMENT] symbol
+                decoded_words_all = decoded_words_all[:fst_stop_idx]
+            except ValueError:
+                decoded_words_all = decoded_words_all
+            
+            decoded_words_all = decoded_words_all.replace("[UNK] ", "")
+            decoded_words_all = decoded_words_all.replace("[UNK]", "")
+            decoded_words_all, _ = re.subn(r"(! ){2,}", "! ", decoded_words_all)
+            decoded_words_all, _ = re.subn(r"(\. ){2,}", ". ", decoded_words_all)
+
+            # Write to file
+            self.write_negtive_to_json(pos_summary, decoded_words_all, counter, positive_dir, negative_dir)
+            counter += 1
+
+            # Calvulate bleu scores
+            if doc2doc_bleu:
+                doc_bleu_ref.append([pos_summary.split()])
+                doc_bleu_hyp.append(decoded_words_all.split())
+            
+            if sen2sen_bleu:
+                pos_sentences = nltk.sent_tokenize(pos_summary)
+                pos_sentences = [sen.split() for sen in pos_sentences]
+                neg_sentences = nltk.sent_tokenize(decoded_words_all)
+                neg_sentences = [sen.split() for sen in neg_sentences]
+                neg_sen_num = len(neg_sentences)
+                
+                sen_bleu_ref.extend([pos_sentences] * neg_sen_num)
+                sen_bleu_hyp.extend(neg_sentences)
+
+                if group_sen_bleu:
+                    for neg_sen in neg_sentences:
+                        group_bleu1 += sentence_bleu(pos_sentences, neg_sen, weights=Bleu.bleu1_weight) / (neg_sen_num * FLAGS.batch_size)
+                        group_bleu2 += sentence_bleu(pos_sentences, neg_sen, weights=Bleu.bleu2_weight) / (neg_sen_num * FLAGS.batch_size)
+                        group_bleu3 += sentence_bleu(pos_sentences, neg_sen, weights=Bleu.bleu3_weight) / (neg_sen_num * FLAGS.batch_size)
+                        group_bleu4 += sentence_bleu(pos_sentences, neg_sen) / (neg_sen_num * FLAGS.batch_size)
+                        
+        return counter, (doc_bleu_hyp, doc_bleu_ref), (sen_bleu_hyp, sen_bleu_ref), (group_bleu1, group_bleu2, group_bleu3, group_bleu4)
+
+    def generator_train_sample_example(self, positive_dir, negative_dir, num_batch):
+        self.check_dir(positive_dir, negative_dir)
         counter = 0
+        for _ in range(num_batch):
+            batch = self.batches[self.current_batch]
+            decode_result = self._model.run_eval_given_step(self._sess, batch)          
+            counter, _, _, _ = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter)
+            
+            self.current_batch += 1
+            if self.current_batch >= len(self.batches):
+                self.current_batch = 0
 
+    def generator_train_max_example(self, positive_dir, negative_dir, num_batch):
+        self.check_dir(positive_dir, negative_dir)
+        counter = 0
+        for _ in range(num_batch):
+            batch = self.batches[self.current_batch]
+            decode_result = self._model.max_generator(self._sess, batch)
+            counter, _, _, _ = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter)
+
+            self.current_batch +=1
+            if self.current_batch >= len(self.batches):
+                self.current_batch = 0
+
+    def generator_test_example(self, run_sess_func, positive_dir, negative_dir):
+        self.check_dir(positive_dir, negative_dir)
+        
+        counter = 0
+        doc_bleu_hyp_list, doc_bleu_ref_list, sen_bleu_hyp_list, sen_bleu_ref_list = [], [], [], []
+        group_bleu1_list, group_bleu2_list, group_bleu3_list, group_bleu4_list = [], [], [], []
+        
+        for batch in self.test_batches:
+            decode_result = run_sess_func(self._sess, batch)
+            counter, (doc_bleu_hyp, doc_bleu_ref), (sen_bleu_hyp, sen_bleu_ref), (group_bleu4, group_bleu3, group_bleu2, group_bleu1) = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter, doc2doc_bleu=True, sen2sen_bleu=True, group_sen_bleu=True)
+            
+            doc_bleu_hyp_list.extend(doc_bleu_hyp)
+            doc_bleu_ref_list.extend(doc_bleu_ref)
+            sen_bleu_hyp_list.extend(sen_bleu_hyp)
+            sen_bleu_ref_list.extend(sen_bleu_ref)
+
+            group_bleu1_list.append(group_bleu1)
+            group_bleu2_list.append(group_bleu2)
+            group_bleu3_list.append(group_bleu3)
+            group_bleu4_list.append(group_bleu4)
+        
+        # Calculate bleu score
+        doc_bleu1 = corpus_bleu(doc_bleu_ref_list, doc_bleu_hyp_list, weights=Bleu.bleu1_weight)
+        doc_bleu2 = corpus_bleu(doc_bleu_ref_list, doc_bleu_hyp_list, weights=Bleu.bleu2_weight)
+        doc_bleu3 = corpus_bleu(doc_bleu_ref_list, doc_bleu_hyp_list, weights=Bleu.bleu3_weight)
+        doc_bleu4 = corpus_bleu(doc_bleu_ref_list, doc_bleu_hyp_list)
+
+        sen_bleu1 = corpus_bleu(sen_bleu_ref_list, sen_bleu_hyp_list, weights=Bleu.bleu1_weight)
+        sen_bleu2 = corpus_bleu(sen_bleu_ref_list, sen_bleu_hyp_list, weights=Bleu.bleu2_weight)
+        sen_bleu3 = corpus_bleu(sen_bleu_ref_list, sen_bleu_hyp_list, weights=Bleu.bleu3_weight)
+        sen_bleu4 = corpus_bleu(sen_bleu_ref_list, sen_bleu_hyp_list)
+        
+        group_bleu1 = mean(group_bleu1_list)
+        group_bleu2 = mean(group_bleu2_list)
+        group_bleu3 = mean(group_bleu3_list)
+        group_bleu4 = mean(group_bleu4_list)
+        return (doc_bleu1, doc_bleu2, doc_bleu3, doc_bleu4), (sen_bleu1, sen_bleu2, sen_bleu3, sen_bleu4), (group_bleu1, group_bleu2, group_bleu3, group_bleu4)
+
+    def generator_test_sample_example(self, positive_dir, negative_dir, num_batch):
+        doc_bleu_scores, sen_bleu_scores, group_bleu_scores = self.generator_test_example(self._model.run_eval_given_step, positive_dir, negative_dir)
+        
+        with SummaryWriter(FLAGS.log_root) as summary_writer:
+            summary_writer.add_scalars("Adversarial/Bleu/Sample/Doc2Doc", Bleu.summary_dict(doc_bleu_scores))
+            summary_writer.add_scalars("Adversarial/Bleu/Sample/Sen2Sen", Bleu.summary_dict(sen_bleu_scores))
+            summary_writer.add_scalars("Adversarial/Bleu/Sample/Group_Sen", Bleu.summary_dict(group_bleu_scores))
+
+    def generator_test_max_example(self, positive_dir, negative_dir, num_batch):
+        doc_bleu_scores, sen_bleu_scores, group_bleu_scores = self.generator_test_example(self._model.max_generator, positive_dir, negative_dir)
+        
+        with SummaryWriter(FLAGS.log_root) as summary_writer:
+            summary_writer.add_scalars("Adversarial/Bleu/Max/Doc2Doc", Bleu.summary_dict(doc_bleu_scores))
+            summary_writer.add_scalars("Adversarial/Bleu/Max/Sen2Sen", Bleu.summary_dict(sen_bleu_scores))
+            summary_writer.add_scalars("Adversarial/Bleu/Max/Group_Sen", Bleu.summary_dict(group_bleu_scores))
+
+    def generator_pretrain_train_example(self):
+        counter = 0
         for batch in self.batches:
             decode_result = self._model.run_eval_given_step(self._sess, batch)
+            counter, _, _, _ = self.process_generated_summary(batch, decode_result, self.train_sample_whole_positive_dir, self.train_sample_whole_negative_dir, counter)
 
-            for i in range(FLAGS.batch_size):
-                decoded_words_all = []
-                original_review = batch.original_review_output[i]  # string
-
-                for j in range(FLAGS.max_dec_sen_num):
-
-                    output_ids = [int(t) for t in decode_result['generated'][i][j]][1:]
-                    decoded_words = data.outputids2words(output_ids, self._vocab, None)
-                    # Remove the [STOP] token from decoded_words, if necessary
-                    try:
-                        fst_stop_idx = decoded_words.index(data.STOP_DECODING)  # index of the (first) [STOP] symbol
-                        decoded_words = decoded_words[:fst_stop_idx]
-                    except ValueError:
-                        decoded_words = decoded_words
-
-                    if len(decoded_words)<2:
-                        continue
-
-                    if decoded_words[-1] !='.' and decoded_words[-1] !='!' and decoded_words[-1] !='?':
-                        decoded_words.append('.')
-                    decoded_output = ' '.join(decoded_words).strip()  # single string
-                    decoded_words_all.append(decoded_output)
-
-                decoded_words_all = ' '.join(decoded_words_all).strip()
-                try:
-                    fst_stop_idx = decoded_words_all.index(
-                        data.STOP_DECODING_DOCUMENT)  # index of the (first) [STOP] symbol
-                    decoded_words_all = decoded_words_all[:fst_stop_idx]
-                except ValueError:
-                    decoded_words_all = decoded_words_all
-                decoded_words_all = decoded_words_all.replace("[UNK] ", "")
-                decoded_words_all = decoded_words_all.replace("[UNK]", "")
-                decoded_words_all, _ = re.subn(r"(! ){2,}", "", decoded_words_all)
-                decoded_words_all, _ = re.subn(r"(\. ){2,}", "", decoded_words_all)
-
-                self.write_negtive_to_json(original_review, decoded_words_all, counter, self.train_sample_whole_positive_dir, self.train_sample_whole_negative_dir)
-
-                counter += 1  # this is how many examples we've decoded
-
-
-    def generator_test_negative_example(self):
-
+    def generator_pretrain_test_example(self):
         counter = 0
-        step = 0
-
-        t0 = time.time()
-        batches = self.test_batches
-
-        while step < len(batches):
-            batch = batches[step]
-            step += 1
-
-            decode_result =self._model.run_eval_given_step(self._sess, batch)
-
-            for i in range(FLAGS.batch_size):
-                decoded_words_all = []
-                original_review = batch.original_review_output[i]  # string
-
-                for j in range(FLAGS.max_dec_sen_num):
-
-
-                    output_ids = [int(t) for t in decode_result['generated'][i][j]][1:]
-                    decoded_words = data.outputids2words(output_ids, self._vocab, None)
-                    # Remove the [STOP] token from decoded_words, if necessary
-                    try:
-                        fst_stop_idx = decoded_words.index(data.STOP_DECODING)  # index of the (first) [STOP] symbol
-                        decoded_words = decoded_words[:fst_stop_idx]
-                    except ValueError:
-                        decoded_words = decoded_words
-
-                    if len(decoded_words)<2:
-                        continue
-
-                    if decoded_words[-1] !='.' and decoded_words[-1] !='!' and decoded_words[-1] !='?':
-                        decoded_words.append('.')
-                    decoded_output = ' '.join(decoded_words).strip()  # single string
-                    decoded_words_all.append(decoded_output)
-
-                decoded_words_all = ' '.join(decoded_words_all).strip()
-                try:
-                    fst_stop_idx = decoded_words_all.index(
-                        data.STOP_DECODING_DOCUMENT)  # index of the (first) [STOP] symbol
-                    decoded_words_all = decoded_words_all[:fst_stop_idx]
-                except ValueError:
-                    decoded_words_all = decoded_words_all
-                decoded_words_all = decoded_words_all.replace("[UNK] ", "")
-                decoded_words_all = decoded_words_all.replace("[UNK]", "")
-                decoded_words_all, _ = re.subn(r"(! ){2,}", "", decoded_words_all)
-                decoded_words_all, _ = re.subn(r"(\. ){2,}", "", decoded_words_all)
-                self.write_negtive_to_json(original_review, decoded_words_all, counter, self.test_sample_whole_positive_dir,self.test_sample_whole_negative_dir)
-
-                counter += 1  # this is how many examples we've decoded
+        for batch in self.test_batches:
+            decode_result = self._model.run_eval_given_step(self._sess, batch)
+            counter, _, _, _ = self.process_generated_summary(batch, decode_result, self.test_sample_whole_positive_dir, self.test_sample_whole_negative_dir, counter)
 
     def compute_BLEU(self, train_step):
 
