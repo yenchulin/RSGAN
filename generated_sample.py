@@ -169,7 +169,7 @@ class Generated_sample(object):
         
         for batch in self.test_batches:
             decode_result = run_sess_func(self._sess, batch)
-            counter, (doc_bleu_hyp, doc_bleu_ref), (sen_bleu_hyp, sen_bleu_ref), (group_bleu4, group_bleu3, group_bleu2, group_bleu1) = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter, doc2doc_bleu=True, sen2sen_bleu=True, group_sen_bleu=True)
+            counter, (doc_bleu_hyp, doc_bleu_ref), (sen_bleu_hyp, sen_bleu_ref), (group_bleu1, group_bleu2, group_bleu3, group_bleu4) = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter, doc2doc_bleu=True, sen2sen_bleu=True, group_sen_bleu=True)
             
             doc_bleu_hyp_list.extend(doc_bleu_hyp)
             doc_bleu_ref_list.extend(doc_bleu_ref)
