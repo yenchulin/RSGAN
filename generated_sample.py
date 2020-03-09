@@ -3,6 +3,7 @@ import tensorflow as tf
 from nltk.translate.bleu_score import corpus_bleu, sentence_bleu
 from statistics import mean
 from tensorboardX import SummaryWriter
+from tqdm import tqdm
 FLAGS = tf.app.flags.FLAGS
 
 class Bleu(object):
@@ -167,7 +168,7 @@ class Generated_sample(object):
         doc_bleu_hyp_list, doc_bleu_ref_list, sen_bleu_hyp_list, sen_bleu_ref_list = [], [], [], []
         group_bleu1_list, group_bleu2_list, group_bleu3_list, group_bleu4_list = [], [], [], []
         
-        for batch in self.test_batches:
+        for batch in tqdm(self.test_batches, ascii=True):
             decode_result = run_sess_func(self._sess, batch)
             counter, (doc_bleu_hyp, doc_bleu_ref), (sen_bleu_hyp, sen_bleu_ref), (group_bleu1, group_bleu2, group_bleu3, group_bleu4) = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter, doc2doc_bleu=True, sen2sen_bleu=True, group_sen_bleu=True)
             
@@ -216,13 +217,13 @@ class Generated_sample(object):
 
     def generator_pretrain_train_example(self):
         counter = 0
-        for batch in self.batches:
+        for batch in tqdm(self.batches, ascii=True):
             decode_result = self._model.run_eval_given_step(self._sess, batch)
             counter, _, _, _ = self.process_generated_summary(batch, decode_result, self.train_sample_whole_positive_dir, self.train_sample_whole_negative_dir, counter)
 
     def generator_pretrain_test_example(self):
         counter = 0
-        for batch in self.test_batches:
+        for batch in tqdm(self.test_batches, ascii=True):
             decode_result = self._model.run_eval_given_step(self._sess, batch)
             counter, _, _, _ = self.process_generated_summary(batch, decode_result, self.test_sample_whole_positive_dir, self.test_sample_whole_negative_dir, counter)
 
