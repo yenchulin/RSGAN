@@ -1,4 +1,4 @@
-import codecs, data, json, nltk, os, re, shutil, time
+import codecs, data, json, nltk, os, re, rouge, shutil, time
 import tensorflow as tf
 from nltk.translate.bleu_score import corpus_bleu, sentence_bleu
 from statistics import mean
@@ -23,6 +23,23 @@ class Bleu(object):
         for i in range(len(bleu_scores)):
             summary_dict["bleu%s" % str(i + 1)] = bleu_scores[i]
         return summary_dict
+
+class Rouge(object):
+    @staticmethod
+    def summary_dict(rouge_scores):
+        """
+        Generate a dict for add_scalars() in tensorboardX.
+        # Args:
+        - rouge_scores: a dict, e.g. {"rouge-1": {"f": _, "p": _, "r": _}, "rouge-2" : { ..     }, "rouge-l": { ... }}
+        """
+        f_summary_dict = {}
+        p_summary_dict = {}
+        r_summary_dict = {}
+        for key in rouge_scores:
+            f_summary_dict[key] = rouge_scores[key]["f"]
+            p_summary_dict[key] = rouge_scores[key]["p"]
+            r_summary_dict[key] = rouge_scores[key]["r"]
+        return f_summary_dict, p_summary_dict, r_summary_dict
 
 class Generated_sample(object):
     def __init__(self, model, vocab, batcher, sess):
@@ -70,9 +87,10 @@ class Generated_sample(object):
         write_negative_file.close()
         write_positive_file.close()
 
-    def process_generated_summary(self, batch, neg_summary, positive_dir, negative_dir, counter, doc2doc_bleu = False, sen2sen_bleu = False, group_sen_bleu = False):
+    def process_generated_summary(self, batch, neg_summary, positive_dir, negative_dir, counter, doc2doc_bleu = False, sen2sen_bleu = False, group_sen_bleu = False, rouge = False):
         doc_bleu_hyp, doc_bleu_ref, sen_bleu_hyp, sen_bleu_ref = [], [], [], []
         group_bleu1, group_bleu2, group_bleu3, group_bleu4 = 0, 0, 0, 0
+        rouge_hyp, rouge_ref = [], []
 
         for i in range(FLAGS.batch_size):
             decoded_words_all = []
@@ -113,7 +131,7 @@ class Generated_sample(object):
             self.write_negtive_to_json(pos_summary, decoded_words_all, counter, positive_dir, negative_dir)
             counter += 1
 
-            # Calvulate bleu scores
+            # Calculate bleu scores
             if doc2doc_bleu:
                 doc_bleu_ref.append([pos_summary.split()])
                 doc_bleu_hyp.append(decoded_words_all.split())
@@ -134,8 +152,13 @@ class Generated_sample(object):
                         group_bleu2 += sentence_bleu(pos_sentences, neg_sen, weights=Bleu.bleu2_weight) / (neg_sen_num * FLAGS.batch_size)
                         group_bleu3 += sentence_bleu(pos_sentences, neg_sen, weights=Bleu.bleu3_weight) / (neg_sen_num * FLAGS.batch_size)
                         group_bleu4 += sentence_bleu(pos_sentences, neg_sen) / (neg_sen_num * FLAGS.batch_size)
+            
+            # Calculate rouge scores
+            if rouge:
+                rouge_ref.append(pos_summary)
+                rouge_hyp.append(decoded_words_all)
                         
-        return counter, (doc_bleu_hyp, doc_bleu_ref), (sen_bleu_hyp, sen_bleu_ref), (group_bleu1, group_bleu2, group_bleu3, group_bleu4)
+        return counter, (doc_bleu_hyp, doc_bleu_ref), (sen_bleu_hyp, sen_bleu_ref), (group_bleu1, group_bleu2, group_bleu3, group_bleu4), (rouge_hyp, rouge_ref)
 
     def generator_train_sample_example(self, positive_dir, negative_dir, num_batch):
         self.check_dir(positive_dir, negative_dir)
@@ -143,7 +166,7 @@ class Generated_sample(object):
         for _ in range(num_batch):
             batch = self.batches[self.current_batch]
             decode_result = self._model.run_eval_given_step(self._sess, batch)          
-            counter, _, _, _ = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter)
+            counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter)
             
             self.current_batch += 1
             if self.current_batch >= len(self.batches):
@@ -155,7 +178,7 @@ class Generated_sample(object):
         for _ in range(num_batch):
             batch = self.batches[self.current_batch]
             decode_result = self._model.max_generator(self._sess, batch)
-            counter, _, _, _ = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter)
+            counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter)
 
             self.current_batch +=1
             if self.current_batch >= len(self.batches):
@@ -167,10 +190,11 @@ class Generated_sample(object):
         counter = 0
         doc_bleu_hyp_list, doc_bleu_ref_list, sen_bleu_hyp_list, sen_bleu_ref_list = [], [], [], []
         group_bleu1_list, group_bleu2_list, group_bleu3_list, group_bleu4_list = [], [], [], []
+        rouge_hyp_list, rouge_ref_list = [], []
         
         for batch in tqdm(self.test_batches, ascii=True):
             decode_result = run_sess_func(self._sess, batch)
-            counter, (doc_bleu_hyp, doc_bleu_ref), (sen_bleu_hyp, sen_bleu_ref), (group_bleu1, group_bleu2, group_bleu3, group_bleu4) = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter, doc2doc_bleu=True, sen2sen_bleu=True, group_sen_bleu=True)
+            counter, (doc_bleu_hyp, doc_bleu_ref), (sen_bleu_hyp, sen_bleu_ref), (group_bleu1, group_bleu2, group_bleu3, group_bleu4), (rouge_hyp, rouge_ref) = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter, doc2doc_bleu=True, sen2sen_bleu=True, group_sen_bleu=True, rouge=True)
             
             doc_bleu_hyp_list.extend(doc_bleu_hyp)
             doc_bleu_ref_list.extend(doc_bleu_ref)
@@ -181,6 +205,9 @@ class Generated_sample(object):
             group_bleu2_list.append(group_bleu2)
             group_bleu3_list.append(group_bleu3)
             group_bleu4_list.append(group_bleu4)
+
+            rouge_hyp_list.extend(rouge_hyp)
+            rouge_ref_list.extend(rouge_ref)
         
         # Calculate bleu score
         doc_bleu1 = corpus_bleu(doc_bleu_ref_list, doc_bleu_hyp_list, weights=Bleu.bleu1_weight)
@@ -197,35 +224,49 @@ class Generated_sample(object):
         group_bleu2 = mean(group_bleu2_list)
         group_bleu3 = mean(group_bleu3_list)
         group_bleu4 = mean(group_bleu4_list)
-        return (doc_bleu1, doc_bleu2, doc_bleu3, doc_bleu4), (sen_bleu1, sen_bleu2, sen_bleu3, sen_bleu4), (group_bleu1, group_bleu2, group_bleu3, group_bleu4)
+
+        # Calculate rouge score
+        rouge_model = rouge.Rouge()
+        rouge_scores = rouge_model.get_scores(rouge_hyp_list, rouge_ref_list, avg=True)   
+        return (doc_bleu1, doc_bleu2, doc_bleu3, doc_bleu4), (sen_bleu1, sen_bleu2, sen_bleu3, sen_bleu4), (group_bleu1, group_bleu2, group_bleu3, group_bleu4), rouge_scores
 
     def generator_test_sample_example(self, positive_dir, negative_dir, num_batch):
-        doc_bleu_scores, sen_bleu_scores, group_bleu_scores = self.generator_test_example(self._model.run_eval_given_step, positive_dir, negative_dir)
+        doc_bleu_scores, sen_bleu_scores, group_bleu_scores, rouge_scores = self.generator_test_example(self._model.run_eval_given_step, positive_dir, negative_dir)
         
         with SummaryWriter(FLAGS.log_root) as summary_writer:
             summary_writer.add_scalars("Adversarial/Bleu/Sample/Doc2Doc", Bleu.summary_dict(doc_bleu_scores))
             summary_writer.add_scalars("Adversarial/Bleu/Sample/Sen2Sen", Bleu.summary_dict(sen_bleu_scores))
             summary_writer.add_scalars("Adversarial/Bleu/Sample/Group_Sen", Bleu.summary_dict(group_bleu_scores))
 
+            f_summary_dict, p_summary_dict, r_summary_dict = Rouge.summary_dict(rouge_scores)
+            summary_writer.add_scalars("Adversarial/Rouge/Sample/F1", f_summary_dict)
+            summary_writer.add_scalars("Adversarial/Rouge/Sample/Precision", p_summary_dict)
+            summary_writer.add_scalars("Adversarial/Rouge/Sample/Recall", r_summary_dict)
+
     def generator_test_max_example(self, positive_dir, negative_dir, num_batch):
-        doc_bleu_scores, sen_bleu_scores, group_bleu_scores = self.generator_test_example(self._model.max_generator, positive_dir, negative_dir)
+        doc_bleu_scores, sen_bleu_scores, group_bleu_scores, rouge_scores = self.generator_test_example(self._model.max_generator, positive_dir, negative_dir)
         
         with SummaryWriter(FLAGS.log_root) as summary_writer:
             summary_writer.add_scalars("Adversarial/Bleu/Max/Doc2Doc", Bleu.summary_dict(doc_bleu_scores))
             summary_writer.add_scalars("Adversarial/Bleu/Max/Sen2Sen", Bleu.summary_dict(sen_bleu_scores))
             summary_writer.add_scalars("Adversarial/Bleu/Max/Group_Sen", Bleu.summary_dict(group_bleu_scores))
 
+            f_summary_dict, p_summary_dict, r_summary_dict = Rouge.summary_dict(rouge_scores)
+            summary_writer.add_scalars("Adversarial/Rouge/Max/F1", f_summary_dict)
+            summary_writer.add_scalars("Adversarial/Rouge/Max/Precision", p_summary_dict)
+            summary_writer.add_scalars("Adversarial/Rouge/Max/Recall", r_summary_dict)
+
     def generator_pretrain_train_example(self):
         counter = 0
         for batch in tqdm(self.batches, ascii=True):
             decode_result = self._model.run_eval_given_step(self._sess, batch)
-            counter, _, _, _ = self.process_generated_summary(batch, decode_result, self.train_sample_whole_positive_dir, self.train_sample_whole_negative_dir, counter)
+            counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, self.train_sample_whole_positive_dir, self.train_sample_whole_negative_dir, counter)
 
     def generator_pretrain_test_example(self):
         counter = 0
         for batch in tqdm(self.test_batches, ascii=True):
             decode_result = self._model.run_eval_given_step(self._sess, batch)
-            counter, _, _, _ = self.process_generated_summary(batch, decode_result, self.test_sample_whole_positive_dir, self.test_sample_whole_negative_dir, counter)
+            counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, self.test_sample_whole_positive_dir, self.test_sample_whole_negative_dir, counter)
 
     def compute_BLEU(self, train_step):
 
