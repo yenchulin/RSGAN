@@ -230,7 +230,10 @@ def my_attention_decoder(decoder_inputs,
 						w2 = variable_scope.get_variable("MetaW1_%d" % a, [attn_hidden_dim])
 						w3 = variable_scope.get_variable("MetaW2_%d" % a, [attn_hidden_dim])
 						w4 = variable_scope.get_variable("MetaW3_%d" % a, [attn_hidden_dim])
-						meta = math_ops.tanh(w2 * attns[a] + w3 * aspect_attns[a] + w4 * sentiment_attns[a])
+						meta_aspect = w2 * attns[a] + w3 * aspect_attns[a]
+						meta_senti = w2 * attns[a] + w4 * sentiment_attns[a]
+						meta = math_ops.tanh(tf.concat(axis=1, values=[meta_aspect, meta_senti]))
+						meta = Linear(meta, attn_hidden_dim, True)(meta)
 						metas.append(meta)
 					attns = metas
 
