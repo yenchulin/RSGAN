@@ -221,19 +221,30 @@ def my_attention_decoder(decoder_inputs,
 				attns = attention(state)
 			
 			# Run the aspect/sentiment attention mechanism.
-			if aspect_feature is not None or sentiment_feature is not None:
-				aspect_attns = aspect_attention(state) if aspect_feature is not None else [0] * num_heads
-				sentiment_attns = sentiment_attention(state) if sentiment_feature is not None else [0] * num_heads
+			if aspect_feature is not None and sentiment_feature is not None:
+				aspect_attns = aspect_attention(state)
+				sentiment_attns = sentiment_attention(state)
 				with variable_scope.variable_scope("Meta_Attention"):
 					metas = []
 					for a in xrange(num_heads):
 						w2 = variable_scope.get_variable("MetaW1_%d" % a, [attn_hidden_dim])
 						w3 = variable_scope.get_variable("MetaW2_%d" % a, [attn_hidden_dim])
 						w4 = variable_scope.get_variable("MetaW3_%d" % a, [attn_hidden_dim])
+						w5 = variable_scope.get_variable("MetaW4_%d" % a, [attn_hidden_dim])
 						meta_aspect = w2 * attns[a] + w3 * aspect_attns[a]
-						meta_senti = w2 * attns[a] + w4 * sentiment_attns[a]
+						meta_senti = w5 * attns[a] + w4 * sentiment_attns[a]
 						meta = math_ops.tanh(tf.concat(axis=1, values=[meta_aspect, meta_senti]))
 						meta = Linear(meta, attn_hidden_dim, True)(meta)
+						metas.append(meta)
+					attns = metas
+			elif (aspect_feature is not None and sentiment_feature is None) or (sentiment_feature is not None and aspect_feature is None):
+				feature_attns = aspect_attention(state) if aspect_feature is not None else sentiment_attention(state)
+				with variable_scope.variable_scope("Meta_Attention"):
+					metas = []
+					for a in xrange(num_heads):
+						w2 = variable_scope.get_variable("MetaW1_%d" % a, [attn_hidden_dim])
+						w3 = variable_scope.get_variable("MetaW2_%d" % a, [attn_hidden_dim])
+						meta = math_ops.tanh(w2 * attns[a] + w3 * feature_attns[a])
 						metas.append(meta)
 					attns = metas
 
