@@ -78,7 +78,7 @@ tf.app.flags.DEFINE_integer('min_dec_steps', 35, 'Minimum sequence length of gen
 tf.app.flags.DEFINE_integer('sentiment_dim', 13, 'dimension of sentiment vectors (Senticnet 5 numeric values + one-hot encoding of 8 moods)') # for generator
 tf.app.flags.DEFINE_integer('aspect_dim', 18, 'dimension of aspect vectors (NMF topic number)') # for generator
 
-tf.app.flags.DEFINE_integer('vocab_size', 3567, 'Size of vocabulary. These will be read from the vocabulary file in order. If the vocabulary file contains fewer words than this number, or if this number is set to 0, will take all words in the vocabulary file.')
+tf.app.flags.DEFINE_integer('vocab_size', 470, 'Size of vocabulary. These will be read from the vocabulary file in order. If the vocabulary file contains fewer words than this number, or if this number is set to 0, will take all words in the vocabulary file.')
 tf.app.flags.DEFINE_integer('min_count', 2, 'Minimum frequency to allow a word to be added into vocabulary')
 
 tf.app.flags.DEFINE_float('lr', 0.6, 'learning rate') # for discriminator and generator
