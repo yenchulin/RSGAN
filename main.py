@@ -70,7 +70,7 @@ tf.app.flags.DEFINE_bool('senti_attn', True, 'to use sentiment attention or not'
 
 tf.app.flags.DEFINE_integer('hidden_dim', 256, 'dimension of RNN hidden states') # for discriminator and generator
 tf.app.flags.DEFINE_integer('emb_dim', 128, 'dimension of word embeddings') # for discriminator and generator
-tf.app.flags.DEFINE_integer('batch_size', 24, 'minibatch size') # for discriminator and generator
+tf.app.flags.DEFINE_integer('batch_size', 20, 'minibatch size') # for discriminator and generator
 tf.app.flags.DEFINE_integer('max_enc_steps', 150, 'max timesteps of encoder (max source text tokens)') # for generator
 #tf.app.flags.DEFINE_integer('max_dec_steps', 200, 'max timesteps of decoder (max summary tokens)') # for generator
 tf.app.flags.DEFINE_integer('min_dec_steps', 35, 'Minimum sequence length of generated summary. Applies only for beam search decoding mode') # for generator
