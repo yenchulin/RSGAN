@@ -16,7 +16,7 @@
 
 """This is the top-level file to train, evaluate or test your summarization model"""
 
-import codecs, data, json, os, re, util
+import codecs, data, json, nltk, os, re, util
 import tensorflow as tf
 import numpy as np
 import batcher_discriminator as bd
@@ -25,6 +25,7 @@ from data import Vocab
 from batcher import Example, Batch, GenBatcher
 from batcher_discriminator import DisBatcher
 from model import Generator
+from nltk.translate.bleu_score import sentence_bleu
 from discriminator import Discriminator
 from generated_sample import Generated_sample
 from tqdm import trange
@@ -202,6 +203,7 @@ def output_to_batch(current_batch, result, batcher, dis_batcher):
     result: summary generated from generator, shape = (B, S, T)
     """
     example_list= []
+    example_bleu_list = []
     db_example_list = []
 
     for i in range(FLAGS.batch_size):
@@ -253,10 +255,28 @@ def output_to_batch(current_batch, result, batcher, dis_batcher):
             tf.logging.info(encode_words)'''
             new_dis_example = bd.Example(decoded_words_all, 1, dis_batcher._vocab, dis_batcher._hps)
             new_example = Example(decoded_words_all, batcher._vocab, batcher._hps, input=encode_words)
+
+        # Calculate bleu scores
+        bleu_ref = nltk.sent_tokenize(current_batch.original_review_output[i])
+        bleu_ref = [sen.split() for sen in bleu_ref]
+        bleu_hyp = nltk.sent_tokenize(decoded_words_all)
+        
+        # Adjust length of bleu_hyp
+        diff = batcher._hps.max_dec_sen_num.value - len(bleu_hyp)
+        if diff < 0: # Truncation
+            bleu_hyp = bleu_hyp[:diff]
+        elif diff > 0: # Pad
+            bleu_hyp.extend([''] * diff)
+        
+        bleu_hyp = [sen.split() for sen in bleu_hyp]
+        for hyp_sen in bleu_hyp:
+            bleu2 = sentence_bleu(bleu_ref, hyp_sen, weights=(0.5, 0.5, 0, 0))
+            example_bleu_list.append([bleu2]) # shape = (B * dec_sen_num, 1)
+
         example_list.append(new_example)
         db_example_list.append(new_dis_example)
 
-    return Batch(example_list, batcher._hps, batcher._vocab), bd.Batch(db_example_list, dis_batcher._hps, dis_batcher._vocab)
+    return Batch(example_list, batcher._hps, batcher._vocab), bd.Batch(db_example_list, dis_batcher._hps, dis_batcher._vocab), np.array(example_bleu_list)
 def run_train_generator(model, max_epoch, discirminator_model, discriminator_sess, batcher, dis_batcher, batches, sess, saver, train_dir, generated):
     """
     batches: batcher.Batch
@@ -272,7 +292,7 @@ def run_train_generator(model, max_epoch, discirminator_model, discriminator_ses
             for step in num_batch:
                 current_batch = batches[step] # ground truth data
                 results = model.run_eval_given_step(sess, current_batch) # given review to predict summary
-                new_batch, new_dis_batch = output_to_batch(current_batch, results, batcher, dis_batcher) # generated summary
+                new_batch, new_dis_batch, bleu = output_to_batch(current_batch, results, batcher, dis_batcher) # generated summary
                 reward = discirminator_model.run_ypred_auc(discriminator_sess, new_dis_batch) # use generated summary to predict reward, the reward here is equal to loss, that is, the higher the reward, the worse the model
                 
                 reward_sentence_level = reward['y_pred_auc_sentence']
@@ -285,7 +305,7 @@ def run_train_generator(model, max_epoch, discirminator_model, discriminator_ses
                                 reward['y_pred_auc'][i][j][k] = reward['y_pred_auc'][i][j][k] / 10000.0
                 
                 reward['y_pred_auc'] = np.reshape(np.array(reward['y_pred_auc']), [batcher._hps.batch_size.value * batcher._hps.max_dec_sen_num.value, batcher._hps.max_dec_steps.value])
-                results = model.run_train_step(sess, new_batch, reward['y_pred_auc']) # use generated summary and its reward to calculate loss and update Generator
+                results = model.run_train_step(sess, new_batch, reward['y_pred_auc'], bleu) # use generated summary and its reward to calculate loss and update Generator
                 loss = results['loss']
                 batch_loss += loss / len(batches) # average the loss in same batch
 

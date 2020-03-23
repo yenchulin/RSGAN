@@ -99,6 +99,7 @@ class Generator(object):
     self._target_batch = tf.placeholder(tf.int32, [hps.batch_size.value*hps.max_dec_sen_num.value, hps.max_dec_steps.value], name='target_batch')
     self._dec_padding_mask = tf.placeholder(tf.float32, [hps.batch_size.value*hps.max_dec_sen_num.value, hps.max_dec_steps.value], name='dec_padding_mask')
     self.reward = tf.placeholder(tf.float32, [hps.batch_size.value*hps.max_dec_sen_num.value, hps.max_dec_steps.value], name='reward')
+    self.bleu = tf.placeholder(tf.float32, [hps.batch_size.value*hps.max_dec_sen_num.value, 1], name='bleu')
     self.dec_lens = tf.placeholder(tf.int32, [hps.batch_size.value], name='dec_lens')
 
 
@@ -334,7 +335,7 @@ class Generator(object):
           self._target_batch,
           self._dec_padding_mask,
           average_across_timesteps=False,
-          average_across_batch=False) * self.reward
+          average_across_batch=False) * self.reward * (1.0 - self.bleu)
       reward_loss = tf.reshape(reward_loss, [-1])
 
 
@@ -409,10 +410,11 @@ class Generator(object):
       return sess.run(to_return, feed_dict)
 
 
-  def run_train_step(self, sess, batch, reward):
+  def run_train_step(self, sess, batch, reward, bleu=None):
     """Runs one training iteration. Returns a dictionary containing train op, summaries, loss, global_step and (optionally) coverage loss."""
     feed_dict = self._make_feed_dict(batch)
     feed_dict[self.reward] = reward
+    feed_dict[self.bleu] = bleu if bleu is not None else np.zeros(self.bleu.shape)
     to_return = {
         'train_op': self._train_reward_op,
         'loss': self._reward_cost,
