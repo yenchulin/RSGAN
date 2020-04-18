@@ -155,7 +155,7 @@ def my_attention_decoder(decoder_inputs,
 					s = math_ops.reduce_sum(v[a] * math_ops.tanh(aspect_hidden + y), [2, 3]) # hidden feature comes from attention_state, "+" is element-wise plus, v[a] is key
 					a = nn_ops.softmax(s)
 					# Now calculate the attention-weighted vector d.
-					d = math_ops.reduce_sum(array_ops.reshape(a, [-1, attn_timestep, 1, 1]) * hidden, [1, 2])
+					d = math_ops.reduce_sum(array_ops.reshape(a, [-1, attn_timestep, 1, 1]) * aspect_hidden, [1, 2])
 					ds.append(array_ops.reshape(d, [-1, attn_hidden_dim]))
 			return ds
 
@@ -184,7 +184,7 @@ def my_attention_decoder(decoder_inputs,
 					s = math_ops.reduce_sum(v[a] * math_ops.tanh(sentiment_hidden + y), [2, 3]) # hidden feature comes from attention_state, "+" is element-wise plus, v[a] is key
 					a = nn_ops.softmax(s)
 					# Now calculate the attention-weighted vector d.
-					d = math_ops.reduce_sum(array_ops.reshape(a, [-1, attn_timestep, 1, 1]) * hidden, [1, 2])
+					d = math_ops.reduce_sum(array_ops.reshape(a, [-1, attn_timestep, 1, 1]) * sentiment_hidden, [1, 2])
 					ds.append(array_ops.reshape(d, [-1, attn_hidden_dim]))
 			return ds
 
