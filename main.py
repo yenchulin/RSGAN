@@ -76,9 +76,9 @@ tf.app.flags.DEFINE_integer('max_enc_steps', 150, 'max timesteps of encoder (max
 tf.app.flags.DEFINE_integer('min_dec_steps', 35, 'Minimum sequence length of generated summary. Applies only for beam search decoding mode') # for generator
 
 tf.app.flags.DEFINE_integer('sentiment_dim', 13, 'dimension of sentiment vectors (Senticnet 5 numeric values + one-hot encoding of 8 moods)') # for generator
-tf.app.flags.DEFINE_integer('aspect_dim', 20, 'dimension of aspect vectors (NMF topic number)') # for generator
+tf.app.flags.DEFINE_integer('aspect_dim', 8, 'dimension of aspect vectors (NMF topic number)') # for generator
 
-tf.app.flags.DEFINE_integer('vocab_size', 1004, 'Size of vocabulary. These will be read from the vocabulary file in order. If the vocabulary file contains fewer words than this number, or if this number is set to 0, will take all words in the vocabulary file.')
+tf.app.flags.DEFINE_integer('vocab_size', 1715, 'Size of vocabulary. These will be read from the vocabulary file in order. If the vocabulary file contains fewer words than this number, or if this number is set to 0, will take all words in the vocabulary file.')
 tf.app.flags.DEFINE_integer('min_count', 2, 'Minimum frequency to allow a word to be added into vocabulary')
 
 tf.app.flags.DEFINE_float('lr', 0.6, 'learning rate') # for discriminator and generator
