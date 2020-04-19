@@ -225,15 +225,14 @@ class Example(object):
     H = [vocab.word2nmfH(w) for w in sequence]
     H = np.array(H) # shape = (sequence_len, H_topic_num)
 
-    is_aspect = np.where(np.sum(H, axis=1) != 0) # filter out words whose memberships are all 0 (get word index)
-    word_aspect = np.argmax(H, axis=1)[is_aspect] # get the largest membership
-    unique, counts = np.unique(word_aspect, return_counts=True)
-    aspect_rank = unique[np.argsort(counts * -1)]
+    word_aspect = np.where(H.T > 0.3) # get membership > 0.3
 
     # Create mask
     aspect_feature = np.zeros([H.shape[1], len(sequence), H.shape[1]])
-    aspect_feature[word_aspect, is_aspect] = H[is_aspect]
-    aspect_feature = aspect_feature[aspect_rank][:max_sen_num]
+    aspect_feature[word_aspect] = H[word_aspect[1], :]
+
+    is_aspect_sen = np.where(np.sum(aspect_feature, axis=(-1, -2)) > 0) # get sentences that contains aspect (filter out zeros)
+    aspect_feature = aspect_feature[is_aspect_sen][:max_sen_num]
 
     # Pad if aspect number < max_sen_num
     diff = max_sen_num - aspect_feature.shape[0]
