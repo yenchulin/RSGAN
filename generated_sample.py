@@ -262,11 +262,17 @@ class Generated_sample(object):
             decode_result = self._model.run_eval_given_step(self._sess, batch)
             counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, self.train_sample_whole_positive_dir, self.train_sample_whole_negative_dir, counter)
 
-    def generator_pretrain_test_example(self):
+    def generator_pretrain_test_example(self, is_for_D=True, positive_dir=None, negative_dir=None):
+        if not is_for_D:
+            self.check_dir(positive_dir, negative_dir)
+
         counter = 0
         for batch in tqdm(self.test_batches, ascii=True):
             decode_result = self._model.run_eval_given_step(self._sess, batch)
-            counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, self.test_sample_whole_positive_dir, self.test_sample_whole_negative_dir, counter)
+            if is_for_D:
+                counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, self.test_sample_whole_positive_dir, self.test_sample_whole_negative_dir, counter)
+            else:
+                counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter)
 
     def compute_BLEU(self, train_step):
 

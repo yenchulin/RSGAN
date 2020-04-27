@@ -148,10 +148,13 @@ def print_batch(batch):
 
 
 
-def run_pre_train(model, batcher, max_run_epoch, sess, saver, train_dir):
+def run_pre_train(model, batcher, max_run_epoch, sess, saver, train_dir, generated=None):
     """
     Run pre-train for generator or discriminator.
     """
+    if isinstance(model, Generator) and generated is not None:
+        if not os.path.exists("pretrain_test_sample_generated"): os.mkdir("pretrain_test_sample_generated")
+    
     losses = [] # loss of each epoch
     summary_writer = SummaryWriter(FLAGS.log_root)
     for epoch in range(max_run_epoch):
@@ -176,6 +179,13 @@ def run_pre_train(model, batcher, max_run_epoch, sess, saver, train_dir):
 
             elif isinstance(model, Generator) and train_step % 100 == 0:
                 saver.save(sess, train_dir + "/model", global_step=train_step)
+        
+        if isinstance(model, Generator) and generated is not None and epoch % 5 == 0:
+            print("Log the generated result of current pretrain model")
+            generated.generator_pretrain_test_example(
+                is_for_D=False, 
+                positive_dir="pretrain_test_sample_generated/" + str(epoch) + "epoch_step" + str(0) + "_temp_positive",
+                negative_dir="pretrain_test_sample_generated/" + str(epoch) + "epoch_step" + str(0) + "_temp_negative")
 
     # No matter how many train_step, save when finished pretraining 
     saver.save(sess, train_dir + "/model", global_step=train_step)
@@ -545,7 +555,7 @@ def main(unused_argv):
     sess_ge, saver_ge, train_dir_ge = setup_training_generator(model)
     generated = Generated_sample(model, vocab, batcher, sess_ge)
     print("Start pre-training generator......")
-    run_pre_train(model, batcher, FLAGS.g_pre_epoch, sess_ge, saver_ge, train_dir_ge)
+    run_pre_train(model, batcher, FLAGS.g_pre_epoch, sess_ge, saver_ge, train_dir_ge, generated)
 
     print("Generating negative examples......")
     generated.generator_pretrain_train_example()
