@@ -110,6 +110,9 @@ class Generated_sample(object):
                 if len(decoded_words) < 2:
                     continue
 
+                if decoded_words[-1] != '.' and decoded_words[-1] != '!' and decoded_words[-1] != '?':
+                    decoded_words.append('.')
+
                 decoded_output = ' '.join(decoded_words).strip() # single string
 
                 # Post process: remove duplicate sentences and remove negative summary's extra sentence
