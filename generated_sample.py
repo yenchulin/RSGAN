@@ -277,7 +277,7 @@ class Generated_sample(object):
             if is_for_D:
                 counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, self.test_sample_whole_positive_dir, self.test_sample_whole_negative_dir, counter)
             else:
-                counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter)
+                counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter, post_process=True)
 
     def compute_BLEU(self, train_step):
 
