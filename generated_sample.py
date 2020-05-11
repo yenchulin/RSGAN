@@ -87,7 +87,7 @@ class Generated_sample(object):
         write_negative_file.close()
         write_positive_file.close()
 
-    def process_generated_summary(self, batch, neg_summary, positive_dir, negative_dir, counter, doc2doc_bleu = False, sen2sen_bleu = False, group_sen_bleu = False, rouge = False):
+    def process_generated_summary(self, batch, neg_summary, positive_dir, negative_dir, counter, post_process=False, doc2doc_bleu=False, sen2sen_bleu=False, group_sen_bleu=False, rouge=False):
         doc_bleu_hyp, doc_bleu_ref, sen_bleu_hyp, sen_bleu_ref = [], [], [], []
         group_bleu1, group_bleu2, group_bleu3, group_bleu4 = 0, 0, 0, 0
         rouge_hyp, rouge_ref = [], []
@@ -111,6 +111,11 @@ class Generated_sample(object):
                     continue
 
                 decoded_output = ' '.join(decoded_words).strip() # single string
+
+                # Post process: remove duplicate sentences and remove negative summary's extra sentence
+                if post_process and (decoded_output in decoded_words_all): continue
+                if post_process and (j >= len(pos_summary)): break
+
                 decoded_words_all.append(decoded_output)
             
             decoded_words_all = ' '.join(decoded_words_all).strip()
@@ -194,7 +199,7 @@ class Generated_sample(object):
         
         for batch in tqdm(self.test_batches, ascii=True):
             decode_result = run_sess_func(self._sess, batch)
-            counter, (doc_bleu_hyp, doc_bleu_ref), (sen_bleu_hyp, sen_bleu_ref), (group_bleu1, group_bleu2, group_bleu3, group_bleu4), (rouge_hyp, rouge_ref) = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter, doc2doc_bleu=True, sen2sen_bleu=True, group_sen_bleu=True, rouge=True)
+            counter, (doc_bleu_hyp, doc_bleu_ref), (sen_bleu_hyp, sen_bleu_ref), (group_bleu1, group_bleu2, group_bleu3, group_bleu4), (rouge_hyp, rouge_ref) = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter, post_process=True, doc2doc_bleu=True, sen2sen_bleu=True, group_sen_bleu=True, rouge=True)
             
             doc_bleu_hyp_list.extend(doc_bleu_hyp)
             doc_bleu_ref_list.extend(doc_bleu_ref)
