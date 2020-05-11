@@ -3,6 +3,7 @@ myexperiment/
 discriminator_*/
 MLE/
 *_generated/
+line_notify_token.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -16,10 +16,9 @@
 
 """This file contains some utility functions"""
 
+import os, requests, time
 import tensorflow as tf
 import matplotlib.pyplot as plt
-import time
-import os
 FLAGS = tf.app.flags.FLAGS
 
 def get_config():
@@ -53,3 +52,17 @@ def plotLineChart(x, y, xlabelName, ylabelName, figname):
     
     # save the plot
     plt.savefig(figname)
+
+def lineNotifyMessage(msg):
+    line_notify_token_path = os.path.join(os.getcwd(), "line_notify_token.txt")
+    with open(line_notify_token_path, "r") as f:
+        line_notify_token = f.readline()
+    
+    headers = {
+        "Authorization": "Bearer " + line_notify_token, 
+        "Content-Type" : "application/x-www-form-urlencoded"
+    }
+    
+    payload = {'message': msg}
+    r = requests.post("https://notify-api.line.me/api/notify", headers=headers, params=payload)
+    return r.status_code

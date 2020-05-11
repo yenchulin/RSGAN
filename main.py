@@ -506,6 +506,7 @@ def main(unused_argv):
   
 
     print("Start adversarial training......")
+    util.lineNotifyMessage("Start adversarial training......")
     if not os.path.exists("train_sample_generated"): os.mkdir("train_sample_generated")
     if not os.path.exists("test_max_generated"): os.mkdir("test_max_generated")
     if not os.path.exists("test_sample_generated"): os.mkdir("test_sample_generated")
@@ -546,8 +547,9 @@ def main(unused_argv):
 
     # Plot loss of Discriminator
     figname = os.path.join(FLAGS.log_root, "train_" + model_dis.__class__.__name__ + "_loss.png")
-    util.plotLineChart(range(len(dis_losses)), dis_losses, "epochs", "loss", figname)  
+    util.plotLineChart(range(len(dis_losses)), dis_losses, "epochs", "loss", figname)
 
+    util.lineNotifyMessage("End of adversarial training.")
   elif hps_generator.mode.value == 'train_generator':
     print("Start pre-training......")
     model = Generator(hps_generator, vocab)
@@ -555,6 +557,7 @@ def main(unused_argv):
     sess_ge, saver_ge, train_dir_ge = setup_training_generator(model)
     generated = Generated_sample(model, vocab, batcher, sess_ge)
     print("Start pre-training generator......")
+    util.lineNotifyMessage("Start pre-training generator......")
     run_pre_train(model, batcher, FLAGS.g_pre_epoch, sess_ge, saver_ge, train_dir_ge, generated)
 
     print("Generating negative examples......")
@@ -572,6 +575,7 @@ def main(unused_argv):
     dis_batcher = DisBatcher(hps_discriminator, vocab, "discriminator_train/positive/*", "discriminator_train/negative/*", "discriminator_test/positive/*", "discriminator_test/negative/*")
     sess_dis, saver_dis, train_dir_dis = setup_training_discriminator(model_dis)
     print("Start pre-training discriminator......")
+    util.lineNotifyMessage("Start pre-training discriminator......")
     #run_test_discriminator(model_dis, dis_batcher, sess_dis, saver_dis, "test")
     if not os.path.exists("discriminator_result"): os.mkdir("discriminator_result")
     run_pre_train(model_dis, dis_batcher, FLAGS.d_pre_epoch, sess_dis, saver_dis, train_dir_dis)
