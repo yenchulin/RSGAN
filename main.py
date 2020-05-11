@@ -220,7 +220,7 @@ def output_to_batch(current_batch, result, batcher, dis_batcher):
 
         for j in range(FLAGS.max_dec_sen_num):
 
-            output_ids = [int(t) for t in result['generated'][i][j]][1:]
+            output_ids = [int(t) for t in result['generated'][i][j]]
             decoded_words = data.outputids2words(output_ids, batcher._vocab, None)
             # Remove the [STOP] token from decoded_words, if necessary
             try:

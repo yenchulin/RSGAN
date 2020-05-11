@@ -97,7 +97,7 @@ class Generated_sample(object):
             pos_summary = batch.original_review_output[i]
 
             for j in range(FLAGS.max_dec_sen_num):
-                output_ids = [int(t) for t in neg_summary['generated'][i][j]][1:]
+                output_ids = [int(t) for t in neg_summary['generated'][i][j]]
                 decoded_words = data.outputids2words(output_ids, self._vocab, None)
 
                 # In the sentence, if there is a [STOP_DECODING] token, remove the words after the token.
