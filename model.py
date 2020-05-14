@@ -157,7 +157,7 @@ class Generator(object):
       return tf.contrib.rnn.LSTMStateTuple(new_c, new_h) # Return new cell and state
 
 
-  def _add_decoder(self, loop_function, loop_function_max, loop_given_function, input, attention_state, aspect_feature, sentiment_feature):  # input batch sequence dim
+  def _add_LMdecoder(self, loop_function, loop_function_max, loop_given_function, input, attention_state, aspect_feature, sentiment_feature):  # input batch sequence dim
 
     hps = self._hps
 
@@ -229,10 +229,8 @@ class Generator(object):
         embedding = tf.get_variable('embedding', [vsize, hps.emb_dim.value], dtype=tf.float32, initializer=self.trunc_norm_init)
 
         emb_dec_inputs = tf.nn.embedding_lookup(embedding, self._dec_batch) # list length max_dec_steps containing shape (batch_size, emb_size)
-        #emb_dec_inputs = tf.unstack(emb_dec_inputs, axis=1)
         if FLAGS.run_method == 'auto-encoder':
-            emb_enc_inputs = tf.nn.embedding_lookup(embedding,
-                                                    self._enc_batch)  # tensor with shape (batch_size, max_enc_steps, emb_size)
+            emb_enc_inputs = tf.nn.embedding_lookup(embedding, self._enc_batch)  # tensor with shape (batch_size, max_enc_steps, emb_size)
             fw_st, bw_st,encoder_outputs_word = self._add_encoder(emb_enc_inputs, self._enc_lens)
             self._dec_in_state = self._reduce_states(fw_st, bw_st)
             sentence_level_input = tf.reshape(tf.tile(tf.expand_dims(self._dec_in_state.h,axis=1),[1,hps.max_dec_sen_num.value,1]),[hps.batch_size.value,hps.max_dec_sen_num.value, hps.hidden_dim.value])
@@ -258,97 +256,65 @@ class Generator(object):
             encoder_outputs = tf.reshape(encoder_outputs, [hps.batch_size.value*hps.max_dec_sen_num.value, hps.hidden_dim.value])
             self._dec_in_state =  tf.contrib.rnn.LSTMStateTuple(encoder_outputs, encoder_outputs)
 
+      with tf.variable_scope('LM_decoder'):
+        with tf.variable_scope('output_projection'):
+          w = tf.get_variable(
+            'w', [hps.hidden_dim.value, vsize], dtype=tf.float32,
+            initializer=tf.truncated_normal_initializer(stddev=1e-4))
+          v = tf.get_variable(
+            'v', [vsize], dtype=tf.float32,
+            initializer=tf.truncated_normal_initializer(stddev=1e-4))
 
+        # Add the decoder.
+        loop_function, loop_function_max,loop_given_function = sample_output(embedding, emb_dec_inputs, (w, v))
 
+        # 4 different decoders (loop function is different, loop function defines the relation between current decoder output and next decoder input)
+        # the following code are doing reshape and add a linear layer + bias for the 4 decoder
+        decoder_outputs_pretrain, decoder_outputs_sample_generator, decoder_outputs_max_generator, decoder_outputs_given_sample_generator = self._add_LMdecoder(loop_function=loop_function, loop_function_max=loop_function_max, loop_given_function=loop_given_function, input=emb_dec_inputs, attention_state=encoder_outputs_word, aspect_feature=enc_aspect_batch, sentiment_feature=enc_sentiment_batch)
+        decoder_outputs_pretrain = tf.reshape(decoder_outputs_pretrain, [hps.batch_size.value * hps.max_dec_sen_num.value * hps.max_dec_steps.value, hps.hidden_dim.value])
+        decoder_outputs_pretrain = tf.nn.xw_plus_b(decoder_outputs_pretrain, w, v)
+        decoder_outputs_pretrain = tf.reshape(decoder_outputs_pretrain, [hps.batch_size.value * hps.max_dec_sen_num.value, hps.max_dec_steps.value, vsize])
 
+        decoder_outputs_sample_generator = tf.reshape(decoder_outputs_sample_generator, [hps.batch_size.value * hps.max_dec_sen_num.value * hps.max_dec_steps.value, hps.hidden_dim.value])
+        decoder_outputs_sample_generator = tf.nn.xw_plus_b(decoder_outputs_sample_generator, w, v)
+        self._sample_best_output = tf.reshape(tf.argmax(decoder_outputs_sample_generator, 1), [hps.batch_size.value, hps.max_dec_sen_num.value, hps.max_dec_steps.value])
 
-      with tf.variable_scope('output_projection'):
-        w = tf.get_variable(
-          'w', [hps.hidden_dim.value, vsize], dtype=tf.float32,
-          initializer=tf.truncated_normal_initializer(stddev=1e-4))
-        v = tf.get_variable(
-          'v', [vsize], dtype=tf.float32,
-          initializer=tf.truncated_normal_initializer(stddev=1e-4))
-      # Add the decoder.
-      with tf.variable_scope('decoder'):
+        decoder_outputs_given_sample_generator = tf.reshape(decoder_outputs_given_sample_generator, [hps.batch_size.value * hps.max_dec_sen_num.value * hps.max_dec_steps.value, hps.hidden_dim.value])
+        decoder_outputs_given_sample_generator = tf.nn.xw_plus_b(decoder_outputs_given_sample_generator, w, v)
+        self._sample_given_best_output = tf.reshape(tf.argmax(decoder_outputs_given_sample_generator, 1), [hps.batch_size.value, hps.max_dec_sen_num.value, hps.max_dec_steps.value])
 
-        loop_function, loop_function_max,loop_given_function = sample_output(
-          embedding, emb_dec_inputs, (w, v))
+        decoder_outputs_max_generator = tf.reshape(decoder_outputs_max_generator, [hps.batch_size.value * hps.max_dec_sen_num.value * hps.max_dec_steps.value, hps.hidden_dim.value])
+        decoder_outputs_max_generator = tf.nn.xw_plus_b(decoder_outputs_max_generator, w, v)
+        self._max_best_output = tf.reshape(tf.argmax(decoder_outputs_max_generator, 1), [hps.batch_size.value, hps.max_dec_sen_num.value, hps.max_dec_steps.value])
 
-      # 4 different decoders (loop function is different, loop function defines the relation between current decoder output and nex decoder input)
-      # the following code are doing reshape and add a linear layer + bias for the 4 decoder
-      decoder_outputs_pretrain, decoder_outputs_sample_generator, decoder_outputs_max_generator, decoder_outputs_given_sample_generator= self._add_decoder(loop_function=loop_function, loop_function_max = loop_function_max, loop_given_function = loop_given_function, input=emb_dec_inputs, attention_state=encoder_outputs_word, aspect_feature=enc_aspect_batch, sentiment_feature=enc_sentiment_batch)
+        loss = tf.contrib.seq2seq.sequence_loss(
+            decoder_outputs_pretrain,
+            self._target_batch,
+            self._dec_padding_mask,
+            average_across_timesteps=True,
+            average_across_batch=False)
 
-      decoder_outputs_pretrain = tf.reshape(decoder_outputs_pretrain,
-                                   [hps.batch_size.value*hps.max_dec_sen_num.value* hps.max_dec_steps.value, hps.hidden_dim.value])
-      decoder_outputs_pretrain = tf.nn.xw_plus_b(decoder_outputs_pretrain, w, v)
+        reward_loss = tf.contrib.seq2seq.sequence_loss(
+            decoder_outputs_pretrain,
+            self._target_batch,
+            self._dec_padding_mask,
+            average_across_timesteps=False,
+            average_across_batch=False) * self.reward
+        reward_loss = tf.reshape(reward_loss, [-1])
 
-      decoder_outputs_pretrain = tf.reshape(decoder_outputs_pretrain,
-                                   [hps.batch_size.value*hps.max_dec_sen_num.value,  hps.max_dec_steps.value, vsize])
-
-      decoder_outputs_sample_generator = tf.reshape(decoder_outputs_sample_generator,
-                                            [hps.batch_size.value*hps.max_dec_sen_num.value * hps.max_dec_steps.value, hps.hidden_dim.value])
-      decoder_outputs_sample_generator = tf.nn.xw_plus_b(decoder_outputs_sample_generator, w, v)
-
-
-      self._sample_best_output = tf.reshape(tf.argmax(decoder_outputs_sample_generator, 1), [hps.batch_size.value,hps.max_dec_sen_num.value , hps.max_dec_steps.value])
-
-      decoder_outputs_given_sample_generator = tf.reshape(decoder_outputs_given_sample_generator,
-                                                    [hps.batch_size.value *hps.max_dec_sen_num.value* hps.max_dec_steps.value, hps.hidden_dim.value])
-      decoder_outputs_given_sample_generator = tf.nn.xw_plus_b(decoder_outputs_given_sample_generator, w, v)
-
-
-      self._sample_given_best_output = tf.reshape(tf.argmax(decoder_outputs_given_sample_generator, 1),
-                                            [hps.batch_size.value, hps.max_dec_sen_num.value, hps.max_dec_steps.value])
-
-
-
-
-      decoder_outputs_max_generator = tf.reshape(decoder_outputs_max_generator,
-                                                    [hps.batch_size.value*hps.max_dec_sen_num.value * hps.max_dec_steps.value, hps.hidden_dim.value])
-
-
-
-
-      decoder_outputs_max_generator = tf.nn.xw_plus_b(decoder_outputs_max_generator, w, v)
-
-
-
-      self._max_best_output = tf.reshape(tf.argmax(decoder_outputs_max_generator, 1),
-                                            [hps.batch_size.value,hps.max_dec_sen_num.value, hps.max_dec_steps.value])
-
-
-
-
-
-
-      loss = tf.contrib.seq2seq.sequence_loss(
-          decoder_outputs_pretrain,
-          self._target_batch,
-          self._dec_padding_mask,
-          average_across_timesteps=True,
-          average_across_batch=False)
-
-      reward_loss = tf.contrib.seq2seq.sequence_loss(
-          decoder_outputs_pretrain,
-          self._target_batch,
-          self._dec_padding_mask,
-          average_across_timesteps=False,
-          average_across_batch=False) * self.reward
-      reward_loss = tf.reshape(reward_loss, [-1])
-
-
-
-      # Update the cost
-      self._cost = tf.reduce_mean(loss)
-      self._reward_cost = tf.reduce_mean(reward_loss)
-      self.optimizer = tf.train.AdagradOptimizer(self._hps.lr.value, initial_accumulator_value=self._hps.adagrad_init_acc.value)
+        # Update the cost
+        self._cost = tf.reduce_mean(loss)
+        self._reward_cost = tf.reduce_mean(reward_loss)
+        self.optimizer = tf.train.AdagradOptimizer(self._hps.lr.value, initial_accumulator_value=self._hps.adagrad_init_acc.value)
 
 
   def _add_train_op(self):
 
     loss_to_minimize = self._cost
-    tvars = tf.trainable_variables()
+    em_tvars = tf.trainable_variables("seq2seq/embedding")
+    lm_tvars = tf.trainable_variables("seq2seq/LM_decoder")
+    tvars = em_tvars + lm_tvars
+
     gradients = tf.gradients(loss_to_minimize, tvars, aggregation_method=tf.AggregationMethod.EXPERIMENTAL_TREE)
 
     # Clip the gradients
@@ -358,13 +324,15 @@ class Generator(object):
     tf.summary.scalar('global_norm', global_norm)
 
     # Apply adagrad optimizer
-
     self._train_op = self.optimizer.apply_gradients(zip(grads, tvars), global_step=self.global_step, name='train_step')
 
   def _add_reward_train_op(self):
 
     loss_to_minimize = self._reward_cost
-    tvars = tf.trainable_variables()
+    em_tvars = tf.trainable_variables("seq2seq/embedding")
+    lm_tvars = tf.trainable_variables("seq2seq/LM_decoder")
+    tvars = em_tvars + lm_tvars
+
     gradients = tf.gradients(loss_to_minimize, tvars, aggregation_method=tf.AggregationMethod.EXPERIMENTAL_TREE)
 
     # Clip the gradients
