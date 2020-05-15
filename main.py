@@ -184,6 +184,7 @@ def run_pre_train(model, batcher, max_run_epoch, sess, saver, train_dir, generat
             print("Log the generated result of current pretrain model")
             generated.generator_pretrain_test_example(
                 is_for_D=False, 
+                input_dir="pretrain_test_sample_generated/" + str(epoch) + "epoch_step" + str(0) + "_temp_input",
                 positive_dir="pretrain_test_sample_generated/" + str(epoch) + "epoch_step" + str(0) + "_temp_positive",
                 negative_dir="pretrain_test_sample_generated/" + str(epoch) + "epoch_step" + str(0) + "_temp_negative")
 
@@ -491,18 +492,18 @@ def main(unused_argv):
     util.load_ckpt(saver_ge, sess_ge, ckpt_dir="train-generator")
     
     
-   
+    print("Evaluate the MLE")
     if not os.path.exists("MLE"): os.mkdir("MLE")
-
-    print("evaluate the diversity of MLE (decode based on sampling)")
-    generated.generator_test_sample_example("MLE/"+"MLE_sample_positive",
-                                       "MLE/"+"MLE_sample_negative",
-                                       200)
-                                       
-    print("evaluate the diversity of MLE (decode based on max probability)")
-    generated.generator_test_max_example("MLE/"+"MLE_max_temp_positive",
-                                       "MLE/"+"MLE_max_temp_negative",
-                                       200)
+    generated.generator_test_sample_example(
+        input_dir="MLE/"+"MLE_sample_input",
+        positive_dir="MLE/"+"MLE_sample_positive",
+        negative_dir="MLE/"+"MLE_sample_negative",
+        num_batch=200)                         
+    generated.generator_test_max_example(
+        input_dir="MLE/"+"MLE_max_temp_input",
+        positive_dir="MLE/"+"MLE_max_temp_positive",
+        negative_dir="MLE/"+"MLE_max_temp_negative",
+        num_batch=200)
   
 
     print("Start adversarial training......")
@@ -517,21 +518,29 @@ def main(unused_argv):
     for epoch in range(FLAGS.adver_epoch):
         batches = batcher.get_batches(mode='train')
         for step in range(1):
+            tf.logging.info("epoch: " + str(epoch) + " step: " + str(step))
 
             gen_losses += run_train_generator(model, FLAGS.g_adver_step, model_dis, sess_dis, batcher, dis_batcher, batches[step*1000:(step+1)*1000], sess_ge, saver_ge, train_dir_ge,generated)
-            generated.generator_train_sample_example("train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive", "train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_negative", 1000)
+            
+            tf.logging.info("Generating negative examples...")
+            generated.generator_train_sample_example(
+                input_dir="train_sample_generated/" + str(epoch)+"epoch_step" + str(step) + "_temp_input",
+                positive_dir="train_sample_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_positive", 
+                negative_dir="train_sample_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_negative", 
+                num_batch=1000)
             #generated.generator_max_example("max_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive", "max_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_negetive", 200)
 
             tf.logging.info("test performance: ")
-            tf.logging.info("epoch: "+str(epoch)+" step: "+str(step))
-            print("evaluate the diversity of DP-GAN (decode based on sampling)")
             generated.generator_test_sample_example(
-                "test_sample_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_positive",
-                "test_sample_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_negative", 200)
-            print("evaluate the diversity of DP-GAN (decode based on max probability)")
-            generated.generator_test_max_example("test_max_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_positive",
-                                            "test_max_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_negative",
-                                            200)
+                input_dir="test_sample_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_input",
+                positive_dir="test_sample_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_positive",
+                negative_dir="test_sample_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_negative", 
+                num_batch=200)
+            generated.generator_test_max_example(
+                input_dir="test_max_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_input",
+                positive_dir="test_max_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_positive",
+                negative_dir="test_max_generated/" + str(epoch) + "epoch_step" + str(step) + "_temp_negative",
+                num_batch=200)
 
             dis_batcher.train_queue = dis_batcher.fill_example_queue("train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_positive/*")
             dis_batcher.train_queue += dis_batcher.fill_example_queue("train_sample_generated/"+str(epoch)+"epoch_step"+str(step)+"_temp_negative/*")

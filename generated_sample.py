@@ -3,7 +3,7 @@ import tensorflow as tf
 from nltk.translate.bleu_score import corpus_bleu, sentence_bleu
 from statistics import mean
 from tensorboardX import SummaryWriter
-from tqdm import tqdm
+from tqdm import tqdm, trange
 FLAGS = tf.app.flags.FLAGS
 
 class Bleu(object):
@@ -51,28 +51,43 @@ class Generated_sample(object):
         self.current_batch = 0
         if not os.path.exists("discriminator_train"): os.mkdir("discriminator_train")
         if not os.path.exists("discriminator_test"): os.mkdir("discriminator_test")
+        self.train_sample_whole_input_dir = os.path.join("discriminator_train","input")
         self.train_sample_whole_positive_dir = os.path.join("discriminator_train","positive")
         self.train_sample_whole_negative_dir = os.path.join("discriminator_train","negative")
+        self.test_sample_whole_input_dir = os.path.join("discriminator_test", "input")
         self.test_sample_whole_positive_dir = os.path.join("discriminator_test", "positive")
         self.test_sample_whole_negative_dir = os.path.join("discriminator_test", "negative")
+        if not os.path.exists(self.train_sample_whole_input_dir): os.mkdir(self.train_sample_whole_input_dir)
         if not os.path.exists(self.train_sample_whole_positive_dir): os.mkdir(self.train_sample_whole_positive_dir)
         if not os.path.exists(self.train_sample_whole_negative_dir): os.mkdir(self.train_sample_whole_negative_dir)
+        if not os.path.exists(self.test_sample_whole_input_dir): os.mkdir(self.test_sample_whole_input_dir)
         if not os.path.exists(self.test_sample_whole_positive_dir): os.mkdir(self.test_sample_whole_positive_dir)
         if not os.path.exists(self.test_sample_whole_negative_dir): os.mkdir(self.test_sample_whole_negative_dir)
 
-    def check_dir(self, positive_dir, negative_dir):
+    def check_dir(self, input_dir, positive_dir, negative_dir):
+        if not os.path.exists(input_dir): os.mkdir(input_dir)
         if not os.path.exists(positive_dir): os.mkdir(positive_dir)
         if not os.path.exists(negative_dir): os.mkdir(negative_dir)
         shutil.rmtree(negative_dir)
         shutil.rmtree(positive_dir)
+        shutil.rmtree(input_dir)
+        if not os.path.exists(input_dir): os.mkdir(input_dir)
         if not os.path.exists(positive_dir): os.mkdir(positive_dir)
         if not os.path.exists(negative_dir): os.mkdir(negative_dir)
 
-    def write_negtive_to_json(self, positive, negative, counter, positive_dir, negtive_dir):
+    def write_negtive_to_json(self, input, positive, negative, counter, input_dir, positive_dir, negtive_dir):
+        input_file = os.path.join(input_dir, "%06d.txt" % (counter // 1000))
         positive_file = os.path.join(positive_dir, "%06d.txt" % (counter // 1000))
         negative_file = os.path.join(negtive_dir, "%06d.txt" % (counter // 1000))
+
+        write_input_file = codecs.open(input_file, "a", "utf-8")
         write_positive_file = codecs.open(positive_file, "a", "utf-8")
         write_negative_file = codecs.open(negative_file, "a", "utf-8")
+
+        dict = {"input": str(input)}
+        string_ = json.dumps(dict)
+        write_input_file.write(string_ + "\n")
+
         dict = {"example": str(positive),
                 "label": str(1)
                 }
@@ -84,10 +99,12 @@ class Generated_sample(object):
                 }
         string_ = json.dumps(dict)
         write_negative_file.write(string_ + "\n")
+
         write_negative_file.close()
         write_positive_file.close()
+        write_input_file.close()
 
-    def process_generated_summary(self, batch, neg_summary, positive_dir, negative_dir, counter, post_process=False, doc2doc_bleu=False, sen2sen_bleu=False, group_sen_bleu=False, rouge=False):
+    def process_generated_summary(self, batch, neg_summary, input_dir, positive_dir, negative_dir, counter, post_process=False, doc2doc_bleu=False, sen2sen_bleu=False, group_sen_bleu=False, rouge=False):
         doc_bleu_hyp, doc_bleu_ref, sen_bleu_hyp, sen_bleu_ref = [], [], [], []
         group_bleu1, group_bleu2, group_bleu3, group_bleu4 = 0, 0, 0, 0
         rouge_hyp, rouge_ref = [], []
@@ -95,6 +112,7 @@ class Generated_sample(object):
         for i in range(FLAGS.batch_size):
             decoded_words_all = []
             pos_summary = batch.original_review_output[i]
+            inp_review = batch.original_review_inputs[i]
 
             for j in range(FLAGS.max_dec_sen_num):
                 output_ids = [int(t) for t in neg_summary['generated'][i][j]]
@@ -136,7 +154,7 @@ class Generated_sample(object):
             decoded_words_all, _ = re.subn(r"(\. ){2,}", ". ", decoded_words_all)
 
             # Write to file
-            self.write_negtive_to_json(pos_summary, decoded_words_all, counter, positive_dir, negative_dir)
+            self.write_negtive_to_json(inp_review, pos_summary, decoded_words_all, counter, input_dir, positive_dir, negative_dir)
             counter += 1
 
             # Calculate bleu scores
@@ -168,32 +186,32 @@ class Generated_sample(object):
                         
         return counter, (doc_bleu_hyp, doc_bleu_ref), (sen_bleu_hyp, sen_bleu_ref), (group_bleu1, group_bleu2, group_bleu3, group_bleu4), (rouge_hyp, rouge_ref)
 
-    def generator_train_sample_example(self, positive_dir, negative_dir, num_batch):
-        self.check_dir(positive_dir, negative_dir)
+    def generator_train_sample_example(self, input_dir, positive_dir, negative_dir, num_batch):
+        self.check_dir(input_dir, positive_dir, negative_dir)
         counter = 0
-        for _ in range(num_batch):
+        for _ in trange(num_batch, ascii=True):
             batch = self.batches[self.current_batch]
             decode_result = self._model.run_eval_given_step(self._sess, batch)          
-            counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter)
+            counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, input_dir, positive_dir, negative_dir, counter)
             
             self.current_batch += 1
             if self.current_batch >= len(self.batches):
                 self.current_batch = 0
 
-    def generator_train_max_example(self, positive_dir, negative_dir, num_batch):
-        self.check_dir(positive_dir, negative_dir)
+    def generator_train_max_example(self, input_dir, positive_dir, negative_dir, num_batch):
+        self.check_dir(input_dir, positive_dir, negative_dir)
         counter = 0
-        for _ in range(num_batch):
+        for _ in trange(num_batch, ascii=True):
             batch = self.batches[self.current_batch]
             decode_result = self._model.max_generator(self._sess, batch)
-            counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter)
+            counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, input_dir, positive_dir, negative_dir, counter)
 
             self.current_batch +=1
             if self.current_batch >= len(self.batches):
                 self.current_batch = 0
 
-    def generator_test_example(self, run_sess_func, positive_dir, negative_dir):
-        self.check_dir(positive_dir, negative_dir)
+    def generator_test_example(self, run_sess_func, input_dir, positive_dir, negative_dir):
+        self.check_dir(input_dir, positive_dir, negative_dir)
         
         counter = 0
         doc_bleu_hyp_list, doc_bleu_ref_list, sen_bleu_hyp_list, sen_bleu_ref_list = [], [], [], []
@@ -202,7 +220,7 @@ class Generated_sample(object):
         
         for batch in tqdm(self.test_batches, ascii=True):
             decode_result = run_sess_func(self._sess, batch)
-            counter, (doc_bleu_hyp, doc_bleu_ref), (sen_bleu_hyp, sen_bleu_ref), (group_bleu1, group_bleu2, group_bleu3, group_bleu4), (rouge_hyp, rouge_ref) = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter, post_process=True, doc2doc_bleu=True, sen2sen_bleu=True, group_sen_bleu=True, rouge=True)
+            counter, (doc_bleu_hyp, doc_bleu_ref), (sen_bleu_hyp, sen_bleu_ref), (group_bleu1, group_bleu2, group_bleu3, group_bleu4), (rouge_hyp, rouge_ref) = self.process_generated_summary(batch, decode_result, input_dir, positive_dir, negative_dir, counter, post_process=True, doc2doc_bleu=True, sen2sen_bleu=True, group_sen_bleu=True, rouge=True)
             
             doc_bleu_hyp_list.extend(doc_bleu_hyp)
             doc_bleu_ref_list.extend(doc_bleu_ref)
@@ -238,8 +256,8 @@ class Generated_sample(object):
         rouge_scores = rouge_model.get_scores(rouge_hyp_list, rouge_ref_list, avg=True)   
         return (doc_bleu1, doc_bleu2, doc_bleu3, doc_bleu4), (sen_bleu1, sen_bleu2, sen_bleu3, sen_bleu4), (group_bleu1, group_bleu2, group_bleu3, group_bleu4), rouge_scores
 
-    def generator_test_sample_example(self, positive_dir, negative_dir, num_batch):
-        doc_bleu_scores, sen_bleu_scores, group_bleu_scores, rouge_scores = self.generator_test_example(self._model.run_eval_given_step, positive_dir, negative_dir)
+    def generator_test_sample_example(self, input_dir, positive_dir, negative_dir, num_batch):
+        doc_bleu_scores, sen_bleu_scores, group_bleu_scores, rouge_scores = self.generator_test_example(self._model.run_eval_given_step, input_dir, positive_dir, negative_dir)
         
         with SummaryWriter(FLAGS.log_root) as summary_writer:
             summary_writer.add_scalars("Adversarial/Bleu/Sample/Doc2Doc", Bleu.summary_dict(doc_bleu_scores))
@@ -251,8 +269,8 @@ class Generated_sample(object):
             summary_writer.add_scalars("Adversarial/Rouge/Sample/Precision", p_summary_dict)
             summary_writer.add_scalars("Adversarial/Rouge/Sample/Recall", r_summary_dict)
 
-    def generator_test_max_example(self, positive_dir, negative_dir, num_batch):
-        doc_bleu_scores, sen_bleu_scores, group_bleu_scores, rouge_scores = self.generator_test_example(self._model.max_generator, positive_dir, negative_dir)
+    def generator_test_max_example(self, input_dir, positive_dir, negative_dir, num_batch):
+        doc_bleu_scores, sen_bleu_scores, group_bleu_scores, rouge_scores = self.generator_test_example(self._model.max_generator, input_dir, positive_dir, negative_dir)
         
         with SummaryWriter(FLAGS.log_root) as summary_writer:
             summary_writer.add_scalars("Adversarial/Bleu/Max/Doc2Doc", Bleu.summary_dict(doc_bleu_scores))
@@ -268,19 +286,19 @@ class Generated_sample(object):
         counter = 0
         for batch in tqdm(self.batches, ascii=True):
             decode_result = self._model.run_eval_given_step(self._sess, batch)
-            counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, self.train_sample_whole_positive_dir, self.train_sample_whole_negative_dir, counter)
+            counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, self.train_sample_whole_input_dir, self.train_sample_whole_positive_dir, self.train_sample_whole_negative_dir, counter)
 
-    def generator_pretrain_test_example(self, is_for_D=True, positive_dir=None, negative_dir=None):
+    def generator_pretrain_test_example(self, is_for_D=True, input_dir=None, positive_dir=None, negative_dir=None):
         if not is_for_D:
-            self.check_dir(positive_dir, negative_dir)
+            self.check_dir(input_dir, positive_dir, negative_dir)
 
         counter = 0
         for batch in tqdm(self.test_batches, ascii=True):
             decode_result = self._model.run_eval_given_step(self._sess, batch)
             if is_for_D:
-                counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, self.test_sample_whole_positive_dir, self.test_sample_whole_negative_dir, counter)
+                counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, self.test_sample_whole_input_dir, self.test_sample_whole_positive_dir, self.test_sample_whole_negative_dir, counter)
             else:
-                counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, positive_dir, negative_dir, counter, post_process=True)
+                counter, _, _, _, _ = self.process_generated_summary(batch, decode_result, input_dir, positive_dir, negative_dir, counter, post_process=True)
 
     def compute_BLEU(self, train_step):
 
