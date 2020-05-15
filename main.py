@@ -156,6 +156,7 @@ def run_pre_train(model, batcher, max_run_epoch, sess, saver, train_dir, generat
         if not os.path.exists("pretrain_test_sample_generated"): os.mkdir("pretrain_test_sample_generated")
     
     losses = [] # loss of each epoch
+    AElosses = [] # auto-encoder loss of each epoch (only generator)
     summary_writer = SummaryWriter(FLAGS.log_root)
     for epoch in range(max_run_epoch):
         batches = batcher.get_batches(mode='train')
@@ -163,30 +164,36 @@ def run_pre_train(model, batcher, max_run_epoch, sess, saver, train_dir, generat
         with trange(len(batches), ascii=True) as num_batch: # Total number of steps (number of batches = num_samples / batch_size)
             num_batch.set_description("Epoch %i/%i" % (epoch+1, max_run_epoch))
             loss = 0
+            AEloss = 0
             for step in num_batch:
                 current_batch = batches[step]
                 results = model.run_pre_train_step(sess, current_batch)
                 train_step = results['global_step']
                 loss += results['loss'] / len(batches) # average the loss in same batch
-                num_batch.set_postfix(loss=loss)
+                AEloss += results['AEloss'] / len(batches) if isinstance(model, Generator) else 0 # auto-encoder loss is only for generator
+                num_batch.set_postfix({
+                    "loss": loss,
+                    "AE loss": AEloss
+                })
 
             losses.append(loss)
-            summary_writer.add_scalar('Pretrain/Generator_Loss', loss) if isinstance(model, Generator) else summary_writer.add_scalar('Pretrain/Discriminator_Loss', loss)
+            AElosses.append(AEloss)
             
-            if isinstance(model, Discriminator) and train_step % 10000 == 0:
-                saver.save(sess, train_dir + "/model", global_step=train_step)
-                run_test_discriminator(model, batcher, sess, saver, str(train_step))
+            if isinstance(model, Generator): 
+                summary_writer.add_scalar('Pretrain/Generator_Loss', loss)
+                summary_writer.add_scalar('Pretrain/Generator_AELoss', AEloss)
+                if generated is not None and epoch % 5 == 0:
+                    print("Log the generated result of current pretrain model")
+                    generated.generator_pretrain_test_example(
+                        is_for_D=False, 
+                        input_dir="pretrain_test_sample_generated/" + str(epoch) + "epoch_step" + str(0) + "_temp_input",
+                        positive_dir="pretrain_test_sample_generated/" + str(epoch) + "epoch_step" + str(0) + "_temp_positive",
+                        negative_dir="pretrain_test_sample_generated/" + str(epoch) + "epoch_step" + str(0) + "_temp_negative")
 
-            elif isinstance(model, Generator) and train_step % 100 == 0:
-                saver.save(sess, train_dir + "/model", global_step=train_step)
-        
-        if isinstance(model, Generator) and generated is not None and epoch % 5 == 0:
-            print("Log the generated result of current pretrain model")
-            generated.generator_pretrain_test_example(
-                is_for_D=False, 
-                input_dir="pretrain_test_sample_generated/" + str(epoch) + "epoch_step" + str(0) + "_temp_input",
-                positive_dir="pretrain_test_sample_generated/" + str(epoch) + "epoch_step" + str(0) + "_temp_positive",
-                negative_dir="pretrain_test_sample_generated/" + str(epoch) + "epoch_step" + str(0) + "_temp_negative")
+            if isinstance(model, Discriminator):
+                summary_writer.add_scalar('Pretrain/Discriminator_Loss', loss)
+                if epoch % 50 == 10:
+                    run_test_discriminator(model, batcher, sess, saver, str(train_step))
 
     # No matter how many train_step, save when finished pretraining 
     saver.save(sess, train_dir + "/model", global_step=train_step)
@@ -274,11 +281,13 @@ def run_train_generator(model, max_epoch, discirminator_model, discriminator_ses
     """
     tf.logging.info("Starting training generator")
     losses = []
+    AElosses = []
     summary_writer = SummaryWriter(FLAGS.log_root)
     for epoch in range(max_epoch):
         with trange(len(batches), ascii=True) as num_batch: # len <= 1000, now len = 107
             num_batch.set_description("Epoch %i/%i" % (epoch+1, max_epoch))
             batch_loss = 0
+            batch_AEloss = 0
             batch_teacher_forcing_loss = 0
             for step in num_batch:
                 current_batch = batches[step] # ground truth data
@@ -298,7 +307,9 @@ def run_train_generator(model, max_epoch, discirminator_model, discriminator_ses
                 reward['y_pred_auc'] = np.reshape(np.array(reward['y_pred_auc']), [batcher._hps.batch_size.value * batcher._hps.max_dec_sen_num.value, batcher._hps.max_dec_steps.value])
                 results = model.run_train_step(sess, new_batch, reward['y_pred_auc']) # use generated summary and its reward to calculate loss and update Generator
                 loss = results['loss']
+                AEloss = results['AEloss']
                 batch_loss += loss / len(batches) # average the loss in same batch
+                batch_AEloss += AEloss / len(batches) # average the auto-encoder loss in same batch
 
                 # Add supervised learning to help train Generator, feeding true data will get a bigger loss, so update faster
                 new_dis_batch = batch_to_batch(current_batch, batcher, dis_batcher) # use ground truth data to make a Batch for Discriminator
@@ -319,12 +330,15 @@ def run_train_generator(model, max_epoch, discirminator_model, discriminator_ses
 
                 num_batch.set_postfix({
                     "loss": batch_loss,
+                    "AE loss": batch_AEloss,
                     "tf loss": batch_teacher_forcing_loss
                     })
                 
                 if step % 20 == 0: # 20 to make the x scale same as discriminator training as D trained with 5 epoch, and G has 100 batches
                     losses.append(loss)
+                    AElosses.append(AEloss)
                     summary_writer.add_scalar('Adversarial/Generator_Loss', loss)
+                    summary_writer.add_scalar('Adversarial/Generator_AELoss', AEloss)
     summary_writer.close()
     return losses
 
