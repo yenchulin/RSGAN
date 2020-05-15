@@ -85,6 +85,12 @@ class Example(object):
 
         if len(abstract_words[-1]) < hps.max_dec_steps.value:
             abstract_words[-1].append(stop_doc)
+
+        # Summary to be used in AEdeocder
+        AEabstract_words = review.split() # list of strings (words)
+        if len(AEabstract_words) >= hps.max_enc_steps.value: # truncation if longer (leave a space for start_id)
+            AEabstract_words = AEabstract_words[:hps.max_enc_steps.value - 1]
+        self.AEdec_input = [start_decoding] + [vocab.word2id(w) for w in AEabstract_words]  # list of word ids; OOVs are represented by the id for UNK token
     else:
         review_summary = review.split("####")
 
@@ -118,6 +124,11 @@ class Example(object):
         if len(abstract_words[-1]) < hps.max_dec_steps.value: # if last sentence is shorter, signal a "STOP_DECODING_DOCUMENT"
             abstract_words[-1].append(stop_doc)
 
+        # Summary to be used in AEdeocder
+        AEabstract_words = review_summary[1].split() # list of strings (words)
+        if len(AEabstract_words) >= hps.max_enc_steps.value: # truncation if longer (leave a space for start_id)
+            AEabstract_words = AEabstract_words[:hps.max_enc_steps.value - 1]
+        self.AEdec_input = [start_decoding] + [vocab.word2id(w) for w in AEabstract_words]  # list of word ids; OOVs are represented by the id for UNK token
 
 
     # abstract_words = abstract.split() # list of strings
@@ -169,6 +180,12 @@ class Example(object):
             targets[i] = targets[i] + [stop_id]
 
     return inps, targets
+
+  def pad_AEdec_inp(self, max_len, pad_id):
+    """Pad the input sequence for the AEdecoder with pad_id up to max_len"""
+    
+    while len(self.AEdec_input) < max_len:
+      self.AEdec_input.append(pad_id)
 
   def pad_decoder_inp_targ(self, max_sen_len, max_sen_num, pad_doc_id):
       """Pad decoder input and target sequences with pad_id up to max_len."""
@@ -301,13 +318,14 @@ class Batch(object):
 
     for ex in example_list:
       ex.pad_decoder_inp_targ(hps.max_dec_steps.value, hps.max_dec_sen_num.value,self.pad_id)
+      ex.pad_AEdec_inp(hps.max_enc_steps.value, self.pad_id)
 
     # Initialize the numpy arrays.
     # NOTE: our decoder inputs and targets must be the same length for each batch (second dimension = max_dec_steps) because we do not use a dynamic_rnn for decoding. However I believe this is possible, or will soon be possible, with Tensorflow 1.0, in which case it may be best to upgrade to that.
+    self.AEdec_batch = np.zeros((hps.batch_size.value, hps.max_enc_steps.value), dtype=np.int32)
     self.dec_batch = np.zeros((hps.batch_size.value, hps.max_dec_sen_num.value, hps.max_dec_steps.value), dtype=np.int32)
     self.target_batch = np.zeros((hps.batch_size.value, hps.max_dec_sen_num.value, hps.max_dec_steps.value), dtype=np.int32)
-    self.dec_padding_mask = np.zeros((hps.batch_size.value* hps.max_dec_sen_num.value, hps.max_dec_steps.value),
-                                     dtype=np.float32)
+    self.dec_padding_mask = np.zeros((hps.batch_size.value* hps.max_dec_sen_num.value, hps.max_dec_steps.value), dtype=np.float32)
     self.dec_sen_lens = np.zeros((hps.batch_size.value, hps.max_dec_sen_num.value), dtype=np.int32)
     self.dec_lens = np.zeros((hps.batch_size.value), dtype=np.int32)
 
@@ -315,6 +333,7 @@ class Batch(object):
         self.dec_lens[i] = ex.dec_len
         self.dec_batch[i, :, :] = np.array(ex.dec_input)
         self.target_batch[i] = np.array(ex.target)
+        self.AEdec_batch[i] = np.array(ex.AEdec_input)
         for j in range(len(ex.dec_sen_len)):
             self.dec_sen_lens[i][j] = ex.dec_sen_len[j]
 
@@ -326,7 +345,8 @@ class Batch(object):
         for k in range(len(self.target_batch[j])):
             if int(self.target_batch[j][k]) != self.pad_id:
                 self.dec_padding_mask[j][k] = 1
-    #self.dec_padding_mask = np.reshape(self.dec_padding_mask, [hps.batch_size.value*hps.max_dec_sen_num.value, hps.max_dec_steps.value])
+    
+    self.AEdec_padding_mask = (self.AEdec_batch != self.pad_id).astype(int)
 
   def store_orig_strings(self, example_list):
     """Store the original article and abstract strings in the Batch object"""

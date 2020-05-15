@@ -94,6 +94,8 @@ class Generator(object):
         self._enc_lens = tf.placeholder(tf.int32, [hps.batch_size.value], name='enc_lens')
         #self._enc_padding_mask = tf.placeholder(tf.float32, [hps.batch_size.value, None], name='enc_padding_mask')
 
+    self._AEdec_batch = tf.placeholder(tf.int32, [hps.batch_size.value, hps.max_enc_steps.value], name='AEdec_batch')
+    self._AEdec_padding_mask = tf.placeholder(tf.float32, [hps.batch_size.value, hps.max_enc_steps.value], name='AEdec_padding_mask')
 
     self._dec_batch = tf.placeholder(tf.int32, [hps.batch_size.value, hps.max_dec_sen_num.value, hps.max_dec_steps.value], name='dec_batch')
     self._target_batch = tf.placeholder(tf.int32, [hps.batch_size.value*hps.max_dec_sen_num.value, hps.max_dec_steps.value], name='target_batch')
@@ -113,6 +115,8 @@ class Generator(object):
         feed_dict[self._enc_lens] = batch.enc_lens
         #feed_dict[self._enc_padding_mask] = batch.enc_padding_mask
 
+    feed_dict[self._AEdec_batch] = batch.AEdec_batch
+    feed_dict[self._AEdec_padding_mask] = batch.AEdec_padding_mask
 
     feed_dict[self._dec_batch] = batch.dec_batch
     feed_dict[self._target_batch] = batch.target_batch
@@ -213,6 +217,21 @@ class Generator(object):
 
     return decoder_outputs_pretrain, decoder_outputs_sample_generator, decoder_outputs_max_generator,decoder_outputs_given_sample_generator
 
+  def _add_AEdecoder(self, input, attention_state, aspect_feature, sentiment_feature):  # input batch sequence dim
+    hps = self._hps
+    
+    input = tf.unstack(input, axis = 1) # (B, E) * T, list of tensor
+
+    cell = tf.contrib.rnn.LSTMCell(
+      hps.hidden_dim.value,
+      initializer=tf.random_uniform_initializer(-0.1, 0.1, seed=113),
+      state_is_tuple=True)
+
+    decoder_outputs_pretrain, _ = my_attention_decoder(
+      input, self._dec_in_state, attention_state,
+      cell, loop_function=None, aspect_feature=aspect_feature, sentiment_feature=sentiment_feature
+    )
+    return decoder_outputs_pretrain
 
   def _build_model(self):
     """Add the whole generator model to the graph."""
@@ -227,36 +246,74 @@ class Generator(object):
       # Add embedding matrix (shared by the encoder and decoder inputs)
       with tf.variable_scope('embedding'):
         embedding = tf.get_variable('embedding', [vsize, hps.emb_dim.value], dtype=tf.float32, initializer=self.trunc_norm_init)
-
-        emb_dec_inputs = tf.nn.embedding_lookup(embedding, self._dec_batch) # list length max_dec_steps containing shape (batch_size, emb_size)
+        emb_dec_inputs = tf.nn.embedding_lookup(embedding, self._dec_batch) # tensor with shape (batch_size, max_dec_sen_num, max_dec_steps, emb_size)
+        AEemb_dec_inputs = tf.nn.embedding_lookup(embedding, self._AEdec_batch) # tensor with shape (batch_size, max_enc_steps, emb_size)
         if FLAGS.run_method == 'auto-encoder':
             emb_enc_inputs = tf.nn.embedding_lookup(embedding, self._enc_batch)  # tensor with shape (batch_size, max_enc_steps, emb_size)
-            fw_st, bw_st,encoder_outputs_word = self._add_encoder(emb_enc_inputs, self._enc_lens)
-            self._dec_in_state = self._reduce_states(fw_st, bw_st)
-            sentence_level_input = tf.reshape(tf.tile(tf.expand_dims(self._dec_in_state.h,axis=1),[1,hps.max_dec_sen_num.value,1]),[hps.batch_size.value,hps.max_dec_sen_num.value, hps.hidden_dim.value])
-            tf.logging.info(encoder_outputs_word)
-            encoder_outputs_word = tf.reshape(
-                tf.tile(tf.expand_dims(encoder_outputs_word, axis=1), [1, hps.max_dec_sen_num.value,1, 1]),
-                [hps.batch_size.value* hps.max_dec_sen_num.value, -1, hps.hidden_dim.value*2])
-            enc_aspect_batch = tf.reshape(self._enc_aspect_batch,
-                [hps.batch_size.value* hps.max_dec_sen_num.value, -1, hps.aspect_dim.value]
-            ) if FLAGS.aspect_attn else None
-            enc_sentiment_batch = tf.reshape(
-                tf.tile(tf.expand_dims(self._enc_sentiment_batch, axis=1), [1, hps.max_dec_sen_num.value, 1, 1]),
-                [hps.batch_size.value* hps.max_dec_sen_num.value, -1, hps.sentiment_dim.value]
-            ) if FLAGS.senti_attn else None
-            sentence_level_cell = tf.contrib.rnn.LSTMCell(
-                hps.hidden_dim.value,
-                initializer=tf.random_uniform_initializer(-0.1, 0.1, seed=113),
-                state_is_tuple=True)
-            (encoder_outputs, _) = tf.nn.dynamic_rnn(sentence_level_cell, sentence_level_input,
-                                                                                dtype=tf.float32,
-                                                                                sequence_length=self.dec_lens,
-                                                                                swap_memory=True)
-            encoder_outputs = tf.reshape(encoder_outputs, [hps.batch_size.value*hps.max_dec_sen_num.value, hps.hidden_dim.value])
-            self._dec_in_state =  tf.contrib.rnn.LSTMStateTuple(encoder_outputs, encoder_outputs)
+            fw_st, bw_st, encoder_outputs_word = self._add_encoder(emb_enc_inputs, self._enc_lens)
+            self._dec_in_state = self._reduce_states(fw_st, bw_st)     
+
+      with tf.variable_scope('AE_decoder'):
+        with tf.variable_scope('output_projection'):
+          w = tf.get_variable(
+            'w', [hps.hidden_dim.value, vsize], dtype=tf.float32,
+            initializer=tf.truncated_normal_initializer(stddev=1e-4))
+          v = tf.get_variable(
+            'v', [vsize], dtype=tf.float32,
+            initializer=tf.truncated_normal_initializer(stddev=1e-4))
+        
+        AEdecoder_outputs_pretrain = self._add_AEdecoder(input=AEemb_dec_inputs, attention_state=encoder_outputs_word, aspect_feature=None, sentiment_feature=None)
+        AEdecoder_outputs_pretrain = tf.reshape(AEdecoder_outputs_pretrain, [hps.batch_size.value * hps.max_enc_steps.value, hps.hidden_dim.value])
+        AEdecoder_outputs_pretrain = tf.nn.xw_plus_b(AEdecoder_outputs_pretrain, w, v)
+        AEdecoder_outputs_pretrain = tf.reshape(AEdecoder_outputs_pretrain, [hps.batch_size.value, hps.max_enc_steps.value, vsize])
+
+        # Pad encoder input to max_enc_steps
+        enc_batch = self._enc_batch
+        diff = hps.max_enc_steps.value - self._enc_batch.shape[1]
+        if diff > 0:
+          paddings = tf.constant([[0, 0], [diff, 0]])
+          enc_batch = tf.pad(enc_batch, paddings, 'CONSTANT')
+          print(enc_batch.shape)
+
+        AEloss = tf.contrib.seq2seq.sequence_loss(
+            AEdecoder_outputs_pretrain,
+            enc_batch,
+            self._AEdec_padding_mask,
+            average_across_timesteps=True,
+            average_across_batch=False)
+
+        AEreward_loss = tf.contrib.seq2seq.sequence_loss(
+            AEdecoder_outputs_pretrain,
+            enc_batch,
+            self._AEdec_padding_mask,
+            average_across_timesteps=True,
+            average_across_batch=False)
+
+        # Update the cost
+        self._AEcost = tf.reduce_mean(AEloss)
+        self._AEreward_cost = tf.reduce_mean(AEreward_loss)
+        self.AEoptimizer = tf.train.AdagradOptimizer(self._hps.lr.value, initial_accumulator_value=self._hps.adagrad_init_acc.value)
 
       with tf.variable_scope('LM_decoder'):
+        # Word-level encoder output
+        encoder_outputs_word = tf.reshape(
+            tf.tile(tf.expand_dims(encoder_outputs_word, axis=1), [1, hps.max_dec_sen_num.value,1, 1]),
+            [hps.batch_size.value* hps.max_dec_sen_num.value, -1, hps.hidden_dim.value*2])
+        enc_aspect_batch = tf.reshape(self._enc_aspect_batch,
+            [hps.batch_size.value* hps.max_dec_sen_num.value, -1, hps.aspect_dim.value]
+        ) if FLAGS.aspect_attn else None
+        enc_sentiment_batch = tf.reshape(
+            tf.tile(tf.expand_dims(self._enc_sentiment_batch, axis=1), [1, hps.max_dec_sen_num.value, 1, 1]),
+            [hps.batch_size.value* hps.max_dec_sen_num.value, -1, hps.sentiment_dim.value]
+        ) if FLAGS.senti_attn else None
+        
+        # Sentence-level encoder output
+        sentence_level_input = tf.reshape(tf.tile(tf.expand_dims(self._dec_in_state.h, axis=1), [1, hps.max_dec_sen_num.value, 1]), [hps.batch_size.value, hps.max_dec_sen_num.value, hps.hidden_dim.value])
+        sentence_level_cell = tf.contrib.rnn.LSTMCell(hps.hidden_dim.value, initializer=tf.random_uniform_initializer(-0.1, 0.1, seed=113), state_is_tuple=True)
+        (encoder_outputs, _) = tf.nn.dynamic_rnn(sentence_level_cell, sentence_level_input, dtype=tf.float32, sequence_length=self.dec_lens, swap_memory=True)
+        encoder_outputs = tf.reshape(encoder_outputs, [hps.batch_size.value * hps.max_dec_sen_num.value, hps.hidden_dim.value])
+        self._dec_in_state =  tf.contrib.rnn.LSTMStateTuple(encoder_outputs, encoder_outputs)
+
         with tf.variable_scope('output_projection'):
           w = tf.get_variable(
             'w', [hps.hidden_dim.value, vsize], dtype=tf.float32,
@@ -341,6 +398,37 @@ class Generator(object):
 
     self._train_reward_op = self.optimizer.apply_gradients(zip(grads, tvars), global_step=self.global_step, name='train_step')
 
+  def _add_AEtrain_op(self):
+    loss_to_minimize = self._AEcost
+    em_tvars = tf.trainable_variables("seq2seq/embedding")
+    ae_tvars = tf.trainable_variables("seq2seq/AE_decoder")
+    tvars = em_tvars + ae_tvars
+
+    gradients = tf.gradients(loss_to_minimize, tvars, aggregation_method=tf.AggregationMethod.EXPERIMENTAL_TREE)
+
+    # Clip the gradients
+    grads, global_norm = tf.clip_by_global_norm(gradients, self._hps.max_grad_norm.value)
+
+    # Add a summary
+    tf.summary.scalar('global_norm', global_norm)
+
+    # Apply adagrad optimizer
+    self._AEtrain_op = self.AEoptimizer.apply_gradients(zip(grads, tvars), global_step=self.global_step, name='train_step')
+
+  def _add_AEreward_train_op(self):
+    loss_to_minimize = self._AEreward_cost
+    em_tvars = tf.trainable_variables("seq2seq/embedding")
+    ae_tvars = tf.trainable_variables("seq2seq/AE_decoder")
+    tvars = em_tvars + ae_tvars
+
+    gradients = tf.gradients(loss_to_minimize, tvars, aggregation_method=tf.AggregationMethod.EXPERIMENTAL_TREE)
+
+    # Clip the gradients
+    grads, global_norm = tf.clip_by_global_norm(gradients, self._hps.max_grad_norm.value)
+
+
+    self._AEtrain_reward_op = self.AEoptimizer.apply_gradients(zip(grads, tvars), global_step=self.global_step, name='train_step')
+
 
   def build_graph(self):
 
@@ -354,6 +442,8 @@ class Generator(object):
       self.global_step = tf.Variable(0, name='global_step', trainable=False)
       self._add_train_op()
       self._add_reward_train_op()
+      self._add_AEtrain_op()
+      self._add_AEreward_train_op()
       t1 = time.time()
       tf.logging.info('Time to build graph: %i seconds' % int(t1 - t0))
 
@@ -364,6 +454,8 @@ class Generator(object):
     to_return = {
         'train_op': self._train_op,
         'loss': self._cost,
+        'AEtrain_op': self._AEtrain_op,
+        'AEloss': self._AEcost,
         'global_step': self.global_step,
     }
     return sess.run(to_return, feed_dict)
@@ -384,6 +476,8 @@ class Generator(object):
     to_return = {
         'train_op': self._train_reward_op,
         'loss': self._reward_cost,
+        'AEtrain_op': self._AEtrain_reward_op,
+        'AEloss': self._AEreward_cost,
         'global_step': self.global_step,
     }
     return sess.run(to_return, feed_dict)
