@@ -65,6 +65,7 @@ tf.app.flags.DEFINE_integer('adver_epoch', 40, 'training epochs of adversarial t
 tf.app.flags.DEFINE_integer('g_adver_step', 1, 'training steps of generator in adversarial training')
 tf.app.flags.DEFINE_integer('d_adver_step', 3, 'training steps of discriminator in adversarial training')
 
+tf.app.flags.DEFINE_bool('auto_encoder', True, 'to use auto encoder or not')
 tf.app.flags.DEFINE_bool('aspect_attn', True, 'to use aspect attention or not')
 tf.app.flags.DEFINE_bool('senti_attn', True, 'to use sentiment attention or not')
 
@@ -464,6 +465,7 @@ def main(unused_argv):
         'max_dec_steps', 
         'vocab_size', 
         'min_count',
+        'auto_encoder'
         'aspect_attn',
         'senti_attn'
     ]

@@ -253,46 +253,47 @@ class Generator(object):
             fw_st, bw_st, encoder_outputs_word = self._add_encoder(emb_enc_inputs, self._enc_lens)
             self._dec_in_state = self._reduce_states(fw_st, bw_st)     
 
-      with tf.variable_scope('AE_decoder'):
-        with tf.variable_scope('output_projection'):
-          w = tf.get_variable(
-            'w', [hps.hidden_dim.value, vsize], dtype=tf.float32,
-            initializer=tf.truncated_normal_initializer(stddev=1e-4))
-          v = tf.get_variable(
-            'v', [vsize], dtype=tf.float32,
-            initializer=tf.truncated_normal_initializer(stddev=1e-4))
-        
-        AEdecoder_outputs_pretrain = self._add_AEdecoder(input=AEemb_dec_inputs, attention_state=encoder_outputs_word, aspect_feature=None, sentiment_feature=None)
-        AEdecoder_outputs_pretrain = tf.reshape(AEdecoder_outputs_pretrain, [hps.batch_size.value * hps.max_enc_steps.value, hps.hidden_dim.value])
-        AEdecoder_outputs_pretrain = tf.nn.xw_plus_b(AEdecoder_outputs_pretrain, w, v)
-        AEdecoder_outputs_pretrain = tf.reshape(AEdecoder_outputs_pretrain, [hps.batch_size.value, hps.max_enc_steps.value, vsize])
+      if FLAGS.auto_encoder:
+        with tf.variable_scope('AE_decoder'):
+          with tf.variable_scope('output_projection'):
+            w = tf.get_variable(
+              'w', [hps.hidden_dim.value, vsize], dtype=tf.float32,
+              initializer=tf.truncated_normal_initializer(stddev=1e-4))
+            v = tf.get_variable(
+              'v', [vsize], dtype=tf.float32,
+              initializer=tf.truncated_normal_initializer(stddev=1e-4))
+          
+          AEdecoder_outputs_pretrain = self._add_AEdecoder(input=AEemb_dec_inputs, attention_state=encoder_outputs_word, aspect_feature=None, sentiment_feature=None)
+          AEdecoder_outputs_pretrain = tf.reshape(AEdecoder_outputs_pretrain, [hps.batch_size.value * hps.max_enc_steps.value, hps.hidden_dim.value])
+          AEdecoder_outputs_pretrain = tf.nn.xw_plus_b(AEdecoder_outputs_pretrain, w, v)
+          AEdecoder_outputs_pretrain = tf.reshape(AEdecoder_outputs_pretrain, [hps.batch_size.value, hps.max_enc_steps.value, vsize])
 
-        # Pad encoder input to max_enc_steps
-        enc_batch = self._enc_batch
-        diff = hps.max_enc_steps.value - self._enc_batch.shape[1]
-        if diff > 0:
-          paddings = tf.constant([[0, 0], [diff, 0]])
-          enc_batch = tf.pad(enc_batch, paddings, 'CONSTANT')
-          print(enc_batch.shape)
+          # Pad encoder input to max_enc_steps
+          enc_batch = self._enc_batch
+          diff = hps.max_enc_steps.value - self._enc_batch.shape[1]
+          if diff > 0:
+            paddings = tf.constant([[0, 0], [diff, 0]])
+            enc_batch = tf.pad(enc_batch, paddings, 'CONSTANT')
+            print(enc_batch.shape)
 
-        AEloss = tf.contrib.seq2seq.sequence_loss(
-            AEdecoder_outputs_pretrain,
-            enc_batch,
-            self._AEdec_padding_mask,
-            average_across_timesteps=True,
-            average_across_batch=False)
+          AEloss = tf.contrib.seq2seq.sequence_loss(
+              AEdecoder_outputs_pretrain,
+              enc_batch,
+              self._AEdec_padding_mask,
+              average_across_timesteps=True,
+              average_across_batch=False)
 
-        AEreward_loss = tf.contrib.seq2seq.sequence_loss(
-            AEdecoder_outputs_pretrain,
-            enc_batch,
-            self._AEdec_padding_mask,
-            average_across_timesteps=True,
-            average_across_batch=False)
+          AEreward_loss = tf.contrib.seq2seq.sequence_loss(
+              AEdecoder_outputs_pretrain,
+              enc_batch,
+              self._AEdec_padding_mask,
+              average_across_timesteps=True,
+              average_across_batch=False)
 
-        # Update the cost
-        self._AEcost = tf.reduce_mean(AEloss)
-        self._AEreward_cost = tf.reduce_mean(AEreward_loss)
-        self.AEoptimizer = tf.train.AdagradOptimizer(self._hps.lr.value, initial_accumulator_value=self._hps.adagrad_init_acc.value)
+          # Update the cost
+          self._AEcost = tf.reduce_mean(AEloss)
+          self._AEreward_cost = tf.reduce_mean(AEreward_loss)
+          self.AEoptimizer = tf.train.AdagradOptimizer(self._hps.lr.value, initial_accumulator_value=self._hps.adagrad_init_acc.value)
 
       with tf.variable_scope('LM_decoder'):
         # Word-level encoder output
@@ -365,8 +366,9 @@ class Generator(object):
         self.optimizer = tf.train.AdagradOptimizer(self._hps.lr.value, initial_accumulator_value=self._hps.adagrad_init_acc.value)
 
         # Combine LM model loss and AE model loss
-        self._cost += self._AEcost
-        self._reward_cost += self._AEreward_cost
+        if FLAGS.auto_encoder:
+            self._cost += self._AEcost
+            self._reward_cost += self._AEreward_cost
 
   def _add_train_op(self):
 
@@ -402,36 +404,43 @@ class Generator(object):
     self._train_reward_op = self.optimizer.apply_gradients(zip(grads, tvars), global_step=self.global_step, name='train_step')
 
   def _add_AEtrain_op(self):
-    loss_to_minimize = self._AEcost
-    em_tvars = tf.trainable_variables("seq2seq/embedding")
-    ae_tvars = tf.trainable_variables("seq2seq/AE_decoder")
-    tvars = em_tvars + ae_tvars
+    if FLAGS.auto_encoder:
+      loss_to_minimize = self._AEcost
+      em_tvars = tf.trainable_variables("seq2seq/embedding")
+      ae_tvars = tf.trainable_variables("seq2seq/AE_decoder")
+      tvars = em_tvars + ae_tvars
 
-    gradients = tf.gradients(loss_to_minimize, tvars, aggregation_method=tf.AggregationMethod.EXPERIMENTAL_TREE)
+      gradients = tf.gradients(loss_to_minimize, tvars, aggregation_method=tf.AggregationMethod.EXPERIMENTAL_TREE)
 
-    # Clip the gradients
-    grads, global_norm = tf.clip_by_global_norm(gradients, self._hps.max_grad_norm.value)
+      # Clip the gradients
+      grads, global_norm = tf.clip_by_global_norm(gradients, self._hps.max_grad_norm.value)
 
-    # Add a summary
-    tf.summary.scalar('global_norm', global_norm)
+      # Add a summary
+      tf.summary.scalar('global_norm', global_norm)
 
-    # Apply adagrad optimizer
-    self._AEtrain_op = self.AEoptimizer.apply_gradients(zip(grads, tvars), global_step=self.global_step, name='train_step')
+      # Apply adagrad optimizer
+      self._AEtrain_op = self.AEoptimizer.apply_gradients(zip(grads, tvars), global_step=self.global_step, name='train_step')
+    else:
+      self._AEcost = tf.constant(0)
+      self._AEtrain_op = tf.constant(0)
 
   def _add_AEreward_train_op(self):
-    loss_to_minimize = self._AEreward_cost
-    em_tvars = tf.trainable_variables("seq2seq/embedding")
-    ae_tvars = tf.trainable_variables("seq2seq/AE_decoder")
-    tvars = em_tvars + ae_tvars
+    if FLAGS.auto_encoder:
+      loss_to_minimize = self._AEreward_cost
+      em_tvars = tf.trainable_variables("seq2seq/embedding")
+      ae_tvars = tf.trainable_variables("seq2seq/AE_decoder")
+      tvars = em_tvars + ae_tvars
 
-    gradients = tf.gradients(loss_to_minimize, tvars, aggregation_method=tf.AggregationMethod.EXPERIMENTAL_TREE)
+      gradients = tf.gradients(loss_to_minimize, tvars, aggregation_method=tf.AggregationMethod.EXPERIMENTAL_TREE)
 
-    # Clip the gradients
-    grads, global_norm = tf.clip_by_global_norm(gradients, self._hps.max_grad_norm.value)
+      # Clip the gradients
+      grads, global_norm = tf.clip_by_global_norm(gradients, self._hps.max_grad_norm.value)
 
 
-    self._AEtrain_reward_op = self.AEoptimizer.apply_gradients(zip(grads, tvars), global_step=self.global_step, name='train_step')
-
+      self._AEtrain_reward_op = self.AEoptimizer.apply_gradients(zip(grads, tvars), global_step=self.global_step, name='train_step')
+    else:
+      self._AEreward_cost = tf.constant(0)
+      self._AEtrain_reward_op = tf.constant(0)
 
   def build_graph(self):
 
