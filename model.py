@@ -364,6 +364,9 @@ class Generator(object):
         self._reward_cost = tf.reduce_mean(reward_loss)
         self.optimizer = tf.train.AdagradOptimizer(self._hps.lr.value, initial_accumulator_value=self._hps.adagrad_init_acc.value)
 
+        # Combine LM model loss and AE model loss
+        self._cost += self._AEcost
+        self._reward_cost += self._AEreward_cost
 
   def _add_train_op(self):
 
