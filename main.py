@@ -465,7 +465,7 @@ def main(unused_argv):
         'max_dec_steps', 
         'vocab_size', 
         'min_count',
-        'auto_encoder'
+        'auto_encoder',
         'aspect_attn',
         'senti_attn'
     ]
