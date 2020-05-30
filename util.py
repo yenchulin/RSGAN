@@ -63,16 +63,14 @@ def lineNotifyMessage(msg):
         "Content-Type" : "application/x-www-form-urlencoded"
     }
     
-    if FLAGS.senti_attn and FLAGS.aspect_attn and FLAGS.auto_encoder:
+    if FLAGS.senti_attn and FLAGS.aspect_attn:
         model = "Both"
-    elif not FLAGS.senti_attn and FLAGS.aspect_attn and FLAGS.auto_encoder:
+    elif not FLAGS.senti_attn and FLAGS.aspect_attn:
         model = "Aspect"
-    elif FLAGS.senti_attn and not FLAGS.aspect_attn and FLAGS.auto_encoder:
+    elif FLAGS.senti_attn and not FLAGS.aspect_attn:
         model = "Senti"
-    elif not FLAGS.senti_attn and not FLAGS.aspect_attn and FLAGS.auto_encoder:
+    elif not FLAGS.senti_attn and not FLAGS.aspect_attn:
         model = "Baseline"
-    elif FLAGS.senti_attn and FLAGS.aspect_attn and not FLAGS.auto_encoder:
-        model = "No AE"
     payload = {'message': "%s %s" % (model, msg.lower())}
     r = requests.post("https://notify-api.line.me/api/notify", headers=headers, params=payload)
     return r.status_code
