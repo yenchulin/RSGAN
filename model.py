@@ -361,14 +361,14 @@ class Generator(object):
         reward_loss = tf.reshape(reward_loss, [-1])
 
         # Update the cost
-        self._cost = tf.reduce_mean(loss)
-        self._reward_cost = tf.reduce_mean(reward_loss)
+        self._cost = tf.math.add(tf.reduce_mean(loss), self._AEcost) if FLAGS.auto_encoder else tf.reduce_mean(loss)
+        self._reward_cost = tf.math.add(tf.reduce_mean(reward_loss), self._AEreward_cost) if FLAGS.auto_encoder else tf.reduce_mean(reward_loss)
         self.optimizer = tf.train.AdagradOptimizer(self._hps.lr.value, initial_accumulator_value=self._hps.adagrad_init_acc.value)
 
         # Combine LM model loss and AE model loss
-        if FLAGS.auto_encoder:
-            self._cost += self._AEcost
-            self._reward_cost += self._AEreward_cost
+        # if FLAGS.auto_encoder:
+        #     self._cost = tf.math.add(self._cost, self._AEcost)
+        #     self._reward_cost = tf.math.add(self._reward_cost, self._AEreward_cost)
 
   def _add_train_op(self):
 
