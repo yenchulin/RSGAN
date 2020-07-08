@@ -471,6 +471,10 @@ def main(unused_argv):
     ]
     for hp in hparam_list:
         try: 
+            if hp == 'g_pre_epoch':
+                text_value = '100'
+            if hp == 'd_pre_epoch':
+                text_value = '150'
             text_value = str(FLAGS[hp].value)
         except KeyError:
             if hp == 'g_vs_d':
