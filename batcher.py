@@ -422,6 +422,12 @@ class GenBatcher(object):
                     continue
                 example = Example(review, self._vocab, self._hps)
                 new_queue.append(example)
+
+        mod = len(new_queue) % self._hps.batch_size.value
+        if mod > 0:
+            diff = self._hps.batch_size.value - mod
+            for exp in new_queue[:diff]:
+                new_queue.append(Example(exp.original_review, self._vocab, self._hps))
         return new_queue
 
 
