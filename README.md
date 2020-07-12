@@ -6,9 +6,20 @@ This is the code used in the paper titled DP-GAN: Diversity-Promoting Generative
 # Requirements
 The software is written in tensorflow. It requires the following packages:
 
-python3
+- python3
 
-Tensorflow 1.3
+- tensorflow-gpu == 1.12 / 1.13
+
+- tensorboardX
+
+- nltk
+```python
+import nltk
+nltk.download('wordnet')
+nltk.download('punkt)
+```
+
+- rouge
 
 # Prepare the data
 
