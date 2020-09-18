@@ -65,7 +65,13 @@ The default options can be edited in `main.py`.
 
 ## Output Results
 
+The RSGAN results can be found [here](https://drive.google.com/drive/folders/1hNW-CA4apiq6IXL8VYKT82HwcqNnSbyP?usp=sharing). The results used in the thesis are called `DPGAN_<model variation name>_multi_doc_LDA_topicX`.
+
 ## Comparison Methods
+
+We compared RSGAN with [Pointer-Generator (See et al. 2017)](https://arxiv.org/abs/1704.04368) and [MeanSum (Chu and Liu 2019)](https://arxiv.org/abs/1810.05739).
+
+We modified the code of the two paper in order to fit our situation. The modified version can be accessed here: [Pointer-Generator](https://github.com/yenchulin/pointer-generator), [MeanSum](https://github.com/yenchulin/MeanSum)
 
 ## Automatic Evaluation Results
 
