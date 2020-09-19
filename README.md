@@ -24,7 +24,9 @@ It runs on a single NIVIDIA GeForce RTX 2080 Ti with 11GB display memory.
 
 ## Prepare the data
 
-For more information, please refer to the [RSGAN_Preprocessing repository](https://github.com/yenchulin/RSGAN_Preprocessing).
+The origin dataset are crawled by the [BestbuyReviewCrawler repository](https://github.com/yenchulin/BestbuyReviewCrawler).
+
+For more information to prepare the data, please refer to the [RSGAN_Preprocessing repository](https://github.com/yenchulin/RSGAN_Preprocessing).
 
 When the data is ready, please place the train data in `./review_generation_dataset/train/`, the test data in `./review_generation_dataset/test/`. As for the vocabulary file of training and testing data, please place them in `./review_generation_dataset/`. Also, retrieve the HAC result file `topicX_H_vocab.txt` and `topicX_H.npy` from [RSGAN_Preprocessing repository](https://github.com/yenchulin/RSGAN_Preprocessing), and place them in `./review_generation_dataset/`.
 
@@ -73,6 +75,16 @@ We compared RSGAN with [Pointer-Generator (See et al. 2017)](https://arxiv.org/a
 
 We modified the code of the two paper in order to fit our situation. The modified version can be accessed here: [Pointer-Generator](https://github.com/yenchulin/pointer-generator), [MeanSum](https://github.com/yenchulin/MeanSum)
 
-## Automatic Evaluation Results
+## Automatic Evaluation
 
-## Human Evaluation Results
+We evaluate the performance by three ROUGE scores namely ROUGE-1, ROUGE-2 and ROUGE-L.
+
+In addition, to reduce the sampling bias, we randomly sampled 5 pairs of training and testing datasets as described in [RSGAN_combination repository](https://github.com/yenchulin/RSGAN_combination). For each pair of training and testing datasets, we performed the experiment to compute the ROUGE scores of each compared method. Then we derived the averages and the 95% confidence intervals of the ROGUE scores for each compared method.
+
+The results can be found [here]().
+
+## Human Evaluation
+
+We follow the work of [DUC 2005 (Dang 2005)](https://duc.nist.gov/pubs/2005papers/OVERVIEW05.pdf) to rank the generated summaries by 5 linguistic measures namely, grammaticality, non-redundancy, referential clarity, focus, and structure and coherence.
+
+The human evaluation questionnaire is [here](), and the result is [here]().
