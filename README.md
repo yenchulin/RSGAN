@@ -81,7 +81,7 @@ We evaluate the performance by three ROUGE scores namely ROUGE-1, ROUGE-2 and RO
 
 In addition, to reduce the sampling bias, we randomly sampled 5 pairs of training and testing datasets as described in [RSGAN_combination repository](https://github.com/yenchulin/RSGAN_combination). For each pair of training and testing datasets, we performed the experiment to compute the ROUGE scores of each compared method. Then we derived the averages and the 95% confidence intervals of the ROGUE scores for each compared method.
 
-The results can be found [here]().
+The results can be found [here](https://drive.google.com/drive/folders/1xtv8gPjayhdnQ7t7tXObI8V4ZR0Erh3O?usp=sharing).
 
 ## Human Evaluation
 
