@@ -15,7 +15,7 @@ The repository is written with the tensorflow framework. It requires the followi
 ```python
 import nltk
 nltk.download('wordnet')
-nltk.download('punkt)
+nltk.download('punkt')
 ```
 
 The rest of the packages can be refered to `requirements.txt`.
@@ -87,4 +87,4 @@ The results can be found [here]().
 
 We follow the work of [DUC 2005 (Dang 2005)](https://duc.nist.gov/pubs/2005papers/OVERVIEW05.pdf) to rank the generated summaries by 5 linguistic measures namely, grammaticality, non-redundancy, referential clarity, focus, and structure and coherence.
 
-The human evaluation questionnaire is [here](), and the result is [here]().
+The human evaluation questionnaire and the results are located [here](https://drive.google.com/drive/folders/1xtv8gPjayhdnQ7t7tXObI8V4ZR0Erh3O?usp=sharing).
